@@ -5,6 +5,8 @@
 2. <a href="https://github.com/cdrobaina01/rentacar#coding-style">Coding Style</a>
 3. <a href="https://github.com/cdrobaina01/rentacar#source-control-standards">Source Control Standards</a> <br>
 3.1 <a href="https://github.com/cdrobaina01/rentacar#conventional-commits">Conventional Commits</a>
+3.2 <a href="https://github.com/cdrobaina01/rentacar/edit/main/README.md#pull-request-template">Pull Requests</a>
+4. <a href="https://github.com/cdrobaina01/rentacar/edit/main/README.md#contributors">Contributors</a>
 
 ## Project Structure
 La estructura del proyecto de base de datos está compuesta por cinco paquetes
@@ -82,3 +84,12 @@ Recommended Types: `init`, `feat`, `fix`, `style`, `docs`, `test`, `refactor`.
 Recommended emojis: :one:`:one:`, :sparkles:`:sparkles:` , :bug:`:bug:`, :lipstick:`:lipstick:`, :memo:`:memo:`, :white_check_mark:`:white_check_mark:`, :recycle:`:recycle:`.
 
 Recommended Scopes: `global`, `dto`, `services`, `utils`, `gui`.
+
+#### Pull Request Template
+You cand find a Pull Request example in the link below: <br>
+<a href="https://github.com/cdrobaina01/rentacar/pull/2">Pull Request Example</a>
+
+## Contributors
+1. Carlos D. Robaina Rivero @cdrobaina01 :evergreen_tree:
+
+Note: Feel free to add yourself in this list as a practice for your first pull request.
