@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20fa0b49-2ba1-499b-abac-0e1450012df4" name="Changes" comment="">
+    <list default="true" id="20fa0b49-2ba1-499b-abac-0e1450012df4" name="Changes" comment="feat: add DTO class">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cu/edu/cujae/structdb/dto/CarDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cu/edu/cujae/structdb/dto/CarSituationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cu/edu/cujae/structdb/dto/ContractDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cu/edu/cujae/structdb/dto/DriverDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cu/edu/cujae/structdb/dto/TuristDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +82,19 @@
       <option name="presentableId" value="Default" />
       <updated>1678322008629</updated>
     </task>
+    <task id="LOCAL-00001" summary="feat: add DTO class">
+      <created>1678911446990</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678911446990</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: add DTO class" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add DTO class" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
