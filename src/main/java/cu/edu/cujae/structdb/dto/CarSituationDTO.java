@@ -1,12 +1,15 @@
 package cu.edu.cujae.structdb.dto;
 
-public class CarSituationDTO {
+import java.time.LocalDate;
+
+public class CarSituationDTO extends AbstractDTO{
     private String numberPlate;
     private String brand;
     private String situation;
     private String contractEndDate;
 
-    public CarSituationDTO(String numberPlate, String brand, String situation, String contractEndDate) {
+    public CarSituationDTO(String numberPlate, String brand, String situation, String contractEndDate, LocalDate date) {
+        super(date);
         this.numberPlate = numberPlate;
         this.brand = brand;
         this.situation = situation;

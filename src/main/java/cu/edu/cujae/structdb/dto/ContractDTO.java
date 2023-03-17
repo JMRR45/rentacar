@@ -1,18 +1,24 @@
 package cu.edu.cujae.structdb.dto;
 
+import cu.edu.cujae.structdb.persistence.Contract;
+
+import java.time.LocalDate;
+
 public class ContractDTO {
     private String touristName;
-    private int numberPlate;
+    private String numberPlate;
     private String brand;
     private String model;
-    private String paymentMethod;
-    private String contractStartDate;
-    private String contractEndDate;
+    private Contract.PaymentMethod paymentMethod;
+    private LocalDate contractStartDate;
+    private LocalDate contractEndDate;
     private int extensionDays;
     private boolean driverRental;
     private double totalAmount;
 
-    public ContractDTO(String touristName, int numberPlate, String brand, String model, String paymentMethod, String contractStartDate, String contractEndDate, int extensionDays, boolean driverRental, double totalAmount) {
+    public ContractDTO(String touristName, String numberPlate, String brand, String model, Contract.PaymentMethod paymentMethod,
+                       LocalDate contractStartDate, LocalDate contractEndDate, int extensionDays, boolean driverRental,
+                       double totalAmount) {
         this.touristName = touristName;
         this.numberPlate = numberPlate;
         this.brand = brand;
@@ -33,11 +39,11 @@ public class ContractDTO {
         this.touristName = touristName;
     }
 
-    public int getNumberPlate() {
+    public String getNumberPlate() {
         return numberPlate;
     }
 
-    public void setNumberPlate(int numberPlate) {
+    public void setNumberPlate(String numberPlate) {
         this.numberPlate = numberPlate;
     }
 
@@ -57,27 +63,27 @@ public class ContractDTO {
         this.model = model;
     }
 
-    public String getPaymentMethod() {
+    public Contract.PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(Contract.PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getContractStartDate() {
+    public LocalDate getContractStartDate() {
         return contractStartDate;
     }
 
-    public void setContractStartDate(String contractStartDate) {
+    public void setContractStartDate(LocalDate contractStartDate) {
         this.contractStartDate = contractStartDate;
     }
 
-    public String getContractEndDate() {
+    public LocalDate getContractEndDate() {
         return contractEndDate;
     }
 
-    public void setContractEndDate(String contractEndDate) {
+    public void setContractEndDate(LocalDate contractEndDate) {
         this.contractEndDate = contractEndDate;
     }
 

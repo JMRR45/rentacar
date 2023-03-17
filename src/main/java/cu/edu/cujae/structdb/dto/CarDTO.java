@@ -1,20 +1,23 @@
 package cu.edu.cujae.structdb.dto;
 
-public class CarDTO {
+import java.time.LocalDate;
+
+public class CarDTO extends AbstractDTO{
     private int numberPlate;
     private String brand;
     private String model;
     private String color;
     private double kmTraveled;
-    private String country;
 
-    public CarDTO(int numberPlate, String brand, String model, String color, double kmTraveled, String country) {
+
+    public CarDTO(int numberPlate, String brand, String model, String color, double kmTraveled,
+                  LocalDate date) {
+        super(date);
         this.numberPlate = numberPlate;
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.kmTraveled = kmTraveled;
-        this.country = country;
     }
 
     public int getNumberPlate() {
@@ -57,11 +60,4 @@ public class CarDTO {
         this.kmTraveled = kmTraveled;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }
