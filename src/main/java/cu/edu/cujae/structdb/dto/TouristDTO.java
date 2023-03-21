@@ -1,13 +1,17 @@
 package cu.edu.cujae.structdb.dto;
 
-import java.time.LocalDate;
-
-public class TouristDTO{
+public class TouristDTO {
     private String touristName;
     private String passportNumber;
     private int timesUsedCars;
     private double totalRentalsValue;
 
+    public TouristDTO(String touristName, String passportNumber, int timesUsedCars, double totalRentalsValue) {
+        this.touristName = touristName;
+        this.passportNumber = passportNumber;
+        this.timesUsedCars = timesUsedCars;
+        this.totalRentalsValue = totalRentalsValue;
+    }
 
     public String getTouristName() {
         return touristName;
@@ -38,13 +42,6 @@ public class TouristDTO{
     }
 
     public void setTotalRentalsValue(double totalRentalsValue) {
-        this.totalRentalsValue = totalRentalsValue;
-    }
-
-    public TouristDTO(String touristName, String passportNumber, int timesUsedCars, double totalRentalsValue) {
-        this.touristName = touristName;
-        this.passportNumber = passportNumber;
-        this.timesUsedCars = timesUsedCars;
         this.totalRentalsValue = totalRentalsValue;
     }
 }

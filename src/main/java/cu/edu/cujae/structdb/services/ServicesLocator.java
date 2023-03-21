@@ -1,8 +1,9 @@
 package cu.edu.cujae.structdb.services;
 
 /**
- * ServicesLocator works as a link to every service implemented in the system.
- * Available Services:
+ * ServicesLocator works as a link to every service implemented in the system.<br>
+ * Available Services:<br>
+ * 1. {@link AuthenticationService}<br>
  * TODO: List Services
  */
 public class ServicesLocator {
@@ -14,6 +15,7 @@ public class ServicesLocator {
 
     /**
      * Get the running instance of the ServicesLocator
+     *
      * @return {@link ServicesLocator}
      */
     public static ServicesLocator Instance() {
@@ -22,6 +24,4 @@ public class ServicesLocator {
         }
         return instance;
     }
-
-
 }

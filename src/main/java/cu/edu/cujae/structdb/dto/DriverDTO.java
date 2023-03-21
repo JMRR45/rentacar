@@ -1,13 +1,21 @@
 package cu.edu.cujae.structdb.dto;
 
-import java.time.LocalDate;
+public class DriverDTO extends AbstractDTO {
+    private String dni;
+    private String name;
+    private String address;
+    private String category;
+    private int carsDriven;
 
-public class DriverDTO extends AbstractDTO{
-        private String dni;
-        private String name;
-        private String address;
-        private String category;
-        private int carsDriven;
+    public DriverDTO(String dni, String name, String address, String category, int carsDriven) {
+        super();
+        this.dni = dni;
+        this.name = name;
+        this.address = address;
+        this.category = category;
+        this.carsDriven = carsDriven;
+    }
+
     public String getDni() {
         return dni;
     }
@@ -45,16 +53,6 @@ public class DriverDTO extends AbstractDTO{
     }
 
     public void setCarsDriven(int carsDriven) {
-        this.carsDriven = carsDriven;
-    }
-
-
-    public DriverDTO(LocalDate date, String dni, String name, String address, String category, int carsDriven) {
-        super(date);
-        this.dni = dni;
-        this.name = name;
-        this.address = address;
-        this.category = category;
         this.carsDriven = carsDriven;
     }
 }
