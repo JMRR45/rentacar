@@ -16,9 +16,7 @@ public class ContractDTO {
     private boolean driverRental;
     private double totalAmount;
 
-    public ContractDTO(String touristName, String numberPlate, String brand, String model, Contract.PaymentMethod paymentMethod,
-                       LocalDate contractStartDate, LocalDate contractEndDate, int extensionDays, boolean driverRental,
-                       double totalAmount) {
+    public ContractDTO(String touristName, String numberPlate, String brand, String model, Contract.PaymentMethod paymentMethod, LocalDate contractStartDate, LocalDate contractEndDate, int extensionDays, boolean driverRental, double totalAmount) {
         this.touristName = touristName;
         this.numberPlate = numberPlate;
         this.brand = brand;
