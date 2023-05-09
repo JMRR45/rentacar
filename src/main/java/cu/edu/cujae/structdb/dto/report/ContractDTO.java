@@ -1,6 +1,4 @@
-package cu.edu.cujae.structdb.dto;
-
-import cu.edu.cujae.structdb.persistence.Contract;
+package cu.edu.cujae.structdb.dto.report;
 
 import java.time.LocalDate;
 
@@ -9,16 +7,14 @@ public class ContractDTO {
     private String numberPlate;
     private String brand;
     private String model;
-    private Contract.PaymentMethod paymentMethod;
+    private int paymentMethod;
     private LocalDate contractStartDate;
     private LocalDate contractEndDate;
     private int extensionDays;
     private boolean driverRental;
     private double totalAmount;
 
-    public ContractDTO(String touristName, String numberPlate, String brand, String model, Contract.PaymentMethod paymentMethod,
-                       LocalDate contractStartDate, LocalDate contractEndDate, int extensionDays, boolean driverRental,
-                       double totalAmount) {
+    public ContractDTO(String touristName, String numberPlate, String brand, String model, int paymentMethod, LocalDate contractStartDate, LocalDate contractEndDate, int extensionDays, boolean driverRental, double totalAmount) {
         this.touristName = touristName;
         this.numberPlate = numberPlate;
         this.brand = brand;
@@ -63,11 +59,11 @@ public class ContractDTO {
         this.model = model;
     }
 
-    public Contract.PaymentMethod getPaymentMethod() {
+    public int getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(Contract.PaymentMethod paymentMethod) {
+    public void setPaymentMethod(int paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 

@@ -1,8 +1,8 @@
-package cu.edu.cujae.structdb.dto;
+package cu.edu.cujae.structdb.dto.report;
 
-import java.time.LocalDate;
+import cu.edu.cujae.structdb.dto.AbstractDTO;
 
-public class CarDTO extends AbstractDTO{
+public class CarDTO extends AbstractDTO {
     private int numberPlate;
     private String brand;
     private String model;
@@ -10,9 +10,8 @@ public class CarDTO extends AbstractDTO{
     private double kmTraveled;
 
 
-    public CarDTO(int numberPlate, String brand, String model, String color, double kmTraveled,
-                  LocalDate date) {
-        super(date);
+    public CarDTO(int numberPlate, String brand, String model, String color, double kmTraveled) {
+        super();
         this.numberPlate = numberPlate;
         this.brand = brand;
         this.model = model;
