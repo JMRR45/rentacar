@@ -1,47 +1,58 @@
 package cu.edu.cujae.structdb.dto;
 
 public class TouristDTO {
-    private String touristName;
-    private String passportNumber;
-    private int timesUsedCars;
-    private double totalRentalsValue;
+    private String passport;
+    private String name;
+    private int age;
+    private String sex;
+    private String contact;
+    private int country;
 
-    public TouristDTO(String touristName, String passportNumber, int timesUsedCars, double totalRentalsValue) {
-        this.touristName = touristName;
-        this.passportNumber = passportNumber;
-        this.timesUsedCars = timesUsedCars;
-        this.totalRentalsValue = totalRentalsValue;
+    public String getPassport() {
+        return passport;
     }
 
-    public String getTouristName() {
-        return touristName;
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 
-    public void setTouristName(String touristName) {
-        this.touristName = touristName;
+    public String getName() {
+        return name;
     }
 
-    public String getPassportNumber() {
-        return passportNumber;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setPassportNumber(String passportNumber) {
-        this.passportNumber = passportNumber;
+    public int getAge() {
+        return age;
     }
 
-    public int getTimesUsedCars() {
-        return timesUsedCars;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public void setTimesUsedCars(int timesUsedCars) {
-        this.timesUsedCars = timesUsedCars;
+    public String getSex() {
+        return sex;
     }
 
-    public double getTotalRentalsValue() {
-        return totalRentalsValue;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public void setTotalRentalsValue(double totalRentalsValue) {
-        this.totalRentalsValue = totalRentalsValue;
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public int getCountry() {
+        return country;
+    }
+
+    public void setCountry(int country) {
+        this.country = country;
     }
 }
