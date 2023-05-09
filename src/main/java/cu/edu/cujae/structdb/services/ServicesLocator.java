@@ -1,27 +1,34 @@
 package cu.edu.cujae.structdb.services;
 
+import cu.edu.cujae.structdb.utils.Connection;
+
+import java.sql.SQLException;
+
 /**
  * ServicesLocator works as a link to every service implemented in the system.<br>
- * Available Services:<br>
- * 1. {@link AuthenticationService}<br>
  * TODO: List Services
  */
 public class ServicesLocator {
-    private static ServicesLocator instance;
-
-    private ServicesLocator() {
-        ServicesLocator.Instance();
+    private static TouristService touristService;
+    /**
+     * Open a new connection to the Database
+     *
+     * @return {@link java.sql.Connection}
+     */
+    public static java.sql.Connection getConnection() {
+        Connection connection = null;
+        try {
+            connection = new Connection("localhost", "rentacar", "postgres", "rentacar");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return connection.getConnection();
     }
 
-    /**
-     * Get the running instance of the ServicesLocator
-     *
-     * @return {@link ServicesLocator}
-     */
-    public static ServicesLocator Instance() {
-        if (instance == null) {
-            instance = new ServicesLocator();
+    public static TouristService TouristServices() {
+        if (touristService == null) {
+            touristService = new TouristService();
         }
-        return instance;
+        return touristService;
     }
 }
