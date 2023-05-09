@@ -1,4 +1,4 @@
-package cu.edu.cujae.structdb.dto;
+package cu.edu.cujae.structdb.dto.report;
 
 import java.time.LocalDate;
 

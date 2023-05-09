@@ -223,3 +223,13 @@ BEGIN
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_contract_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'contract';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM contract WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
