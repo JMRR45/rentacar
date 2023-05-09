@@ -1,4 +1,4 @@
-package cu.edu.cujae.structdb.dto;
+package cu.edu.cujae.structdb.dto.report;
 
 public class TouristReportDTO {
     private String touristName;

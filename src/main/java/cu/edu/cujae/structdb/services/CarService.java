@@ -1,23 +1,22 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.TouristDTO;
+import cu.edu.cujae.structdb.dto.crud.CarDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TouristService {
-    public void insert(TouristDTO dto) {
-        String function = "{call add_tourist(?, ?, ?, ?, ?, ?)}";
+public class CarService {
+    public void insert(CarDTO dto) {
+        String function = "{call add_car(?, ?, ?, ?, ?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
-            call.setString(1, dto.getPassport());
-            call.setString(2, dto.getName());
-            call.setInt(3, dto.getAge());
-            call.setString(4, dto.getSex());
-            call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setString(1, dto.getPlate());
+            call.setInt(2, dto.getModel());
+            call.setInt(3, dto.getCantKm());
+            call.setString(4, dto.getColor());
+            call.setInt(5, dto.getSituation());
 
             call.execute();
             call.close();
@@ -27,12 +26,12 @@ public class TouristService {
         }
     }
 
-    public void remove(String passport) {
-        String function = "{call remove_tourist(?)}";
+    public void remove(String plate) {
+        String function = "{call remove_car(?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
-            call.setString(1, passport);
+            call.setString(1, plate);
             call.execute();
 
             call.close();
@@ -42,17 +41,16 @@ public class TouristService {
         }
     }
 
-    public void update(TouristDTO dto) {
-        String function = "{call update_tourist(?, ?, ?, ?, ?, ?)}";
+    public void update(CarDTO dto) {
+        String function = "{call update_car(?, ?, ?, ?, ?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
-            call.setString(1, dto.getPassport());
-            call.setString(2, dto.getName());
-            call.setInt(3, dto.getAge());
-            call.setString(4, dto.getSex());
-            call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setString(1, dto.getPlate());
+            call.setInt(2, dto.getModel());
+            call.setInt(3, dto.getCantKm());
+            call.setString(4, dto.getColor());
+            call.setInt(5, dto.getSituation());
 
             call.execute();
             call.close();
@@ -62,9 +60,9 @@ public class TouristService {
         }
     }
 
-    public List<TouristDTO> getAll() {
-        List<TouristDTO> list = new LinkedList<>();
-        String function = "{?= call get_tourists()}";
+    public List<CarDTO> getAll() {
+        List<CarDTO> list = new LinkedList<>();
+        String function = "{?= call get_cars()}";
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -77,12 +75,12 @@ public class TouristService {
                 return null;
             }
             while (resultSet.next()) {
-                TouristDTO dto = new TouristDTO();
-                dto.setPassport(resultSet.getString(1));
-                dto.setName(resultSet.getString(2));
-                dto.setAge(resultSet.getInt(3));
-                dto.setSex(resultSet.getString(4));
-                dto.setContact(resultSet.getString(5));
+                CarDTO dto = new CarDTO();
+                dto.setPlate(resultSet.getString(1));
+                dto.setModel(resultSet.getInt(2));
+                dto.setCantKm(resultSet.getInt(3));
+                dto.setColor(resultSet.getString(4));
+                dto.setSituation(resultSet.getInt(5));
                 list.add(dto);
             }
             call.close();
@@ -93,27 +91,27 @@ public class TouristService {
         return list;
     }
 
-    public TouristDTO getByPassport(String passport) {
-        TouristDTO dto = new TouristDTO();
-        dto.setPassport(passport);
-        String function = "{?= call get_tourist_by_passport(?)}";
+    public CarDTO getByPlate(String plate) {
+        CarDTO dto = new CarDTO();
+        dto.setPlate(plate);
+        String function = "{?= call get_car_by_plate(?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
             CallableStatement call = con.prepareCall(function);
             call.registerOutParameter(1, Types.OTHER);
-            call.setString(2, passport);
+            call.setString(2, plate);
             call.execute();
+
             ResultSet resultSet = (ResultSet) call.getObject(1);
             if (resultSet == null) {
                 return null;
             }
             if (resultSet.next()) {
-                dto.setName(resultSet.getString(2));
-                dto.setAge(resultSet.getInt(3));
-                dto.setSex(resultSet.getString(4));
-                dto.setContact(resultSet.getString(5));
-                dto.setCountry(resultSet.getInt(6));
+                dto.setModel(resultSet.getInt(2));
+                dto.setCantKm(resultSet.getInt(3));
+                dto.setColor(resultSet.getString(4));
+                dto.setSituation(resultSet.getInt(5));
             }
             call.close();
             con.close();

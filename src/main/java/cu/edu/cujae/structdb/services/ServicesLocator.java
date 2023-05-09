@@ -10,6 +10,9 @@ import java.sql.SQLException;
  */
 public class ServicesLocator {
     private static TouristService touristService;
+    private static CarService carService;
+    private static DriverService driverService;
+    private static ContractService contractService;
     /**
      * Open a new connection to the Database
      *
@@ -30,5 +33,26 @@ public class ServicesLocator {
             touristService = new TouristService();
         }
         return touristService;
+    }
+
+    public static CarService CarServices() {
+        if (carService == null) {
+            carService = new CarService();
+        }
+        return carService;
+    }
+
+    public static DriverService DriverServices() {
+        if (driverService == null) {
+            driverService = new DriverService();
+        }
+        return driverService;
+    }
+
+    public static ContractService ContractServices() {
+        if (contractService == null) {
+            contractService = new ContractService();
+        }
+        return contractService;
     }
 }

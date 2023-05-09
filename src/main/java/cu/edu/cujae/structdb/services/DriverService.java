@@ -1,23 +1,21 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.TouristDTO;
+import cu.edu.cujae.structdb.dto.crud.DriverDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TouristService {
-    public void insert(TouristDTO dto) {
-        String function = "{call add_tourist(?, ?, ?, ?, ?, ?)}";
+public class DriverService {
+    public void insert(DriverDTO dto) {
+        String function = "{call add_driver(?, ?, ?, ?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
-            call.setString(1, dto.getPassport());
+            call.setString(1, dto.getDni());
             call.setString(2, dto.getName());
-            call.setInt(3, dto.getAge());
-            call.setString(4, dto.getSex());
-            call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setInt(3, dto.getCategory());
+            call.setString(4, dto.getAddress());
 
             call.execute();
             call.close();
@@ -27,12 +25,12 @@ public class TouristService {
         }
     }
 
-    public void remove(String passport) {
-        String function = "{call remove_tourist(?)}";
+    public void remove(String dni) {
+        String function = "{call remove_driver(?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
-            call.setString(1, passport);
+            call.setString(1, dni);
             call.execute();
 
             call.close();
@@ -42,17 +40,15 @@ public class TouristService {
         }
     }
 
-    public void update(TouristDTO dto) {
-        String function = "{call update_tourist(?, ?, ?, ?, ?, ?)}";
+    public void update(DriverDTO dto) {
+        String function = "{call update_driver(?, ?, ?, ?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
-            call.setString(1, dto.getPassport());
+            call.setString(1, dto.getDni());
             call.setString(2, dto.getName());
-            call.setInt(3, dto.getAge());
-            call.setString(4, dto.getSex());
-            call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setInt(3, dto.getCategory());
+            call.setString(4, dto.getAddress());
 
             call.execute();
             call.close();
@@ -62,9 +58,9 @@ public class TouristService {
         }
     }
 
-    public List<TouristDTO> getAll() {
-        List<TouristDTO> list = new LinkedList<>();
-        String function = "{?= call get_tourists()}";
+    public List<DriverDTO> getAll() {
+        List<DriverDTO> list = new LinkedList<>();
+        String function = "{?= call get_cars()}";
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -77,12 +73,11 @@ public class TouristService {
                 return null;
             }
             while (resultSet.next()) {
-                TouristDTO dto = new TouristDTO();
-                dto.setPassport(resultSet.getString(1));
+                DriverDTO dto = new DriverDTO();
+                dto.setDni(resultSet.getString(1));
                 dto.setName(resultSet.getString(2));
-                dto.setAge(resultSet.getInt(3));
-                dto.setSex(resultSet.getString(4));
-                dto.setContact(resultSet.getString(5));
+                dto.setCategory(resultSet.getInt(3));
+                dto.setAddress(resultSet.getString(4));
                 list.add(dto);
             }
             call.close();
@@ -93,27 +88,26 @@ public class TouristService {
         return list;
     }
 
-    public TouristDTO getByPassport(String passport) {
-        TouristDTO dto = new TouristDTO();
-        dto.setPassport(passport);
-        String function = "{?= call get_tourist_by_passport(?)}";
+    public DriverDTO getByDni(String dni) {
+        DriverDTO dto = new DriverDTO();
+        dto.setDni(dni);
+        String function = "{?= call get_driver_by_dni(?)}";
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
             CallableStatement call = con.prepareCall(function);
             call.registerOutParameter(1, Types.OTHER);
-            call.setString(2, passport);
+            call.setString(2, dni);
             call.execute();
+
             ResultSet resultSet = (ResultSet) call.getObject(1);
             if (resultSet == null) {
                 return null;
             }
             if (resultSet.next()) {
                 dto.setName(resultSet.getString(2));
-                dto.setAge(resultSet.getInt(3));
-                dto.setSex(resultSet.getString(4));
-                dto.setContact(resultSet.getString(5));
-                dto.setCountry(resultSet.getInt(6));
+                dto.setCategory(resultSet.getInt(3));
+                dto.setAddress(resultSet.getString(4));
             }
             call.close();
             con.close();
