@@ -8,7 +8,7 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         JFrame principalFrame = new MainWindow();
-        System.out.println("Hello world!\n");
+
 
         TouristDTO dto = new TouristDTO();
         dto.setPassport("ABC070807");
