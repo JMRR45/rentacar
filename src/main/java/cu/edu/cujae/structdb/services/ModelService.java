@@ -1,19 +1,41 @@
 package cu.edu.cujae.structdb.services;
 
 import cu.edu.cujae.structdb.dto.crud.ModelDTO;
-import cu.edu.cujae.structdb.dto.crud.TouristDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ModelService {
-    public void insert(String name) {
+    public void insert(ModelDTO dto) {
+        String function = "{call add_model(?, ?)}";
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setString(1, dto.getName());
+            call.setInt(2, dto.getBrand());
 
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void remove(String name) {
+        String function = "{call remove_model(?)}";
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setString(1, name);
+            call.execute();
 
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<ModelDTO> getAll() {
@@ -32,11 +54,9 @@ public class ModelService {
             }
             while (resultSet.next()) {
                 ModelDTO dto = new ModelDTO();
-                dto.setPassport(resultSet.getString(1));
+                dto.setId(resultSet.getInt(1));
                 dto.setName(resultSet.getString(2));
-                dto.setAge(resultSet.getInt(3));
-                dto.setSex(resultSet.getString(4));
-                dto.setContact(resultSet.getString(5));
+                dto.setBrand(resultSet.getInt(3));
                 list.add(dto);
             }
             call.close();

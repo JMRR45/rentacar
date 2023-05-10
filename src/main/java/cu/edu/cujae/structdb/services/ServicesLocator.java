@@ -13,6 +13,12 @@ public class ServicesLocator {
     private static CarService carService;
     private static DriverService driverService;
     private static ContractService contractService;
+    private static ModelService modelService;
+    private static AuxiliarService brandService;
+    private static AuxiliarService categoryService;
+    private static AuxiliarService countryService;
+    private static AuxiliarService payMethodService;
+    private static AuxiliarService situationService;
     /**
      * Open a new connection to the Database
      *
@@ -54,5 +60,47 @@ public class ServicesLocator {
             contractService = new ContractService();
         }
         return contractService;
+    }
+
+    public static ModelService ModelServices() {
+        if (modelService == null) {
+            modelService = new ModelService();
+        }
+        return modelService;
+    }
+
+    public static AuxiliarService BrandServices() {
+        if (brandService == null) {
+            brandService = new AuxiliarService(AuxiliarService.AuxiliarType.brand);
+        }
+        return brandService;
+    }
+
+    public static AuxiliarService CategoryServices() {
+        if (categoryService == null) {
+            categoryService = new AuxiliarService(AuxiliarService.AuxiliarType.category);
+        }
+        return categoryService;
+    }
+
+    public static AuxiliarService CountryServices() {
+        if (countryService == null) {
+            countryService = new AuxiliarService(AuxiliarService.AuxiliarType.country);
+        }
+        return countryService;
+    }
+
+    public static AuxiliarService PayMethodServices() {
+        if (payMethodService == null) {
+            payMethodService = new AuxiliarService(AuxiliarService.AuxiliarType.payMethod);
+        }
+        return payMethodService;
+    }
+
+    public static AuxiliarService SituationServices() {
+        if (situationService == null) {
+            situationService = new AuxiliarService(AuxiliarService.AuxiliarType.situation);
+        }
+        return situationService;
     }
 }
