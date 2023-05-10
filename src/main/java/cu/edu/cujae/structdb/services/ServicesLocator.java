@@ -27,7 +27,7 @@ public class ServicesLocator {
     public static java.sql.Connection getConnection() {
         Connection connection = null;
         try {
-            connection = new Connection("localhost", "rentacar", "postgres", "rentacar");
+            connection = new Connection("localhost", "rentacar", "postgres", "*Hyzoka01021268345");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
