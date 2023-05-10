@@ -22,53 +22,17 @@
         <properties>
           <alignmentX value="0.5"/>
           <autoscrolls value="true"/>
-          <background color="-9078408"/>
+          <background color="-684526"/>
           <minimumSize width="100" height="24"/>
           <opaque value="true"/>
           <preferredSize width="160" height="24"/>
         </properties>
-        <border type="empty" title="RaC" title-justification="1" title-position="2">
-          <font name="Roboto Light" size="22" style="3"/>
-          <title-color color="-13290187"/>
+        <border type="empty" title="    Rent a Car" title-justification="1" title-position="2">
+          <font name="Arial" size="22" style="3"/>
+          <title-color color="-16777216"/>
           <size top="50" left="0" bottom="0" right="0"/>
         </border>
         <children>
-          <component id="5ccd5" class="javax.swing.JButton" binding="addButton">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="126" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-9078408"/>
-              <borderPainted value="false"/>
-              <contentAreaFilled value="false"/>
-              <font size="16"/>
-              <foreground color="-16711695"/>
-              <hideActionText value="false"/>
-              <label value="Agregar"/>
-              <opaque value="false"/>
-              <text value="Agregar"/>
-            </properties>
-          </component>
-          <component id="c6180" class="javax.swing.JButton" binding="removeButton">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="126" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-9078408"/>
-              <borderPainted value="false"/>
-              <contentAreaFilled value="false"/>
-              <font size="16"/>
-              <foreground color="-16711695"/>
-              <hideActionText value="false"/>
-              <label value="Eliminar"/>
-              <opaque value="false"/>
-              <text value="Eliminar"/>
-            </properties>
-          </component>
           <hspacer id="5557b">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
@@ -82,6 +46,42 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
+          <component id="c6180" class="javax.swing.JButton" binding="removeButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="126" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-9078408"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <font size="16"/>
+              <foreground color="-14079961"/>
+              <hideActionText value="false"/>
+              <label value="Eliminar"/>
+              <opaque value="false"/>
+              <text value="Eliminar"/>
+            </properties>
+          </component>
+          <component id="5ccd5" class="javax.swing.JButton" binding="addButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="126" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-9078408"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <font size="16"/>
+              <foreground color="-14079961"/>
+              <hideActionText value="false"/>
+              <label value="Agregar"/>
+              <opaque value="false"/>
+              <text value="Agregar"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="4da01" binding="centerPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -140,7 +140,7 @@
                     <properties>
                       <borderPainted value="false"/>
                       <contentAreaFilled value="false"/>
-                      <foreground color="-16711695"/>
+                      <foreground color="-684526"/>
                       <text value="Turistas"/>
                     </properties>
                   </component>
@@ -156,7 +156,7 @@
                     <properties>
                       <borderPainted value="false"/>
                       <contentAreaFilled value="false"/>
-                      <foreground color="-16711695"/>
+                      <foreground color="-684526"/>
                       <text value="Carros"/>
                     </properties>
                   </component>
@@ -167,7 +167,7 @@
                     <properties>
                       <borderPainted value="false"/>
                       <contentAreaFilled value="false"/>
-                      <foreground color="-16711695"/>
+                      <foreground color="-684526"/>
                       <text value="Conductores"/>
                     </properties>
                   </component>
@@ -178,7 +178,7 @@
                     <properties>
                       <borderPainted value="false"/>
                       <contentAreaFilled value="false"/>
-                      <foreground color="-16711695"/>
+                      <foreground color="-684526"/>
                       <text value="Contratos"/>
                     </properties>
                   </component>
@@ -206,8 +206,9 @@
                 </constraints>
                 <properties>
                   <autoscrolls value="true"/>
-                  <background color="-13290187"/>
-                  <foreground color="-13290187"/>
+                  <background color="-1"/>
+                  <focusCycleRoot value="true"/>
+                  <foreground color="-16777216"/>
                   <opaque value="false"/>
                   <verifyInputWhenFocusTarget value="true"/>
                   <visible value="true"/>
@@ -217,7 +218,7 @@
                   <component id="3bab2" class="javax.swing.JTable" binding="principalTable">
                     <constraints/>
                     <properties>
-                      <background color="-13290187"/>
+                      <background color="-1"/>
                       <foreground color="-1"/>
                       <gridColor color="-12581120"/>
                       <inheritsPopupMenu value="false"/>
