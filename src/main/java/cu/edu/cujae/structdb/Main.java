@@ -1,10 +1,13 @@
 package cu.edu.cujae.structdb;
 
 import cu.edu.cujae.structdb.dto.crud.TouristDTO;
-import cu.edu.cujae.structdb.services.ServicesLocator;
+import cu.edu.cujae.structdb.gui.MainWindow;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+        JFrame principalFrame = new MainWindow();
         System.out.println("Hello world!\n");
 
         TouristDTO dto = new TouristDTO();
@@ -14,7 +17,5 @@ public class Main {
         dto.setSex("F");
         dto.setContact("+34345234098");
         dto.setCountry(5);
-
-        ServicesLocator.TouristServices().update(dto);
     }
 }
