@@ -1,6 +1,9 @@
 package cu.edu.cujae.structdb.gui;
 
 
+import cu.edu.cujae.structdb.dto.crud.CarDTO;
+import cu.edu.cujae.structdb.dto.crud.ContractDTO;
+import cu.edu.cujae.structdb.dto.crud.DriverDTO;
 import cu.edu.cujae.structdb.dto.crud.TouristDTO;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 
@@ -83,18 +86,35 @@ public class MainWindow extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 principalTable.setModel(carDTM);
+                fillCarTable();
             }
         });
         driverButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 principalTable.setModel(driverDTM);
+                fillDriverTable();
             }
         });
         contractButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 principalTable.setModel(contractDTM);
+                fillContractTable();
+            }
+        });
+
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AuxiliarCreator();
             }
         });
 
@@ -140,6 +160,35 @@ public class MainWindow extends JFrame{
             touristDTM.addRow(row);
         }
     }
+    private void fillCarTable(){
+        carDTM.setRowCount(0);
+        List<CarDTO> list = ServicesLocator.CarServices().getAll();
+        for (CarDTO a : list) {
+            Object [] row = {a.getPlate(),a.getModel(),a.getCantKm(),a.getColor(),a.getSituation()};
+            carDTM.addRow(row);
+        }
+    }
+    private void fillDriverTable(){
+        driverDTM.setRowCount(0);
+        List<DriverDTO> list = ServicesLocator.DriverServices().getAll();
+        for (DriverDTO a : list) {
+            Object [] row = {a.getDni(),a.getName(),a.getCategory(),a.getAddress()};
+            driverDTM.addRow(row);
+        }
+    }
+    private void fillContractTable(){
+        contractDTM.setRowCount(0);
+        List<ContractDTO> list = ServicesLocator.ContractServices().getAll();
+        for (ContractDTO a : list) {
+            Object [] row = {a.getId(),a.getPlate(),a.getPassport(),a.getStartDate(),a.getEndDate(),a.getDeliveryDate(),a.getPayMethod(),a.getDriver()};
+            contractDTM.addRow(row);
+        }
+    }
+
+    private void addNewTourist(String passaport, String name, int age, String sex, String contact, int country){
+
+    }
+
 
 }
 
