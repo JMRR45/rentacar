@@ -129,3 +129,37 @@ SELECT public.add_car(
 	'Rojo',
 	(SELECT id FROM situation WHERE name = 'available')
 );
+SELECT public.add_car(
+	'B895690',
+	(SELECT id FROM model WHERE name = 'Camaro'),
+	32456,
+	'Negro',
+	(SELECT id FROM situation WHERE name = 'available')
+);
+SELECT public.add_car(
+	'B123456',
+	(SELECT id FROM model WHERE name = 'Fiesta'),
+	32456,
+	'Blanco',
+	(SELECT id FROM situation WHERE name = 'rented')
+);
+
+-- Contracts
+SELECT public.add_contract(
+	'B123456',
+	'AEC071239',
+	'2023/02/13',
+	'2023/03/13',
+	'2023/03/13',
+	(SELECT id FROM pay_method WHERE name = 'cash'),
+	'79092345678'
+);
+SELECT public.add_contract(
+	'B895690',
+	'ABC070807',
+	'2023/01/27',
+	'2023/04/15',
+	'2023/05/03',
+	(SELECT id FROM pay_method WHERE name = 'check'),
+	null
+);

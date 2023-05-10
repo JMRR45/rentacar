@@ -60,7 +60,7 @@ public class DriverService {
 
     public List<DriverDTO> getAll() {
         List<DriverDTO> list = new LinkedList<>();
-        String function = "{?= call get_cars()}";
+        String function = "{?= call get_drivers()}";
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
