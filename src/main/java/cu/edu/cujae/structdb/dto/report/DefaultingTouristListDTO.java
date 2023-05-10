@@ -1,4 +1,6 @@
-package cu.edu.cujae.structdb.dto;
+package cu.edu.cujae.structdb.dto.report;
+
+import cu.edu.cujae.structdb.dto.AbstractDTO;
 
 import java.util.List;
 

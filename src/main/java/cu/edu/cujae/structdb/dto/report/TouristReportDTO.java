@@ -1,12 +1,12 @@
-package cu.edu.cujae.structdb.dto;
+package cu.edu.cujae.structdb.dto.report;
 
-public class TouristDTO {
+public class TouristReportDTO {
     private String touristName;
     private String passportNumber;
     private int timesUsedCars;
     private double totalRentalsValue;
 
-    public TouristDTO(String touristName, String passportNumber, int timesUsedCars, double totalRentalsValue) {
+    public TouristReportDTO(String touristName, String passportNumber, int timesUsedCars, double totalRentalsValue) {
         this.touristName = touristName;
         this.passportNumber = passportNumber;
         this.timesUsedCars = timesUsedCars;
