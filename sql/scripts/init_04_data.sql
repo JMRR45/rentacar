@@ -1,4 +1,10 @@
 ﻿-- INSERT INITIAL DATA
+SELECT public.add_rol('visitant', 'Read: Reports.');
+SELECT public.add_rol('worker', 'Read: Bussines Info & Reports. Write: Bussines Info.');
+SELECT public.add_rol('admin', 'Read: All. Write: All');
+
+SELECT public.add_user('admin', '', 3);
+
 SELECT public.add_situation('available');
 SELECT public.add_situation('rented');
 SELECT public.add_situation('workshop');

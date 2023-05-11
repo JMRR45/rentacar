@@ -195,7 +195,7 @@ public class AuxiliaryCreator extends JFrame {
             a.setCantKm(Integer.parseInt((String) carDTM.getValueAt(i,2)));
             a.setColor((String) carDTM.getValueAt(i,3));
             //a.setSituation(Integer.parseInt((String)  carDTM.getValueAt(i,4)));
-            ServicesLocator.CarServices().insert(a);
+            ServicesLocator.carServices().insert(a);
         }
     }
     private void addTouristDTO(){
@@ -207,7 +207,7 @@ public class AuxiliaryCreator extends JFrame {
             a.setSex((String) touristDTM.getValueAt(i,3));
             a.setContact((String) touristDTM.getValueAt(i,4));
             //a.setCountry(Integer.parseInt((String)touristDTM.getValueAt(i,5)));
-            ServicesLocator.TouristServices().insert(a);
+            ServicesLocator.touristServices().insert(a);
         }
     }
 
@@ -221,7 +221,7 @@ public class AuxiliaryCreator extends JFrame {
             a.setDeliveryDate(LocalDate.parse((String) contractDTM.getValueAt(i,5)));
             //a.setPayMethod(Integer.parseInt((String) contractDTM.getValueAt(i,6)));
             a.setDriver((String) contractDTM.getValueAt(i,7));
-            ServicesLocator.ContractServices().insert(a);
+            ServicesLocator.contractServices().insert(a);
         }
     }
     private void addDriverDTO(){
@@ -231,7 +231,7 @@ public class AuxiliaryCreator extends JFrame {
             a.setName((String) driverDTM.getValueAt(i,1));
             //a.setCategory(Integer.parseInt((String) driverDTM.getValueAt(i,2)));
             a.setAddress((String) driverDTM.getValueAt(i,3));
-            ServicesLocator.DriverServices().insert(a);
+            ServicesLocator.driverServices().insert(a);
         }
     }
 

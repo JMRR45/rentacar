@@ -148,16 +148,16 @@ public class MainWindow extends JFrame{
                             touristDTM.getValueAt(principalTable.getSelectedRow(), 5)};
                     touristDTM.setRowCount(0);
                     touristDTM.addRow(a);
-                    new UpdWindow(touristDTM);
+                    new UpdateWindow(touristDTM);
                 }
                 if(principalTable.getModel()==carDTM){
-                    new UpdWindow(carDTM);
+                    new UpdateWindow(carDTM);
                 }
                 if(principalTable.getModel()==driverDTM){
-                    new UpdWindow(driverDTM);
+                    new UpdateWindow(driverDTM);
                 }
                 if(principalTable.getModel()==contractDTM){
-                    new UpdWindow(contractDTM);
+                    new UpdateWindow(contractDTM);
                 }
             }
         });
@@ -199,7 +199,7 @@ public class MainWindow extends JFrame{
 
     private void fillTouristTable(){
         touristDTM.setRowCount(0);
-        List<TouristDTO> list = ServicesLocator.TouristServices().getAll();
+        List<TouristDTO> list = ServicesLocator.touristServices().getAll();
         for (TouristDTO a : list) {
             Object [] row = {a.getPassport(),a.getName(),a.getAge(),a.getSex(),a.getContact(),a.getCountry().getName()};
             touristDTM.addRow(row);
@@ -207,7 +207,7 @@ public class MainWindow extends JFrame{
     }
     private void fillCarTable(){
         carDTM.setRowCount(0);
-        List<CarDTO> list = ServicesLocator.CarServices().getAll();
+        List<CarDTO> list = ServicesLocator.carServices().getAll();
         for (CarDTO a : list) {
             Object [] row = {a.getPlate(),a.getModel().getName(),a.getCantKm(),a.getColor(),a.getSituation().getName()};
             carDTM.addRow(row);
@@ -215,7 +215,7 @@ public class MainWindow extends JFrame{
     }
     private void fillDriverTable(){
         driverDTM.setRowCount(0);
-        List<DriverDTO> list = ServicesLocator.DriverServices().getAll();
+        List<DriverDTO> list = ServicesLocator.driverServices().getAll();
         for (DriverDTO a : list) {
             Object [] row = {a.getDni(),a.getName(),a.getCategory().getName(),a.getAddress()};
             driverDTM.addRow(row);
@@ -223,23 +223,23 @@ public class MainWindow extends JFrame{
     }
     private void fillContractTable(){
         contractDTM.setRowCount(0);
-        List<ContractDTO> list = ServicesLocator.ContractServices().getAll();
+        List<ContractDTO> list = ServicesLocator.contractServices().getAll();
         for (ContractDTO a : list) {
             Object [] row = {a.getId(), a.getPlate(),a.getPassport(),a.getStartDate(),a.getEndDate(),a.getDeliveryDate(),a.getPayMethod().getName(),a.getDriver()};
             contractDTM.addRow(row);
         }
     }
     private void removeTourist(){
-        ServicesLocator.TouristServices().remove((String)touristDTM.getValueAt(principalTable.getSelectedRow(), 0));
+        ServicesLocator.touristServices().remove((String)touristDTM.getValueAt(principalTable.getSelectedRow(), 0));
     }
     private void removeCar(){
-        ServicesLocator.CarServices().remove((String)carDTM.getValueAt(principalTable.getSelectedRow(), 0));
+        ServicesLocator.carServices().remove((String)carDTM.getValueAt(principalTable.getSelectedRow(), 0));
     }
     private void removeDriver(){
-        ServicesLocator.DriverServices().remove((String)driverDTM.getValueAt(principalTable.getSelectedRow(), 0));
+        ServicesLocator.driverServices().remove((String)driverDTM.getValueAt(principalTable.getSelectedRow(), 0));
     }
     private void removeContract(){
-        ServicesLocator.ContractServices().remove((Integer)(contractDTM.getValueAt(principalTable.getSelectedRow(), 0)));
+        ServicesLocator.contractServices().remove((Integer)(contractDTM.getValueAt(principalTable.getSelectedRow(), 0)));
     }
 }
 

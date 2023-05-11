@@ -77,10 +77,10 @@ public class CarService {
             while (resultSet.next()) {
                 CarDTO dto = new CarDTO();
                 dto.setPlate(resultSet.getString(1));
-                dto.setModel(ServicesLocator.ModelServices().getByID(resultSet.getInt(2)));
+                dto.setModel(ServicesLocator.modelServices().getByID(resultSet.getInt(2)));
                 dto.setCantKm(resultSet.getInt(3));
                 dto.setColor(resultSet.getString(4));
-                dto.setSituation(ServicesLocator.SituationServices().getByID(resultSet.getInt(5)));
+                dto.setSituation(ServicesLocator.situationServices().getByID(resultSet.getInt(5)));
                 list.add(dto);
             }
             call.close();
@@ -108,10 +108,10 @@ public class CarService {
                 return null;
             }
             if (resultSet.next()) {
-                dto.setModel(ServicesLocator.ModelServices().getByID(resultSet.getInt(2)));
+                dto.setModel(ServicesLocator.modelServices().getByID(resultSet.getInt(2)));
                 dto.setCantKm(resultSet.getInt(3));
                 dto.setColor(resultSet.getString(4));
-                dto.setSituation(ServicesLocator.SituationServices().getByID(resultSet.getInt(5)));
+                dto.setSituation(ServicesLocator.situationServices().getByID(resultSet.getInt(5)));
             }
             call.close();
             con.close();

@@ -1,4 +1,16 @@
 ﻿-- INSERT FUNCTIONS
+CREATE OR REPLACE FUNCTION add_rol(rol_name text, rol_description text) RETURNS void AS $$
+BEGIN
+	INSERT INTO rol (name, description) VALUES (rol_name, rol_description);
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION add_user(user_username text, user_password text, user_rol integer) RETURNS void AS $$
+BEGIN
+	INSERT INTO user_local (username, password, rol_id) VALUES (user_username, user_password, user_rol);
+END; $$
+LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION add_situation(text) RETURNS void AS $$
 BEGIN
 	IF NOT EXISTS (SELECT name FROM situation WHERE name = $1) THEN

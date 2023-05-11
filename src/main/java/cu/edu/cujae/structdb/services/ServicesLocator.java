@@ -19,6 +19,10 @@ public class ServicesLocator {
     private static AuxiliaryService countryService;
     private static AuxiliaryService payMethodService;
     private static AuxiliaryService situationService;
+    private static UserService userService;
+    private static RolService rolService;
+    private static AuthService authService;
+
     /**
      * Open a new connection to the Database
      *
@@ -34,73 +38,94 @@ public class ServicesLocator {
         return connection.getConnection();
     }
 
-    public static TouristService TouristServices() {
+    public static TouristService touristServices() {
         if (touristService == null) {
             touristService = new TouristService();
         }
         return touristService;
     }
 
-    public static CarService CarServices() {
+    public static CarService carServices() {
         if (carService == null) {
             carService = new CarService();
         }
         return carService;
     }
 
-    public static DriverService DriverServices() {
+    public static DriverService driverServices() {
         if (driverService == null) {
             driverService = new DriverService();
         }
         return driverService;
     }
 
-    public static ContractService ContractServices() {
+    public static ContractService contractServices() {
         if (contractService == null) {
             contractService = new ContractService();
         }
         return contractService;
     }
 
-    public static ModelService ModelServices() {
+    public static ModelService modelServices() {
         if (modelService == null) {
             modelService = new ModelService();
         }
         return modelService;
     }
 
-    public static AuxiliaryService BrandServices() {
+    public static AuxiliaryService brandServices() {
         if (brandService == null) {
             brandService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.brand);
         }
         return brandService;
     }
 
-    public static AuxiliaryService CategoryServices() {
+    public static AuxiliaryService categoryServices() {
         if (categoryService == null) {
             categoryService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.category);
         }
         return categoryService;
     }
 
-    public static AuxiliaryService CountryServices() {
+    public static AuxiliaryService countryServices() {
         if (countryService == null) {
             countryService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.country);
         }
         return countryService;
     }
 
-    public static AuxiliaryService PayMethodServices() {
+    public static AuxiliaryService payMethodServices() {
         if (payMethodService == null) {
             payMethodService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.payMethod);
         }
         return payMethodService;
     }
 
-    public static AuxiliaryService SituationServices() {
+    public static AuxiliaryService situationServices() {
         if (situationService == null) {
             situationService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.situation);
         }
         return situationService;
+    }
+
+    public static UserService UserServices() {
+        if (userService == null) {
+            userService = new UserService();
+        }
+        return userService;
+    }
+
+    public static RolService RolServices() {
+        if (rolService == null) {
+            rolService = new RolService();
+        }
+        return rolService;
+    }
+
+    public static AuthService AuthService() {
+        if (authService == null) {
+            authService = new AuthService();
+        }
+        return authService;
     }
 }

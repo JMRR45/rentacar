@@ -86,7 +86,7 @@ public class ContractService {
                 dto.setStartDate(resultSet.getDate(4).toLocalDate());
                 dto.setEndDate(resultSet.getDate(5).toLocalDate());
                 dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
-                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(7)));
                 dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }
@@ -121,7 +121,7 @@ public class ContractService {
                 dto.setStartDate(resultSet.getDate(4).toLocalDate());
                 dto.setEndDate(resultSet.getDate(5).toLocalDate());
                 dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
-                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(7)));
                 dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }
@@ -156,7 +156,7 @@ public class ContractService {
                 dto.setStartDate(resultSet.getDate(4).toLocalDate());
                 dto.setEndDate(resultSet.getDate(5).toLocalDate());
                 dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
-                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(7)));
                 dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }
@@ -191,7 +191,7 @@ public class ContractService {
                 dto.setStartDate(resultSet.getDate(4).toLocalDate());
                 dto.setEndDate(resultSet.getDate(5).toLocalDate());
                 dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
-                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(7)));
                 dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }

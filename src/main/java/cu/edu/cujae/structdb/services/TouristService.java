@@ -83,7 +83,7 @@ public class TouristService {
                 dto.setAge(resultSet.getInt(3));
                 dto.setSex(resultSet.getString(4));
                 dto.setContact(resultSet.getString(5));
-                dto.setCountry(ServicesLocator.CountryServices().getByID(resultSet.getInt(6)));
+                dto.setCountry(ServicesLocator.countryServices().getByID(resultSet.getInt(6)));
                 list.add(dto);
             }
             call.close();
@@ -114,7 +114,7 @@ public class TouristService {
                 dto.setAge(resultSet.getInt(3));
                 dto.setSex(resultSet.getString(4));
                 dto.setContact(resultSet.getString(5));
-                dto.setCountry(ServicesLocator.CountryServices().getByID(resultSet.getInt(6)));
+                dto.setCountry(ServicesLocator.countryServices().getByID(resultSet.getInt(6)));
             }
             call.close();
             con.close();

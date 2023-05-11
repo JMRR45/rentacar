@@ -76,7 +76,7 @@ public class DriverService {
                 DriverDTO dto = new DriverDTO();
                 dto.setDni(resultSet.getString(1));
                 dto.setName(resultSet.getString(2));
-                dto.setCategory(ServicesLocator.CategoryServices().getByID(resultSet.getInt(3)));
+                dto.setCategory(ServicesLocator.categoryServices().getByID(resultSet.getInt(3)));
                 dto.setAddress(resultSet.getString(4));
                 list.add(dto);
             }
@@ -106,7 +106,7 @@ public class DriverService {
             }
             if (resultSet.next()) {
                 dto.setName(resultSet.getString(2));
-                dto.setCategory(ServicesLocator.CategoryServices().getByID(resultSet.getInt(3)));
+                dto.setCategory(ServicesLocator.categoryServices().getByID(resultSet.getInt(3)));
                 dto.setAddress(resultSet.getString(4));
             }
             call.close();

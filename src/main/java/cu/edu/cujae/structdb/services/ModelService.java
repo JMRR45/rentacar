@@ -56,7 +56,7 @@ public class ModelService {
                 ModelDTO dto = new ModelDTO();
                 dto.setId(resultSet.getInt(1));
                 dto.setName(resultSet.getString(2));
-                dto.setBrand(ServicesLocator.BrandServices().getByID(resultSet.getInt(3)));
+                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(3)));
                 list.add(dto);
             }
             call.close();
@@ -85,7 +85,7 @@ public class ModelService {
             if (resultSet.next()) {
                 dto.setId(id);
                 dto.setName(resultSet.getString(1));
-                dto.setBrand(ServicesLocator.BrandServices().getByID(resultSet.getInt(2)));
+                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(2)));
             }
             call.close();
             con.close();

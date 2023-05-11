@@ -3,12 +3,12 @@ package cu.edu.cujae.structdb.gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class UpdWindow extends JFrame {
+public class UpdateWindow extends JFrame {
     private JPanel principalPanel;
     private JButton addButton;
     private JTable principalTable;
 
-    public UpdWindow(DefaultTableModel model){
+    public UpdateWindow(DefaultTableModel model){
         super("Actualizar");
         setContentPane(principalPanel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
