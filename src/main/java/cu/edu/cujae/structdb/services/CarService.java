@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.CarDTO;
+import cu.edu.cujae.structdb.dto.model.CarDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -13,10 +13,10 @@ public class CarService {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getPlate());
-            call.setInt(2, dto.getModel());
+            call.setInt(2, dto.getModel().getId());
             call.setInt(3, dto.getCantKm());
             call.setString(4, dto.getColor());
-            call.setInt(5, dto.getSituation());
+            call.setInt(5, dto.getSituation().getId());
 
             call.execute();
             call.close();
@@ -47,10 +47,10 @@ public class CarService {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getPlate());
-            call.setInt(2, dto.getModel());
+            call.setInt(2, dto.getModel().getId());
             call.setInt(3, dto.getCantKm());
             call.setString(4, dto.getColor());
-            call.setInt(5, dto.getSituation());
+            call.setInt(5, dto.getSituation().getId());
 
             call.execute();
             call.close();
@@ -77,10 +77,10 @@ public class CarService {
             while (resultSet.next()) {
                 CarDTO dto = new CarDTO();
                 dto.setPlate(resultSet.getString(1));
-                dto.setModel(resultSet.getInt(2));
+                dto.setModel(ServicesLocator.ModelServices().getByID(resultSet.getInt(2)));
                 dto.setCantKm(resultSet.getInt(3));
                 dto.setColor(resultSet.getString(4));
-                dto.setSituation(resultSet.getInt(5));
+                dto.setSituation(ServicesLocator.SituationServices().getByID(resultSet.getInt(5)));
                 list.add(dto);
             }
             call.close();
@@ -108,10 +108,10 @@ public class CarService {
                 return null;
             }
             if (resultSet.next()) {
-                dto.setModel(resultSet.getInt(2));
+                dto.setModel(ServicesLocator.ModelServices().getByID(resultSet.getInt(2)));
                 dto.setCantKm(resultSet.getInt(3));
                 dto.setColor(resultSet.getString(4));
-                dto.setSituation(resultSet.getInt(5));
+                dto.setSituation(ServicesLocator.SituationServices().getByID(resultSet.getInt(5)));
             }
             call.close();
             con.close();

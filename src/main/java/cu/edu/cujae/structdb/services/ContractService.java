@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.ContractDTO;
+import cu.edu.cujae.structdb.dto.model.ContractDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -17,7 +17,7 @@ public class ContractService {
             call.setDate(3, new Date(dto.getStartDate().toEpochDay()));
             call.setDate(4, new Date(dto.getEndDate().toEpochDay()));
             call.setDate(5, new Date(dto.getDeliveryDate().toEpochDay()));
-            call.setInt(6, dto.getPayMethod());
+            call.setInt(6, dto.getPayMethod().getId());
             call.setString(7, dto.getDriver());
 
             call.execute();
@@ -53,7 +53,7 @@ public class ContractService {
             call.setDate(3, new Date(dto.getStartDate().toEpochDay()));
             call.setDate(4, new Date(dto.getEndDate().toEpochDay()));
             call.setDate(5, new Date(dto.getDeliveryDate().toEpochDay()));
-            call.setInt(6, dto.getPayMethod());
+            call.setInt(6, dto.getPayMethod().getId());
             call.setString(7, dto.getDriver());
 
             call.execute();
@@ -80,13 +80,14 @@ public class ContractService {
             }
             while (resultSet.next()) {
                 ContractDTO dto = new ContractDTO();
-                dto.setPlate(resultSet.getString(1));
-                dto.setPassport(resultSet.getString(2));
-                dto.setStartDate(resultSet.getDate(3).toLocalDate());
-                dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(resultSet.getInt(6));
-                dto.setDriver(resultSet.getString(7));
+                dto.setId(resultSet.getInt(1));
+                dto.setPlate(resultSet.getString(2));
+                dto.setPassport(resultSet.getString(3));
+                dto.setStartDate(resultSet.getDate(4).toLocalDate());
+                dto.setEndDate(resultSet.getDate(5).toLocalDate());
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }
             call.close();
@@ -114,13 +115,14 @@ public class ContractService {
             }
             while (resultSet.next()) {
                 ContractDTO dto = new ContractDTO();
-                dto.setPlate(resultSet.getString(1));
-                dto.setPassport(resultSet.getString(2));
-                dto.setStartDate(resultSet.getDate(3).toLocalDate());
-                dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(resultSet.getInt(6));
-                dto.setDriver(resultSet.getString(7));
+                dto.setId(resultSet.getInt(1));
+                dto.setPlate(resultSet.getString(2));
+                dto.setPassport(resultSet.getString(3));
+                dto.setStartDate(resultSet.getDate(4).toLocalDate());
+                dto.setEndDate(resultSet.getDate(5).toLocalDate());
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }
             call.close();
@@ -148,13 +150,14 @@ public class ContractService {
             }
             while (resultSet.next()) {
                 ContractDTO dto = new ContractDTO();
-                dto.setPlate(resultSet.getString(1));
-                dto.setPassport(resultSet.getString(2));
-                dto.setStartDate(resultSet.getDate(3).toLocalDate());
-                dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(resultSet.getInt(6));
-                dto.setDriver(resultSet.getString(7));
+                dto.setId(resultSet.getInt(1));
+                dto.setPlate(resultSet.getString(2));
+                dto.setPassport(resultSet.getString(3));
+                dto.setStartDate(resultSet.getDate(4).toLocalDate());
+                dto.setEndDate(resultSet.getDate(5).toLocalDate());
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }
             call.close();
@@ -182,13 +185,14 @@ public class ContractService {
             }
             while (resultSet.next()) {
                 ContractDTO dto = new ContractDTO();
-                dto.setPlate(resultSet.getString(1));
-                dto.setPassport(resultSet.getString(2));
-                dto.setStartDate(resultSet.getDate(3).toLocalDate());
-                dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(resultSet.getInt(6));
-                dto.setDriver(resultSet.getString(7));
+                dto.setId(resultSet.getInt(1));
+                dto.setPlate(resultSet.getString(2));
+                dto.setPassport(resultSet.getString(3));
+                dto.setStartDate(resultSet.getDate(4).toLocalDate());
+                dto.setEndDate(resultSet.getDate(5).toLocalDate());
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setPayMethod(ServicesLocator.PayMethodServices().getByID(resultSet.getInt(7)));
+                dto.setDriver(resultSet.getString(8));
                 list.add(dto);
             }
             call.close();

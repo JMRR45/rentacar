@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.TouristDTO;
+import cu.edu.cujae.structdb.dto.model.TouristDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -17,7 +17,7 @@ public class TouristService {
             call.setInt(3, dto.getAge());
             call.setString(4, dto.getSex());
             call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setInt(6, dto.getCountry().getId());
 
             call.execute();
             call.close();
@@ -52,7 +52,7 @@ public class TouristService {
             call.setInt(3, dto.getAge());
             call.setString(4, dto.getSex());
             call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setInt(6, dto.getCountry().getId());
 
             call.execute();
             call.close();
@@ -83,6 +83,7 @@ public class TouristService {
                 dto.setAge(resultSet.getInt(3));
                 dto.setSex(resultSet.getString(4));
                 dto.setContact(resultSet.getString(5));
+                dto.setCountry(ServicesLocator.CountryServices().getByID(resultSet.getInt(6)));
                 list.add(dto);
             }
             call.close();
@@ -113,7 +114,7 @@ public class TouristService {
                 dto.setAge(resultSet.getInt(3));
                 dto.setSex(resultSet.getString(4));
                 dto.setContact(resultSet.getString(5));
-                dto.setCountry(resultSet.getInt(6));
+                dto.setCountry(ServicesLocator.CountryServices().getByID(resultSet.getInt(6)));
             }
             call.close();
             con.close();

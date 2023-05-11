@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.ModelDTO;
+import cu.edu.cujae.structdb.dto.model.ModelDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -13,7 +13,7 @@ public class ModelService {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getName());
-            call.setInt(2, dto.getBrand());
+            call.setInt(2, dto.getBrand().getId());
 
             call.execute();
             call.close();
@@ -56,7 +56,7 @@ public class ModelService {
                 ModelDTO dto = new ModelDTO();
                 dto.setId(resultSet.getInt(1));
                 dto.setName(resultSet.getString(2));
-                dto.setBrand(resultSet.getInt(3));
+                dto.setBrand(ServicesLocator.BrandServices().getByID(resultSet.getInt(3)));
                 list.add(dto);
             }
             call.close();
@@ -65,5 +65,33 @@ public class ModelService {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public ModelDTO getByID(int id) {
+        ModelDTO dto = new ModelDTO();
+        String function = "{?= call get_model_by_id(?)}";
+        try {
+            Connection con = ServicesLocator.getConnection();
+            con.setAutoCommit(false);
+            CallableStatement call = con.prepareCall(function);
+            call.registerOutParameter(1, Types.OTHER);
+            call.setInt(2, id);
+            call.execute();
+
+            ResultSet resultSet = (ResultSet) call.getObject(1);
+            if (resultSet == null) {
+                return null;
+            }
+            if (resultSet.next()) {
+                dto.setId(id);
+                dto.setName(resultSet.getString(1));
+                dto.setBrand(ServicesLocator.BrandServices().getByID(resultSet.getInt(2)));
+            }
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dto;
     }
 }

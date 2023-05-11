@@ -1,10 +1,10 @@
 package cu.edu.cujae.structdb.gui;
 
 
-import cu.edu.cujae.structdb.dto.crud.CarDTO;
-import cu.edu.cujae.structdb.dto.crud.ContractDTO;
-import cu.edu.cujae.structdb.dto.crud.DriverDTO;
-import cu.edu.cujae.structdb.dto.crud.TouristDTO;
+import cu.edu.cujae.structdb.dto.model.CarDTO;
+import cu.edu.cujae.structdb.dto.model.ContractDTO;
+import cu.edu.cujae.structdb.dto.model.DriverDTO;
+import cu.edu.cujae.structdb.dto.model.TouristDTO;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 
 import javax.swing.*;
@@ -33,6 +33,7 @@ public class MainWindow extends JFrame{
     private JPanel tablePanel;
     private JButton xButton;
     private JScrollPane tableScrollPanel;
+    private JButton updButton;
     private DefaultTableModel touristDTM;
     private DefaultTableModel carDTM;
     private DefaultTableModel driverDTM;
@@ -114,9 +115,53 @@ public class MainWindow extends JFrame{
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AuxiliarCreator();
+                new AuxiliaryCreator();
             }
         });
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(principalTable.getModel()==touristDTM){
+                    removeTourist();
+                }
+                if(principalTable.getModel()==carDTM){
+                    removeCar();
+                }
+                if(principalTable.getModel()==driverDTM){
+                    removeDriver();
+                }
+                if(principalTable.getModel()==contractDTM){
+                    removeContract();
+                }
+            }
+        });
+
+        updButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(principalTable.getModel()==touristDTM && principalTable.getSelectedRow() != -1){
+                    Object[] a = {touristDTM.getValueAt(principalTable.getSelectedRow(), 0),
+                            touristDTM.getValueAt(principalTable.getSelectedRow(), 1),
+                            touristDTM.getValueAt(principalTable.getSelectedRow(), 2),
+                            touristDTM.getValueAt(principalTable.getSelectedRow(), 3),
+                            touristDTM.getValueAt(principalTable.getSelectedRow(), 4),
+                            touristDTM.getValueAt(principalTable.getSelectedRow(), 5)};
+                    touristDTM.setRowCount(0);
+                    touristDTM.addRow(a);
+                    new UpdWindow(touristDTM);
+                }
+                if(principalTable.getModel()==carDTM){
+                    new UpdWindow(carDTM);
+                }
+                if(principalTable.getModel()==driverDTM){
+                    new UpdWindow(driverDTM);
+                }
+                if(principalTable.getModel()==contractDTM){
+                    new UpdWindow(contractDTM);
+                }
+            }
+        });
+
 
     }
     private void DeclareTableModels(){
@@ -156,7 +201,7 @@ public class MainWindow extends JFrame{
         touristDTM.setRowCount(0);
         List<TouristDTO> list = ServicesLocator.TouristServices().getAll();
         for (TouristDTO a : list) {
-            Object [] row = {a.getPassport(),a.getName(),a.getAge(),a.getSex(),a.getContact(),a.getCountry()};
+            Object [] row = {a.getPassport(),a.getName(),a.getAge(),a.getSex(),a.getContact(),a.getCountry().getName()};
             touristDTM.addRow(row);
         }
     }
@@ -164,7 +209,7 @@ public class MainWindow extends JFrame{
         carDTM.setRowCount(0);
         List<CarDTO> list = ServicesLocator.CarServices().getAll();
         for (CarDTO a : list) {
-            Object [] row = {a.getPlate(),a.getModel(),a.getCantKm(),a.getColor(),a.getSituation()};
+            Object [] row = {a.getPlate(),a.getModel().getName(),a.getCantKm(),a.getColor(),a.getSituation().getName()};
             carDTM.addRow(row);
         }
     }
@@ -172,7 +217,7 @@ public class MainWindow extends JFrame{
         driverDTM.setRowCount(0);
         List<DriverDTO> list = ServicesLocator.DriverServices().getAll();
         for (DriverDTO a : list) {
-            Object [] row = {a.getDni(),a.getName(),a.getCategory(),a.getAddress()};
+            Object [] row = {a.getDni(),a.getName(),a.getCategory().getName(),a.getAddress()};
             driverDTM.addRow(row);
         }
     }
@@ -180,15 +225,21 @@ public class MainWindow extends JFrame{
         contractDTM.setRowCount(0);
         List<ContractDTO> list = ServicesLocator.ContractServices().getAll();
         for (ContractDTO a : list) {
-            Object [] row = {a.getId(),a.getPlate(),a.getPassport(),a.getStartDate(),a.getEndDate(),a.getDeliveryDate(),a.getPayMethod(),a.getDriver()};
+            Object [] row = {a.getId(), a.getPlate(),a.getPassport(),a.getStartDate(),a.getEndDate(),a.getDeliveryDate(),a.getPayMethod().getName(),a.getDriver()};
             contractDTM.addRow(row);
         }
     }
-
-    private void addNewTourist(String passaport, String name, int age, String sex, String contact, int country){
-
+    private void removeTourist(){
+        ServicesLocator.TouristServices().remove((String)touristDTM.getValueAt(principalTable.getSelectedRow(), 0));
     }
-
-
+    private void removeCar(){
+        ServicesLocator.CarServices().remove((String)carDTM.getValueAt(principalTable.getSelectedRow(), 0));
+    }
+    private void removeDriver(){
+        ServicesLocator.DriverServices().remove((String)driverDTM.getValueAt(principalTable.getSelectedRow(), 0));
+    }
+    private void removeContract(){
+        ServicesLocator.ContractServices().remove((Integer)(contractDTM.getValueAt(principalTable.getSelectedRow(), 0)));
+    }
 }
 

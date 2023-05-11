@@ -14,11 +14,11 @@ public class ServicesLocator {
     private static DriverService driverService;
     private static ContractService contractService;
     private static ModelService modelService;
-    private static AuxiliarService brandService;
-    private static AuxiliarService categoryService;
-    private static AuxiliarService countryService;
-    private static AuxiliarService payMethodService;
-    private static AuxiliarService situationService;
+    private static AuxiliaryService brandService;
+    private static AuxiliaryService categoryService;
+    private static AuxiliaryService countryService;
+    private static AuxiliaryService payMethodService;
+    private static AuxiliaryService situationService;
     /**
      * Open a new connection to the Database
      *
@@ -27,7 +27,7 @@ public class ServicesLocator {
     public static java.sql.Connection getConnection() {
         Connection connection = null;
         try {
-            connection = new Connection("localhost", "rentacar", "postgres", "100801JMRR45*r");
+            connection = new Connection("localhost", "rentacar", "postgres", "rentacar");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -69,37 +69,37 @@ public class ServicesLocator {
         return modelService;
     }
 
-    public static AuxiliarService BrandServices() {
+    public static AuxiliaryService BrandServices() {
         if (brandService == null) {
-            brandService = new AuxiliarService(AuxiliarService.AuxiliarType.brand);
+            brandService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.brand);
         }
         return brandService;
     }
 
-    public static AuxiliarService CategoryServices() {
+    public static AuxiliaryService CategoryServices() {
         if (categoryService == null) {
-            categoryService = new AuxiliarService(AuxiliarService.AuxiliarType.category);
+            categoryService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.category);
         }
         return categoryService;
     }
 
-    public static AuxiliarService CountryServices() {
+    public static AuxiliaryService CountryServices() {
         if (countryService == null) {
-            countryService = new AuxiliarService(AuxiliarService.AuxiliarType.country);
+            countryService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.country);
         }
         return countryService;
     }
 
-    public static AuxiliarService PayMethodServices() {
+    public static AuxiliaryService PayMethodServices() {
         if (payMethodService == null) {
-            payMethodService = new AuxiliarService(AuxiliarService.AuxiliarType.payMethod);
+            payMethodService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.payMethod);
         }
         return payMethodService;
     }
 
-    public static AuxiliarService SituationServices() {
+    public static AuxiliaryService SituationServices() {
         if (situationService == null) {
-            situationService = new AuxiliarService(AuxiliarService.AuxiliarType.situation);
+            situationService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.situation);
         }
         return situationService;
     }

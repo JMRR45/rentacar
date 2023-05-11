@@ -134,7 +134,7 @@ SELECT public.add_car(
 	(SELECT id FROM model WHERE name = 'Camaro'),
 	32456,
 	'Negro',
-	(SELECT id FROM situation WHERE name = 'available')
+	(SELECT id FROM situation WHERE name = 'rented')
 );
 SELECT public.add_car(
 	'B123456',

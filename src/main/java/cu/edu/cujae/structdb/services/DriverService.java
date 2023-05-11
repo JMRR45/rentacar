@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.DriverDTO;
+import cu.edu.cujae.structdb.dto.model.DriverDTO;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -14,7 +14,7 @@ public class DriverService {
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getDni());
             call.setString(2, dto.getName());
-            call.setInt(3, dto.getCategory());
+            call.setInt(3, dto.getCategory().getId());
             call.setString(4, dto.getAddress());
 
             call.execute();
@@ -47,7 +47,7 @@ public class DriverService {
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getDni());
             call.setString(2, dto.getName());
-            call.setInt(3, dto.getCategory());
+            call.setInt(3, dto.getCategory().getId());
             call.setString(4, dto.getAddress());
 
             call.execute();
@@ -76,7 +76,7 @@ public class DriverService {
                 DriverDTO dto = new DriverDTO();
                 dto.setDni(resultSet.getString(1));
                 dto.setName(resultSet.getString(2));
-                dto.setCategory(resultSet.getInt(3));
+                dto.setCategory(ServicesLocator.CategoryServices().getByID(resultSet.getInt(3)));
                 dto.setAddress(resultSet.getString(4));
                 list.add(dto);
             }
@@ -106,7 +106,7 @@ public class DriverService {
             }
             if (resultSet.next()) {
                 dto.setName(resultSet.getString(2));
-                dto.setCategory(resultSet.getInt(3));
+                dto.setCategory(ServicesLocator.CategoryServices().getByID(resultSet.getInt(3)));
                 dto.setAddress(resultSet.getString(4));
             }
             call.close();
