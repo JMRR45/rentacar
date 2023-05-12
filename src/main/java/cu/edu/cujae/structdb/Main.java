@@ -2,6 +2,7 @@ package cu.edu.cujae.structdb;
 
 import cu.edu.cujae.structdb.gui.LoginWindow;
 import cu.edu.cujae.structdb.gui.MainWindow;
+import cu.edu.cujae.structdb.services.ServicesLocator;
 
 import javax.swing.*;
 import java.util.HashMap;

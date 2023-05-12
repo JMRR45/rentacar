@@ -2,7 +2,7 @@
 CREATE TABLE user_local (
 	id SERIAL NOT NULL,
 	username TEXT NOT NULL,
-	password TEXT NOT NULL DEFAULT '',
+	password TEXT NOT NULL,
 	rol_id INT NOT NULL,
 	PRIMARY KEY ( id )
 );

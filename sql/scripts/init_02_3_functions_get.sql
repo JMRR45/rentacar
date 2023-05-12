@@ -1,5 +1,37 @@
 ﻿-- GETTERS FUNCTIONS
 
+-- GET ALL SUPPORT
+CREATE OR REPLACE FUNCTION get_all_rol() RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'rol';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM rol;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_all_user() RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'users';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM user_local;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+-- GET AUXILIAR
+CREATE OR REPLACE FUNCTION get_user_by_username(text) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'user';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM user_local WHERE username = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
 -- GET ALL AUXILIAR
 CREATE OR REPLACE FUNCTION get_all_situation() RETURNS refcursor AS $$
 DECLARE

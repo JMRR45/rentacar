@@ -38,7 +38,7 @@ public class LoginWindow extends JFrame {
         lblError.setVisible(false);
         UserDTO credentials = new UserDTO();
         credentials.setUsername(txtFldUsername.getText());
-        credentials.setPassword(txtFldPassword.getText());
+        credentials.setPassword(String.valueOf(txtFldPassword.getPassword()));
         AuthService.LoginResult result = ServicesLocator.AuthService().login(credentials);
         switch (result) {
             case wrongUsername:
@@ -48,6 +48,7 @@ public class LoginWindow extends JFrame {
             case wrongPassword:
                 lblError.setText("Error: Contraseña Incorrecta");
                 lblError.setVisible(true);
+                break;
             case correct:
                 MainWindow main = new MainWindow();
                 this.dispose();

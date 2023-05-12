@@ -110,7 +110,7 @@ public class ServicesLocator {
 
     public static UserService UserServices() {
         if (userService == null) {
-            userService = new UserService();
+            userService = new UserService("user");
         }
         return userService;
     }
