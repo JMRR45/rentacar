@@ -6,7 +6,7 @@ DECLARE
 	result refcursor := 'situations';
 BEGIN
 	OPEN result FOR
-	SELECT name FROM situation;
+	SELECT * FROM situation;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
@@ -16,7 +16,7 @@ DECLARE
 	result refcursor := 'paymethods';
 BEGIN
 	OPEN result FOR
-	SELECT name FROM pay_method;
+	SELECT * FROM pay_method;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
@@ -26,7 +26,7 @@ DECLARE
 	result refcursor := 'brands';
 BEGIN
 	OPEN result FOR
-	SELECT name FROM brand;
+	SELECT * FROM brand;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
@@ -36,7 +36,7 @@ DECLARE
 	result refcursor := 'countries';
 BEGIN
 	OPEN result FOR
-	SELECT name FROM country;
+	SELECT * FROM country;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
@@ -46,7 +46,7 @@ DECLARE
 	result refcursor := 'categories';
 BEGIN
 	OPEN result FOR
-	SELECT name FROM category;
+	SELECT * FROM category;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
@@ -56,7 +56,7 @@ DECLARE
 	result refcursor := 'models';
 BEGIN
 	OPEN result FOR
-	SELECT name FROM model;
+	SELECT * FROM model;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;

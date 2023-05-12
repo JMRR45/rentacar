@@ -27,15 +27,14 @@ CREATE TABLE driver (
 );
 
 CREATE TABLE contract (
-	id SERIAL NOT NULL,
 	car_plate VARCHAR(7) NOT NULL,
-	tourist_passport VARCHAR(11) NOT NULL,
 	start_date DATE NOT NULL,
+	tourist_passport VARCHAR(11) NOT NULL,
 	end_date DATE NOT NULL,
 	delivery_date DATE NOT NULL,
 	pay_method_id INTEGER NOT NULL,
 	driver_dni VARCHAR(11),
-	PRIMARY KEY ( id ) 
+	PRIMARY KEY ( car_plate, start_date )
 );
 
 -- Auxiliary Tables
