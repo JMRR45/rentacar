@@ -1,4 +1,16 @@
 ﻿-- INSERT FUNCTIONS
+CREATE OR REPLACE FUNCTION add_rol(rol_name text, rol_description text) RETURNS void AS $$
+BEGIN
+	INSERT INTO rol (name, description) VALUES (rol_name, rol_description);
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION add_user(user_username text, user_password text, user_rol integer) RETURNS void AS $$
+BEGIN
+	INSERT INTO user_local (username, password, rol_id) VALUES (user_username, user_password, user_rol);
+END; $$
+LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION add_situation(text) RETURNS void AS $$
 BEGIN
 	IF NOT EXISTS (SELECT name FROM situation WHERE name = $1) THEN
@@ -86,12 +98,12 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION add_contract(contract_plate varchar(7), contract_passport varchar(9), contract_start_date date, contract_end_date date, contract_delivery_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION add_contract(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_delivery_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
 BEGIN
-	INSERT INTO contract (car_plate, tourist_passport, start_date, end_date, delivery_date, pay_method_id, driver_dni) VALUES (
+	INSERT INTO contract (car_plate, start_date, tourist_passport, end_date, delivery_date, pay_method_id, driver_dni) VALUES (
 		contract_plate,
-		contract_passport,
 		contract_start_date,
+		contract_passport,
 		contract_end_date,
 		contract_delivery_date,
 		contract_pay_method,

@@ -32,13 +32,14 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_contract(contract_plate varchar(7), contract_passport varchar(9), contract_start_date date, contract_end_date date, contract_delivery_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION update_contract(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_delivery_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
 BEGIN
 	UPDATE contract SET
+		tourist_passport = contract_passport,
 		end_date = contract_end_date,
 		delivery_date = contract_delivery_date,
 		pay_mehtod = contract_pay_method,
 		driver_dni = contract_driver
-	WHERE car_plate = contract_plate AND tourist_passport AND start_date = contract_start_date;
+	WHERE car_plate = contract_plate AND start_date = contract_start_date;
 END; $$
 LANGUAGE plpgsql;

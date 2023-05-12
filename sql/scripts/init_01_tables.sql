@@ -1,4 +1,20 @@
-﻿-- Main Tables
+﻿-- Support Tables
+CREATE TABLE user_local (
+	id SERIAL NOT NULL,
+	username TEXT NOT NULL,
+	password TEXT NOT NULL DEFAULT '',
+	rol_id INT NOT NULL,
+	PRIMARY KEY ( id )
+);
+
+CREATE TABLE rol (
+	id SERIAL NOT NULL,
+	name TEXT NOT NULL,
+	description TEXT,
+	PRIMARY KEY ( id )
+);
+
+-- Main Tables
 CREATE TABLE tourist (
 	passport VARCHAR(9) NOT NULL,
 	name TEXT NOT NULL,

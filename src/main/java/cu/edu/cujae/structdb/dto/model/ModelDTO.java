@@ -1,14 +1,14 @@
-package cu.edu.cujae.structdb.dto.crud;
+package cu.edu.cujae.structdb.dto.model;
 
 public class ModelDTO {
     private int id;
     private String name;
-    private int brand;
+    private AuxiliaryDTO brand;
 
     public ModelDTO() {
     }
 
-    public ModelDTO(int id, String name, int brand) {
+    public ModelDTO(int id, String name, AuxiliaryDTO brand) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -30,11 +30,11 @@ public class ModelDTO {
         this.name = name;
     }
 
-    public int getBrand() {
+    public AuxiliaryDTO getBrand() {
         return brand;
     }
 
-    public void setBrand(int brand) {
+    public void setBrand(AuxiliaryDTO brand) {
         this.brand = brand;
     }
 }

@@ -61,13 +61,74 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
+-- GET AUXILIAR BY ID
+CREATE OR REPLACE FUNCTION get_situation_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'situation';
+BEGIN
+	OPEN result FOR
+	SELECT name FROM situation WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_paymethod_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'paymethod';
+BEGIN
+	OPEN result FOR
+	SELECT name FROM pay_method WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_brand_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'brand';
+BEGIN
+	OPEN result FOR
+	SELECT name FROM brand WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_country_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'country';
+BEGIN
+	OPEN result FOR
+	SELECT name FROM country WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_category_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'category';
+BEGIN
+	OPEN result FOR
+	SELECT name FROM category WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_model_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'model';
+BEGIN
+	OPEN result FOR
+	SELECT name, brand_id FROM model WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
 -- GET AUXILIAR BY NAME
 CREATE OR REPLACE FUNCTION get_situation_by_name(varchar) RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'situation';
 BEGIN
 	OPEN result FOR
-	SELECT id FROM model WHERE name = $1;
+	SELECT id FROM situation WHERE name = $1;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;
@@ -220,16 +281,6 @@ DECLARE
 BEGIN
 	OPEN result FOR
 	SELECT * FROM contract WHERE driver_dni = $1;
-	RETURN result;
-END; $$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION get_contract_by_id(integer) RETURNS refcursor AS $$
-DECLARE
-	result refcursor := 'contract';
-BEGIN
-	OPEN result FOR
-	SELECT * FROM contract WHERE id = $1;
 	RETURN result;
 END; $$
 LANGUAGE plpgsql;

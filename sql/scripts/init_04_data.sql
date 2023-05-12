@@ -1,4 +1,10 @@
 ﻿-- INSERT INITIAL DATA
+SELECT public.add_rol('visitant', 'Read: Reports.');
+SELECT public.add_rol('worker', 'Read: Bussines Info & Reports. Write: Bussines Info.');
+SELECT public.add_rol('admin', 'Read: All. Write: All');
+
+SELECT public.add_user('admin', '', 3);
+
 SELECT public.add_situation('available');
 SELECT public.add_situation('rented');
 SELECT public.add_situation('workshop');
@@ -134,7 +140,7 @@ SELECT public.add_car(
 	(SELECT id FROM model WHERE name = 'Camaro'),
 	32456,
 	'Negro',
-	(SELECT id FROM situation WHERE name = 'available')
+	(SELECT id FROM situation WHERE name = 'rented')
 );
 SELECT public.add_car(
 	'B123456',
@@ -147,8 +153,8 @@ SELECT public.add_car(
 -- Contracts
 SELECT public.add_contract(
 	'B123456',
-	'AEC071239',
 	'2023/02/13',
+	'AEC071239',
 	'2023/03/13',
 	'2023/03/13',
 	(SELECT id FROM pay_method WHERE name = 'cash'),
@@ -156,8 +162,8 @@ SELECT public.add_contract(
 );
 SELECT public.add_contract(
 	'B895690',
-	'ABC070807',
 	'2023/01/27',
+	'ABC070807',
 	'2023/04/15',
 	'2023/05/03',
 	(SELECT id FROM pay_method WHERE name = 'check'),
