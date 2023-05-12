@@ -1,14 +1,21 @@
 package cu.edu.cujae.structdb.services;
 
 import cu.edu.cujae.structdb.dto.model.TouristDTO;
+import cu.edu.cujae.structdb.utils.FunctionBuilder;
+import cu.edu.cujae.structdb.utils.FunctionType;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TouristService {
+public class TouristService extends AbstractService{
+
+    public TouristService(String table) {
+        super(table);
+    }
+
     public void insert(TouristDTO dto) {
-        String function = "{call add_tourist(?, ?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -28,7 +35,7 @@ public class TouristService {
     }
 
     public void remove(String passport) {
-        String function = "{call remove_tourist(?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -43,7 +50,7 @@ public class TouristService {
     }
 
     public void update(TouristDTO dto) {
-        String function = "{call update_tourist(?, ?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -64,7 +71,7 @@ public class TouristService {
 
     public List<TouristDTO> getAll() {
         List<TouristDTO> list = new LinkedList<>();
-        String function = "{?= call get_tourists()}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -97,7 +104,7 @@ public class TouristService {
     public TouristDTO getByPassport(String passport) {
         TouristDTO dto = new TouristDTO();
         dto.setPassport(passport);
-        String function = "{?= call get_tourist_by_passport(?)}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "passport");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);

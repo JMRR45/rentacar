@@ -55,6 +55,6 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION delete_contract(varchar(7), date) RETURNS void AS $$
 BEGIN
-	DELETE FROM contract WHERE car_plate = $1 AND start_date = date;
+	DELETE FROM contract WHERE car_plate = $1 AND start_date = $2;
 END; $$
 LANGUAGE plpgsql;

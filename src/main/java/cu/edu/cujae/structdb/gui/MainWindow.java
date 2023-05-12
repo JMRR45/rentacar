@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.List;
 
 public class MainWindow extends JFrame{
@@ -42,16 +43,18 @@ public class MainWindow extends JFrame{
     private Point initialClick;
     public MainWindow(){
         super("Rent A Car");
+        // This puts the JFrame inside the regular Windows Frame
+        pack();
+        // This is the rest of your code, i comment the setUndecorated method because it breaks the app :D
         setContentPane(bg);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setUndecorated(true);
+        //setUndecorated(true);
         setSize(800,600);
         setLocationRelativeTo(null);
         setVisible(true);
 
         RunListeners();
         DeclareTableModels();
-
     }
 
     private void RunListeners(){
@@ -187,7 +190,6 @@ public class MainWindow extends JFrame{
         driverDTM.addColumn("Dirección");
 
         contractDTM = new DefaultTableModel();
-        contractDTM.addColumn("ID");
         contractDTM.addColumn("Matrícula");
         contractDTM.addColumn("Pasaporte");
         contractDTM.addColumn("Fecha de inicio");
@@ -225,7 +227,7 @@ public class MainWindow extends JFrame{
         contractDTM.setRowCount(0);
         List<ContractDTO> list = ServicesLocator.contractServices().getAll();
         for (ContractDTO a : list) {
-            Object [] row = {a.getId(), a.getPlate(),a.getPassport(),a.getStartDate(),a.getEndDate(),a.getDeliveryDate(),a.getPayMethod().getName(),a.getDriver()};
+            Object [] row = {a.getPlate(), a.getStartDate(), a.getPassport(), a.getEndDate(), a.getDeliveryDate(), a.getPayMethod().getName(), a.getDriver()};
             contractDTM.addRow(row);
         }
     }
@@ -239,7 +241,7 @@ public class MainWindow extends JFrame{
         ServicesLocator.driverServices().remove((String)driverDTM.getValueAt(principalTable.getSelectedRow(), 0));
     }
     private void removeContract(){
-        ServicesLocator.contractServices().remove((Integer)(contractDTM.getValueAt(principalTable.getSelectedRow(), 0)));
+        ServicesLocator.contractServices().remove((String) (contractDTM.getValueAt(principalTable.getSelectedRow(), 0)), (LocalDate) contractDTM.getValueAt(principalTable.getSelectedRow(), 1));
     }
 }
 

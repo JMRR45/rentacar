@@ -6,7 +6,7 @@ public class AuthService {
     public enum LoginResult { correct, wrongUsername, wrongPassword };
     private UserDTO currentUser;
 
-    private LoginResult login(UserDTO credentials) {
+    public LoginResult login(UserDTO credentials) {
         UserDTO response = ServicesLocator.UserServices().getByUsername(credentials.getUsername());
 
         if (response == null) {

@@ -3,7 +3,6 @@ package cu.edu.cujae.structdb.dto.model;
 import java.time.LocalDate;
 
 public class ContractDTO {
-    private int id;
     private String plate;
     private String passport;
     private LocalDate startDate;
@@ -15,8 +14,7 @@ public class ContractDTO {
     public ContractDTO() {
     }
 
-    public ContractDTO(int id, String plate, String passport, LocalDate startDate, LocalDate endDate, LocalDate deliveryDate, AuxiliaryDTO payMethod, String driver) {
-        this.id = id;
+    public ContractDTO(String plate, String passport, LocalDate startDate, LocalDate endDate, LocalDate deliveryDate, AuxiliaryDTO payMethod, String driver) {
         this.plate = plate;
         this.passport = passport;
         this.startDate = startDate;
@@ -24,14 +22,6 @@ public class ContractDTO {
         this.deliveryDate = deliveryDate;
         this.payMethod = payMethod;
         this.driver = driver;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPlate() {

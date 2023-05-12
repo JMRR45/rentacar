@@ -40,70 +40,70 @@ public class ServicesLocator {
 
     public static TouristService touristServices() {
         if (touristService == null) {
-            touristService = new TouristService();
+            touristService = new TouristService("tourist");
         }
         return touristService;
     }
 
     public static CarService carServices() {
         if (carService == null) {
-            carService = new CarService();
+            carService = new CarService("car");
         }
         return carService;
     }
 
     public static DriverService driverServices() {
         if (driverService == null) {
-            driverService = new DriverService();
+            driverService = new DriverService("driver");
         }
         return driverService;
     }
 
     public static ContractService contractServices() {
         if (contractService == null) {
-            contractService = new ContractService();
+            contractService = new ContractService("contract");
         }
         return contractService;
     }
 
     public static ModelService modelServices() {
         if (modelService == null) {
-            modelService = new ModelService();
+            modelService = new ModelService("model");
         }
         return modelService;
     }
 
     public static AuxiliaryService brandServices() {
         if (brandService == null) {
-            brandService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.brand);
+            brandService = new AuxiliaryService("brand");
         }
         return brandService;
     }
 
     public static AuxiliaryService categoryServices() {
         if (categoryService == null) {
-            categoryService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.category);
+            categoryService = new AuxiliaryService("category");
         }
         return categoryService;
     }
 
     public static AuxiliaryService countryServices() {
         if (countryService == null) {
-            countryService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.country);
+            countryService = new AuxiliaryService("country");
         }
         return countryService;
     }
 
     public static AuxiliaryService payMethodServices() {
         if (payMethodService == null) {
-            payMethodService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.payMethod);
+            payMethodService = new AuxiliaryService("paymethod");
         }
         return payMethodService;
     }
 
     public static AuxiliaryService situationServices() {
         if (situationService == null) {
-            situationService = new AuxiliaryService(AuxiliaryService.AuxiliaryType.situation);
+            situationService = new AuxiliaryService("situation");
         }
         return situationService;
     }

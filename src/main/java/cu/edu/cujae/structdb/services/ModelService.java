@@ -1,14 +1,21 @@
 package cu.edu.cujae.structdb.services;
 
 import cu.edu.cujae.structdb.dto.model.ModelDTO;
+import cu.edu.cujae.structdb.utils.FunctionBuilder;
+import cu.edu.cujae.structdb.utils.FunctionType;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ModelService {
+public class ModelService extends AbstractService{
+
+    public ModelService(String table) {
+        super(table);
+    }
+
     public void insert(ModelDTO dto) {
-        String function = "{call add_model(?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 2, null);;
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -24,7 +31,7 @@ public class ModelService {
     }
 
     public void remove(String name) {
-        String function = "{call remove_model(?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);;;
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -40,7 +47,7 @@ public class ModelService {
 
     public List<ModelDTO> getAll() {
         List<ModelDTO> list = new LinkedList<>();
-        String function = "{?= call get_models()}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -69,7 +76,7 @@ public class ModelService {
 
     public ModelDTO getByID(int id) {
         ModelDTO dto = new ModelDTO();
-        String function = "{?= call get_model_by_id(?)}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "id");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);

@@ -1,14 +1,20 @@
 package cu.edu.cujae.structdb.services;
 
 import cu.edu.cujae.structdb.dto.model.CarDTO;
+import cu.edu.cujae.structdb.utils.FunctionBuilder;
+import cu.edu.cujae.structdb.utils.FunctionType;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CarService {
+public class CarService extends AbstractService{
+
+    public CarService(String table) {
+        super(table);
+    }
     public void insert(CarDTO dto) {
-        String function = "{call add_car(?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 5, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -27,7 +33,7 @@ public class CarService {
     }
 
     public void remove(String plate) {
-        String function = "{call remove_car(?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -42,7 +48,7 @@ public class CarService {
     }
 
     public void update(CarDTO dto) {
-        String function = "{call update_car(?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 5, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -62,7 +68,7 @@ public class CarService {
 
     public List<CarDTO> getAll() {
         List<CarDTO> list = new LinkedList<>();
-        String function = "{?= call get_cars()}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -94,7 +100,7 @@ public class CarService {
     public CarDTO getByPlate(String plate) {
         CarDTO dto = new CarDTO();
         dto.setPlate(plate);
-        String function = "{?= call get_car_by_plate(?)}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "plate");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
