@@ -9,6 +9,7 @@ import java.sql.SQLException;
  * TODO: List Services
  */
 public class ServicesLocator {
+    private static String database;
     private static TouristService touristService;
     private static CarService carService;
     private static DriverService driverService;
@@ -31,11 +32,15 @@ public class ServicesLocator {
     public static java.sql.Connection getConnection() {
         Connection connection = null;
         try {
-            connection = new Connection("localhost", "rentacar", "postgres", "rentacar");
+            connection = new Connection("localhost", database, "postgres", "rentacar");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return connection.getConnection();
+    }
+
+    public static void setDatabase(String db) {
+        database = "rentacar";
     }
 
     public static TouristService touristServices() {

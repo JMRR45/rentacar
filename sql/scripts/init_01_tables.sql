@@ -91,6 +91,13 @@ CREATE TABLE pay_method (
 	PRIMARY KEY ( id )
 );
 
+CREATE TABLE fee (
+	id SERIAL NOT NULL,
+	name TEXT NOT NULL,
+	day_cost NOT NULL,
+	PRIMARY KEY ( id )
+);
+
 -- Foreing Keys Definition
 ALTER TABLE tourist ADD CONSTRAINT fk_tourist_country FOREIGN KEY ( country_id ) REFERENCES country ( id );
 ALTER TABLE car ADD CONSTRAINT fk_car_model FOREIGN KEY ( model_id ) REFERENCES model ( id );

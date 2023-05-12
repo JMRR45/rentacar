@@ -36,6 +36,9 @@ public class LoginWindow extends JFrame {
 
     private void login() {
         lblError.setVisible(false);
+
+        ServicesLocator.setDatabase((String) cmBoxDb.getSelectedItem());
+
         UserDTO credentials = new UserDTO();
         credentials.setUsername(txtFldUsername.getText());
         credentials.setPassword(String.valueOf(txtFldPassword.getPassword()));
@@ -50,7 +53,8 @@ public class LoginWindow extends JFrame {
                 lblError.setVisible(true);
                 break;
             case correct:
-                MainWindow main = new MainWindow();
+                HomeWindow home = new HomeWindow();
+                home.setVisible(true);
                 this.dispose();
         }
     }
@@ -66,6 +70,8 @@ public class LoginWindow extends JFrame {
         txtFldPassword = new JPasswordField();
         lblError = new JLabel();
         buttonBar = new JPanel();
+        label3 = new JLabel();
+        cmBoxDb = new JComboBox<>();
         btnLogin = new JButton();
 
         //======== this ========
@@ -76,11 +82,12 @@ public class LoginWindow extends JFrame {
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(
-            0,0,0,0), "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e",javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder
-            .BOTTOM,new java.awt.Font("D\u0069al\u006fg",java.awt.Font.BOLD,12),java.awt.Color.
-            red),dialogPane. getBorder()));dialogPane. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.
-            beans.PropertyChangeEvent e){if("\u0062or\u0064er".equals(e.getPropertyName()))throw new RuntimeException();}});
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
+            border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER
+            , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font
+            .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (
+            new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order"
+            .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -97,15 +104,15 @@ public class LoginWindow extends JFrame {
                     "[]"));
 
                 //---- label1 ----
-                label1.setText("Nombre de Usuario");
+                label1.setText("Nombre de Usuario:");
                 label1.setLabelFor(txtFldUsername);
                 contentPanel.add(label1, "cell 0 0");
                 contentPanel.add(txtFldUsername, "cell 1 0");
 
                 //---- label2 ----
-                label2.setText("Contrase\u00f1a");
+                label2.setText("Contrase\u00f1a:");
                 label2.setLabelFor(txtFldPassword);
-                contentPanel.add(label2, "cell 0 1");
+                contentPanel.add(label2, "cell 0 1,alignx right,growx 0");
                 contentPanel.add(txtFldPassword, "cell 1 1");
 
                 //---- lblError ----
@@ -125,9 +132,24 @@ public class LoginWindow extends JFrame {
                     "[fill]" +
                     "[fill]" +
                     "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
                     "[button,left]",
                     // rows
                     null));
+
+                //---- label3 ----
+                label3.setText("Sucursal:");
+                label3.setLabelFor(cmBoxDb);
+                buttonBar.add(label3, "cell 0 0");
+
+                //---- cmBoxDb ----
+                cmBoxDb.setModel(new DefaultComboBoxModel<>(new String[] {
+                    "La Habana"
+                }));
+                buttonBar.add(cmBoxDb, "cell 1 0 3 1");
 
                 //---- btnLogin ----
                 btnLogin.setText("Autenticarse");
@@ -138,7 +160,7 @@ public class LoginWindow extends JFrame {
                     }
                 });
                 btnLogin.addActionListener(e -> btnLogin(e));
-                buttonBar.add(btnLogin, "cell 3 0");
+                buttonBar.add(btnLogin, "cell 9 0");
             }
             dialogPane.add(buttonBar, BorderLayout.SOUTH);
         }
@@ -158,6 +180,8 @@ public class LoginWindow extends JFrame {
     private JPasswordField txtFldPassword;
     private JLabel lblError;
     private JPanel buttonBar;
+    private JLabel label3;
+    private JComboBox<String> cmBoxDb;
     private JButton btnLogin;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
