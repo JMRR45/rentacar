@@ -1,16 +1,16 @@
-package cu.edu.cujae.structdb.dto.crud;
+package cu.edu.cujae.structdb.dto.model;
 
 public class CarDTO {
     private String plate;
-    private int model;
+    private ModelDTO model;
     private int cantKm;
     private String color;
-    private int situation;
+    private AuxiliaryDTO situation;
 
     public CarDTO() {
     }
 
-    public CarDTO(String plate, int model, int cantKm, String color, int situation) {
+    public CarDTO(String plate, ModelDTO model, int cantKm, String color, AuxiliaryDTO situation) {
         this.plate = plate;
         this.model = model;
         this.cantKm = cantKm;
@@ -26,11 +26,11 @@ public class CarDTO {
         this.plate = plate;
     }
 
-    public int getModel() {
+    public ModelDTO getModel() {
         return model;
     }
 
-    public void setModel(int model) {
+    public void setModel(ModelDTO model) {
         this.model = model;
     }
 
@@ -50,11 +50,11 @@ public class CarDTO {
         this.color = color;
     }
 
-    public int getSituation() {
+    public AuxiliaryDTO getSituation() {
         return situation;
     }
 
-    public void setSituation(int situation) {
+    public void setSituation(AuxiliaryDTO situation) {
         this.situation = situation;
     }
 }

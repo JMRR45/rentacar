@@ -1,22 +1,28 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.CarDTO;
+import cu.edu.cujae.structdb.dto.model.CarDTO;
+import cu.edu.cujae.structdb.utils.FunctionBuilder;
+import cu.edu.cujae.structdb.utils.FunctionType;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CarService {
+public class CarService extends AbstractService{
+
+    public CarService(String table) {
+        super(table);
+    }
     public void insert(CarDTO dto) {
-        String function = "{call add_car(?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 5, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getPlate());
-            call.setInt(2, dto.getModel());
+            call.setInt(2, dto.getModel().getId());
             call.setInt(3, dto.getCantKm());
             call.setString(4, dto.getColor());
-            call.setInt(5, dto.getSituation());
+            call.setInt(5, dto.getSituation().getId());
 
             call.execute();
             call.close();
@@ -27,7 +33,7 @@ public class CarService {
     }
 
     public void remove(String plate) {
-        String function = "{call remove_car(?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -42,15 +48,15 @@ public class CarService {
     }
 
     public void update(CarDTO dto) {
-        String function = "{call update_car(?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 5, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getPlate());
-            call.setInt(2, dto.getModel());
+            call.setInt(2, dto.getModel().getId());
             call.setInt(3, dto.getCantKm());
             call.setString(4, dto.getColor());
-            call.setInt(5, dto.getSituation());
+            call.setInt(5, dto.getSituation().getId());
 
             call.execute();
             call.close();
@@ -62,7 +68,7 @@ public class CarService {
 
     public List<CarDTO> getAll() {
         List<CarDTO> list = new LinkedList<>();
-        String function = "{?= call get_cars()}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -77,10 +83,10 @@ public class CarService {
             while (resultSet.next()) {
                 CarDTO dto = new CarDTO();
                 dto.setPlate(resultSet.getString(1));
-                dto.setModel(resultSet.getInt(2));
+                dto.setModel(ServicesLocator.modelServices().getByID(resultSet.getInt(2)));
                 dto.setCantKm(resultSet.getInt(3));
                 dto.setColor(resultSet.getString(4));
-                dto.setSituation(resultSet.getInt(5));
+                dto.setSituation(ServicesLocator.situationServices().getByID(resultSet.getInt(5)));
                 list.add(dto);
             }
             call.close();
@@ -94,7 +100,7 @@ public class CarService {
     public CarDTO getByPlate(String plate) {
         CarDTO dto = new CarDTO();
         dto.setPlate(plate);
-        String function = "{?= call get_car_by_plate(?)}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "plate");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -108,10 +114,10 @@ public class CarService {
                 return null;
             }
             if (resultSet.next()) {
-                dto.setModel(resultSet.getInt(2));
+                dto.setModel(ServicesLocator.modelServices().getByID(resultSet.getInt(2)));
                 dto.setCantKm(resultSet.getInt(3));
                 dto.setColor(resultSet.getString(4));
-                dto.setSituation(resultSet.getInt(5));
+                dto.setSituation(ServicesLocator.situationServices().getByID(resultSet.getInt(5)));
             }
             call.close();
             con.close();

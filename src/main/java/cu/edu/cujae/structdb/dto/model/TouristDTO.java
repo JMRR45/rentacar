@@ -1,4 +1,4 @@
-package cu.edu.cujae.structdb.dto.crud;
+package cu.edu.cujae.structdb.dto.model;
 
 public class TouristDTO {
     private String passport;
@@ -6,13 +6,13 @@ public class TouristDTO {
     private int age;
     private String sex;
     private String contact;
-    private int country;
+    private AuxiliaryDTO country;
 
     public TouristDTO() {
 
     }
 
-    public TouristDTO(String passport, String name, int age, String sex, String contact, int country) {
+    public TouristDTO(String passport, String name, int age, String sex, String contact, AuxiliaryDTO country) {
         this.passport = passport;
         this.name = name;
         this.age = age;
@@ -61,11 +61,11 @@ public class TouristDTO {
         this.contact = contact;
     }
 
-    public int getCountry() {
+    public AuxiliaryDTO getCountry() {
         return country;
     }
 
-    public void setCountry(int country) {
+    public void setCountry(AuxiliaryDTO country) {
         this.country = country;
     }
 }

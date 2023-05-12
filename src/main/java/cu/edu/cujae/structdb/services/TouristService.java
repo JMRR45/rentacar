@@ -1,14 +1,21 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.TouristDTO;
+import cu.edu.cujae.structdb.dto.model.TouristDTO;
+import cu.edu.cujae.structdb.utils.FunctionBuilder;
+import cu.edu.cujae.structdb.utils.FunctionType;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TouristService {
+public class TouristService extends AbstractService{
+
+    public TouristService(String table) {
+        super(table);
+    }
+
     public void insert(TouristDTO dto) {
-        String function = "{call add_tourist(?, ?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -17,7 +24,7 @@ public class TouristService {
             call.setInt(3, dto.getAge());
             call.setString(4, dto.getSex());
             call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setInt(6, dto.getCountry().getId());
 
             call.execute();
             call.close();
@@ -28,7 +35,7 @@ public class TouristService {
     }
 
     public void remove(String passport) {
-        String function = "{call remove_tourist(?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -43,7 +50,7 @@ public class TouristService {
     }
 
     public void update(TouristDTO dto) {
-        String function = "{call update_tourist(?, ?, ?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -52,7 +59,7 @@ public class TouristService {
             call.setInt(3, dto.getAge());
             call.setString(4, dto.getSex());
             call.setString(5, dto.getContact());
-            call.setInt(6, dto.getCountry());
+            call.setInt(6, dto.getCountry().getId());
 
             call.execute();
             call.close();
@@ -64,7 +71,7 @@ public class TouristService {
 
     public List<TouristDTO> getAll() {
         List<TouristDTO> list = new LinkedList<>();
-        String function = "{?= call get_tourists()}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -83,6 +90,7 @@ public class TouristService {
                 dto.setAge(resultSet.getInt(3));
                 dto.setSex(resultSet.getString(4));
                 dto.setContact(resultSet.getString(5));
+                dto.setCountry(ServicesLocator.countryServices().getByID(resultSet.getInt(6)));
                 list.add(dto);
             }
             call.close();
@@ -96,7 +104,7 @@ public class TouristService {
     public TouristDTO getByPassport(String passport) {
         TouristDTO dto = new TouristDTO();
         dto.setPassport(passport);
-        String function = "{?= call get_tourist_by_passport(?)}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "passport");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -113,7 +121,7 @@ public class TouristService {
                 dto.setAge(resultSet.getInt(3));
                 dto.setSex(resultSet.getString(4));
                 dto.setContact(resultSet.getString(5));
-                dto.setCountry(resultSet.getInt(6));
+                dto.setCountry(ServicesLocator.countryServices().getByID(resultSet.getInt(6)));
             }
             call.close();
             con.close();

@@ -1,13 +1,13 @@
-package cu.edu.cujae.structdb.dto.crud;
+package cu.edu.cujae.structdb.dto.model;
 
-public class AuxiliarDTO {
+public class AuxiliaryDTO {
     private int id;
     private String name;
 
-    public AuxiliarDTO() {
+    public AuxiliaryDTO() {
     }
 
-    public AuxiliarDTO(int id, String name) {
+    public AuxiliaryDTO(int id, String name) {
         this.id = id;
         this.name = name;
     }

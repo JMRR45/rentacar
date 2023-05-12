@@ -1,15 +1,15 @@
-package cu.edu.cujae.structdb.dto.crud;
+package cu.edu.cujae.structdb.dto.model;
 
 public class DriverDTO {
     private String dni;
     private String name;
-    private int category;
+    private AuxiliaryDTO category;
     private String address;
 
     public DriverDTO() {
     }
 
-    public DriverDTO(String dni, String name, int category, String address) {
+    public DriverDTO(String dni, String name, AuxiliaryDTO category, String address) {
         this.dni = dni;
         this.name = name;
         this.category = category;
@@ -32,11 +32,11 @@ public class DriverDTO {
         this.name = name;
     }
 
-    public int getCategory() {
+    public AuxiliaryDTO getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(AuxiliaryDTO category) {
         this.category = category;
     }
 

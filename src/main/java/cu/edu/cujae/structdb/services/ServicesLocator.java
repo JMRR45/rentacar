@@ -14,11 +14,15 @@ public class ServicesLocator {
     private static DriverService driverService;
     private static ContractService contractService;
     private static ModelService modelService;
-    private static AuxiliarService brandService;
-    private static AuxiliarService categoryService;
-    private static AuxiliarService countryService;
-    private static AuxiliarService payMethodService;
-    private static AuxiliarService situationService;
+    private static AuxiliaryService brandService;
+    private static AuxiliaryService categoryService;
+    private static AuxiliaryService countryService;
+    private static AuxiliaryService payMethodService;
+    private static AuxiliaryService situationService;
+    private static UserService userService;
+    private static RolService rolService;
+    private static AuthService authService;
+
     /**
      * Open a new connection to the Database
      *
@@ -27,80 +31,101 @@ public class ServicesLocator {
     public static java.sql.Connection getConnection() {
         Connection connection = null;
         try {
-            connection = new Connection("localhost", "rentacar", "postgres", "100801JMRR45*r");
+            connection = new Connection("localhost", "rentacar", "postgres", "rentacar");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return connection.getConnection();
     }
 
-    public static TouristService TouristServices() {
+    public static TouristService touristServices() {
         if (touristService == null) {
-            touristService = new TouristService();
+            touristService = new TouristService("tourist");
         }
         return touristService;
     }
 
-    public static CarService CarServices() {
+    public static CarService carServices() {
         if (carService == null) {
-            carService = new CarService();
+            carService = new CarService("car");
         }
         return carService;
     }
 
-    public static DriverService DriverServices() {
+    public static DriverService driverServices() {
         if (driverService == null) {
-            driverService = new DriverService();
+            driverService = new DriverService("driver");
         }
         return driverService;
     }
 
-    public static ContractService ContractServices() {
+    public static ContractService contractServices() {
         if (contractService == null) {
-            contractService = new ContractService();
+            contractService = new ContractService("contract");
         }
         return contractService;
     }
 
-    public static ModelService ModelServices() {
+    public static ModelService modelServices() {
         if (modelService == null) {
-            modelService = new ModelService();
+            modelService = new ModelService("model");
         }
         return modelService;
     }
 
-    public static AuxiliarService BrandServices() {
+    public static AuxiliaryService brandServices() {
         if (brandService == null) {
-            brandService = new AuxiliarService(AuxiliarService.AuxiliarType.brand);
+            brandService = new AuxiliaryService("brand");
         }
         return brandService;
     }
 
-    public static AuxiliarService CategoryServices() {
+    public static AuxiliaryService categoryServices() {
         if (categoryService == null) {
-            categoryService = new AuxiliarService(AuxiliarService.AuxiliarType.category);
+            categoryService = new AuxiliaryService("category");
         }
         return categoryService;
     }
 
-    public static AuxiliarService CountryServices() {
+    public static AuxiliaryService countryServices() {
         if (countryService == null) {
-            countryService = new AuxiliarService(AuxiliarService.AuxiliarType.country);
+            countryService = new AuxiliaryService("country");
         }
         return countryService;
     }
 
-    public static AuxiliarService PayMethodServices() {
+    public static AuxiliaryService payMethodServices() {
         if (payMethodService == null) {
-            payMethodService = new AuxiliarService(AuxiliarService.AuxiliarType.payMethod);
+            payMethodService = new AuxiliaryService("paymethod");
         }
         return payMethodService;
     }
 
-    public static AuxiliarService SituationServices() {
+    public static AuxiliaryService situationServices() {
         if (situationService == null) {
-            situationService = new AuxiliarService(AuxiliarService.AuxiliarType.situation);
+            situationService = new AuxiliaryService("situation");
         }
         return situationService;
+    }
+
+    public static UserService UserServices() {
+        if (userService == null) {
+            userService = new UserService();
+        }
+        return userService;
+    }
+
+    public static RolService RolServices() {
+        if (rolService == null) {
+            rolService = new RolService();
+        }
+        return rolService;
+    }
+
+    public static AuthService AuthService() {
+        if (authService == null) {
+            authService = new AuthService();
+        }
+        return authService;
     }
 }

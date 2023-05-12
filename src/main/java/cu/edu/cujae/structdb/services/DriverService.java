@@ -1,20 +1,27 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.crud.DriverDTO;
+import cu.edu.cujae.structdb.dto.model.DriverDTO;
+import cu.edu.cujae.structdb.utils.FunctionBuilder;
+import cu.edu.cujae.structdb.utils.FunctionType;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DriverService {
+public class DriverService extends AbstractService{
+
+    public DriverService(String table) {
+        super(table);
+    }
+
     public void insert(DriverDTO dto) {
-        String function = "{call add_driver(?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 4, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getDni());
             call.setString(2, dto.getName());
-            call.setInt(3, dto.getCategory());
+            call.setInt(3, dto.getCategory().getId());
             call.setString(4, dto.getAddress());
 
             call.execute();
@@ -26,7 +33,7 @@ public class DriverService {
     }
 
     public void remove(String dni) {
-        String function = "{call remove_driver(?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -41,13 +48,13 @@ public class DriverService {
     }
 
     public void update(DriverDTO dto) {
-        String function = "{call update_driver(?, ?, ?, ?)}";
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 4, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getDni());
             call.setString(2, dto.getName());
-            call.setInt(3, dto.getCategory());
+            call.setInt(3, dto.getCategory().getId());
             call.setString(4, dto.getAddress());
 
             call.execute();
@@ -60,7 +67,7 @@ public class DriverService {
 
     public List<DriverDTO> getAll() {
         List<DriverDTO> list = new LinkedList<>();
-        String function = "{?= call get_cars()}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -76,7 +83,7 @@ public class DriverService {
                 DriverDTO dto = new DriverDTO();
                 dto.setDni(resultSet.getString(1));
                 dto.setName(resultSet.getString(2));
-                dto.setCategory(resultSet.getInt(3));
+                dto.setCategory(ServicesLocator.categoryServices().getByID(resultSet.getInt(3)));
                 dto.setAddress(resultSet.getString(4));
                 list.add(dto);
             }
@@ -91,7 +98,7 @@ public class DriverService {
     public DriverDTO getByDni(String dni) {
         DriverDTO dto = new DriverDTO();
         dto.setDni(dni);
-        String function = "{?= call get_driver_by_dni(?)}";
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "dni");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -106,7 +113,7 @@ public class DriverService {
             }
             if (resultSet.next()) {
                 dto.setName(resultSet.getString(2));
-                dto.setCategory(resultSet.getInt(3));
+                dto.setCategory(ServicesLocator.categoryServices().getByID(resultSet.getInt(3)));
                 dto.setAddress(resultSet.getString(4));
             }
             call.close();

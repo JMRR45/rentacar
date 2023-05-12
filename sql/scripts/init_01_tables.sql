@@ -1,4 +1,20 @@
-﻿-- Main Tables
+﻿-- Support Tables
+CREATE TABLE user_local (
+	id SERIAL NOT NULL,
+	username TEXT NOT NULL,
+	password TEXT NOT NULL DEFAULT '',
+	rol_id INT NOT NULL,
+	PRIMARY KEY ( id )
+);
+
+CREATE TABLE rol (
+	id SERIAL NOT NULL,
+	name TEXT NOT NULL,
+	description TEXT,
+	PRIMARY KEY ( id )
+);
+
+-- Main Tables
 CREATE TABLE tourist (
 	passport VARCHAR(9) NOT NULL,
 	name TEXT NOT NULL,
@@ -27,15 +43,14 @@ CREATE TABLE driver (
 );
 
 CREATE TABLE contract (
-	id SERIAL NOT NULL,
 	car_plate VARCHAR(7) NOT NULL,
-	tourist_passport VARCHAR(11) NOT NULL,
 	start_date DATE NOT NULL,
+	tourist_passport VARCHAR(11) NOT NULL,
 	end_date DATE NOT NULL,
 	delivery_date DATE NOT NULL,
 	pay_method_id INTEGER NOT NULL,
 	driver_dni VARCHAR(11),
-	PRIMARY KEY ( id ) 
+	PRIMARY KEY ( car_plate, start_date )
 );
 
 -- Auxiliary Tables

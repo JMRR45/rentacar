@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.services;
 
-import cu.edu.cujae.structdb.dto.model.ModelDTO;
+import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
 
@@ -8,19 +8,26 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ModelService extends AbstractService{
+public class AuxiliaryService extends AbstractService{
+    private final String insertFunction;
+    private final String removeFunction;
+    private final String getFunction;
+    private final String getByIdFunction;
 
-    public ModelService(String table) {
+    public AuxiliaryService(String table) {
         super(table);
+        insertFunction = FunctionBuilder.newFunction(false, FunctionType.insert, table, 1, null);
+        removeFunction = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
+        getFunction = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        getByIdFunction = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "id");
     }
 
-    public void insert(ModelDTO dto) {
-        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 2, null);;
+    public void insert(AuxiliaryDTO dto) {
+        String function = insertFunction;
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getName());
-            call.setInt(2, dto.getBrand().getId());
 
             call.execute();
             call.close();
@@ -31,7 +38,7 @@ public class ModelService extends AbstractService{
     }
 
     public void remove(String name) {
-        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);;;
+        String function = removeFunction;
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -45,9 +52,9 @@ public class ModelService extends AbstractService{
         }
     }
 
-    public List<ModelDTO> getAll() {
-        List<ModelDTO> list = new LinkedList<>();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+    public List<AuxiliaryDTO> getAll() {
+        List<AuxiliaryDTO> list = new LinkedList<>();
+        String function = getFunction;
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -60,10 +67,9 @@ public class ModelService extends AbstractService{
                 return null;
             }
             while (resultSet.next()) {
-                ModelDTO dto = new ModelDTO();
+                AuxiliaryDTO dto = new AuxiliaryDTO();
                 dto.setId(resultSet.getInt(1));
                 dto.setName(resultSet.getString(2));
-                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(3)));
                 list.add(dto);
             }
             call.close();
@@ -74,9 +80,9 @@ public class ModelService extends AbstractService{
         return list;
     }
 
-    public ModelDTO getByID(int id) {
-        ModelDTO dto = new ModelDTO();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "id");
+    public AuxiliaryDTO getByID(int id) {
+        AuxiliaryDTO dto = new AuxiliaryDTO();
+        String function = getByIdFunction;
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -92,7 +98,6 @@ public class ModelService extends AbstractService{
             if (resultSet.next()) {
                 dto.setId(id);
                 dto.setName(resultSet.getString(1));
-                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(2)));
             }
             call.close();
             con.close();
