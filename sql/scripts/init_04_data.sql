@@ -3,7 +3,7 @@ SELECT public.insert_rol('visitante', 'Read: Reports.');
 SELECT public.insert_rol('trabajador', 'Read: Bussines Info & Reports. Write: Bussines Info.');
 SELECT public.insert_rol('administrador', 'Read: All. Write: All');
 
-SELECT public.insert_user('admin', '', 3);
+SELECT public.insert_user('admin', 'admin', 3);
 
 SELECT public.insert_situation('disponible');
 SELECT public.insert_situation('alquilado');
