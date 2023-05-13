@@ -47,7 +47,9 @@ CREATE TABLE contract (
 	start_date DATE NOT NULL,
 	tourist_passport VARCHAR(11) NOT NULL,
 	end_date DATE NOT NULL,
-	delivery_date DATE NOT NULL,
+	start_km INTEGER NOT NULL,
+	delivery_date DATE,
+	end_km INTEGER,
 	pay_method_id INTEGER NOT NULL,
 	driver_dni VARCHAR(11),
 	PRIMARY KEY ( car_plate, start_date )
@@ -94,7 +96,7 @@ CREATE TABLE pay_method (
 CREATE TABLE fee (
 	id SERIAL NOT NULL,
 	name TEXT NOT NULL,
-	day_cost NOT NULL,
+	day_cost INTEGER NOT NULL,
 	PRIMARY KEY ( id )
 );
 

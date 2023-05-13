@@ -1,4 +1,23 @@
 ﻿-- UPDATE FUNCTIONS
+CREATE OR REPLACE FUNCTION update_fee(fee_id integer, fee_name text, fee_cost text) RETURNS void AS $$
+BEGIN
+	UPDATE fee SET name = fee_name, day_cost = fee_cost WHERE id = fee_id;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_rol(rol_id integer, rol_name text, rol_description text) RETURNS void AS $$
+BEGIN
+	UPDATE rol SET name = rol_name, description = rol_description WHERE id = rol_id;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_user(user_id integer, user_username text, user_password text, user_rol integer) RETURNS void AS $$
+BEGIN
+	UPDATE user_local SET username = user_username, password = user_password, rol_id = user_rol WHERE id = user_id;
+	INSERT INTO user_local (username, password, rol_id) VALUES (user_username, user_password, user_rol);
+END; $$
+LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION update_driver(driver_dni varchar(11), driver_name text, driver_category integer, driver_address text) RETURNS void AS $$
 BEGIN
 	UPDATE driver SET
@@ -32,12 +51,14 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_contract(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_delivery_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION update_contract(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_start_km integer, contract_delivery_date date, contract_end_km integer, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
 BEGIN
 	UPDATE contract SET
 		tourist_passport = contract_passport,
 		end_date = contract_end_date,
+		start_km = contract_start_km,
 		delivery_date = contract_delivery_date,
+		end_km = contract_end_km,
 		pay_mehtod = contract_pay_method,
 		driver_dni = contract_driver
 	WHERE car_plate = contract_plate AND start_date = contract_start_date;

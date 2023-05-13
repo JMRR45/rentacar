@@ -4,8 +4,11 @@
 
 package cu.edu.cujae.structdb.gui;
 
+import cu.edu.cujae.structdb.utils.TableType;
+import net.miginfocom.swing.MigLayout;
+
 import javax.swing.*;
-import net.miginfocom.swing.*;
+import java.awt.event.ActionEvent;
 
 /**
  * @author carlosd.inc
@@ -13,6 +16,46 @@ import net.miginfocom.swing.*;
 public class HomeWindow extends JFrame {
     public HomeWindow() {
         initComponents();
+    }
+
+    private void mItemSeePayMehtod(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.paymethod);
+        window.setVisible(true);
+    }
+
+    private void mItemSeeSituation(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.situation);
+        window.setVisible(true);
+    }
+
+    private void mItemSeeBrand(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.brand);
+        window.setVisible(true);
+    }
+
+    private void mItemSeeModel(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.model);
+        window.setVisible(true);
+    }
+
+    private void mItemSeeCategory(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.category);
+        window.setVisible(true);
+    }
+
+    private void mItemCountry(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.country);
+        window.setVisible(true);
+    }
+
+    private void mItemSeeUser(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.user);
+        window.setVisible(true);
+    }
+
+    private void mItemSeeRol(ActionEvent e) {
+        ViewWindow window = new ViewWindow(TableType.rol);
+        window.setVisible(true);
     }
 
     private void initComponents() {
@@ -23,9 +66,11 @@ public class HomeWindow extends JFrame {
         menuUser = new JMenu();
         mItemCreateUser = new JMenuItem();
         mItemDeleteUser = new JMenuItem();
+        mItemSeeUser = new JMenuItem();
         menuRol = new JMenu();
         mItemCreateRol = new JMenuItem();
         mItemDeleteRol = new JMenuItem();
+        mItemSeeRol = new JMenuItem();
         menuManage = new JMenu();
         menuContract = new JMenu();
         mItemCreateContract = new JMenuItem();
@@ -54,9 +99,18 @@ public class HomeWindow extends JFrame {
         mItemDeleteCategoy = new JMenuItem();
         menuSee = new JMenu();
         mItemGetContracts = new JMenuItem();
+        mItemGetOpen = new JMenuItem();
+        mItemGetClosed = new JMenuItem();
         mItemGetCars = new JMenuItem();
         mItemGetDrivers = new JMenuItem();
         mItemGetTourists = new JMenuItem();
+        menuOthers = new JMenu();
+        mItemSeePayMehtod = new JMenuItem();
+        mItemSeeSituation = new JMenuItem();
+        mItemSeeBrand = new JMenuItem();
+        mItemSeeModel = new JMenuItem();
+        mItemSeeCategory = new JMenuItem();
+        mItemCountry = new JMenuItem();
         menuReports = new JMenu();
         mItemRport1 = new JMenuItem();
         mItemReport2 = new JMenuItem();
@@ -100,6 +154,11 @@ public class HomeWindow extends JFrame {
                     //---- mItemDeleteUser ----
                     mItemDeleteUser.setText("Eliminar Usuario");
                     menuUser.add(mItemDeleteUser);
+
+                    //---- mItemSeeUser ----
+                    mItemSeeUser.setText("Ver Usuarios");
+                    mItemSeeUser.addActionListener(e -> mItemSeeUser(e));
+                    menuUser.add(mItemSeeUser);
                 }
                 menuAdmin.add(menuUser);
 
@@ -114,6 +173,11 @@ public class HomeWindow extends JFrame {
                     //---- mItemDeleteRol ----
                     mItemDeleteRol.setText("Eliminar Rol");
                     menuRol.add(mItemDeleteRol);
+
+                    //---- mItemSeeRol ----
+                    mItemSeeRol.setText("Ver Roles");
+                    mItemSeeRol.addActionListener(e -> mItemSeeRol(e));
+                    menuRol.add(mItemSeeRol);
                 }
                 menuAdmin.add(menuRol);
             }
@@ -247,6 +311,15 @@ public class HomeWindow extends JFrame {
                 mItemGetContracts.setText("Contratos");
                 menuSee.add(mItemGetContracts);
 
+                //---- mItemGetOpen ----
+                mItemGetOpen.setText("Contratos Abiertos");
+                menuSee.add(mItemGetOpen);
+
+                //---- mItemGetClosed ----
+                mItemGetClosed.setText("Contratos Terminados");
+                menuSee.add(mItemGetClosed);
+                menuSee.addSeparator();
+
                 //---- mItemGetCars ----
                 mItemGetCars.setText("Autos");
                 menuSee.add(mItemGetCars);
@@ -258,6 +331,43 @@ public class HomeWindow extends JFrame {
                 //---- mItemGetTourists ----
                 mItemGetTourists.setText("Turistas");
                 menuSee.add(mItemGetTourists);
+                menuSee.addSeparator();
+
+                //======== menuOthers ========
+                {
+                    menuOthers.setText("Otros");
+
+                    //---- mItemSeePayMehtod ----
+                    mItemSeePayMehtod.setText("M\u00e9todos de Pago");
+                    mItemSeePayMehtod.addActionListener(e -> mItemSeePayMehtod(e));
+                    menuOthers.add(mItemSeePayMehtod);
+
+                    //---- mItemSeeSituation ----
+                    mItemSeeSituation.setText("Situaci\u00f3n de los Autos");
+                    mItemSeeSituation.addActionListener(e -> mItemSeeSituation(e));
+                    menuOthers.add(mItemSeeSituation);
+
+                    //---- mItemSeeBrand ----
+                    mItemSeeBrand.setText("Marcas de los Autos");
+                    mItemSeeBrand.addActionListener(e -> mItemSeeBrand(e));
+                    menuOthers.add(mItemSeeBrand);
+
+                    //---- mItemSeeModel ----
+                    mItemSeeModel.setText("Modelos de los Autos");
+                    mItemSeeModel.addActionListener(e -> mItemSeeModel(e));
+                    menuOthers.add(mItemSeeModel);
+
+                    //---- mItemSeeCategory ----
+                    mItemSeeCategory.setText("Categor\u00edas de Licencia");
+                    mItemSeeCategory.addActionListener(e -> mItemSeeCategory(e));
+                    menuOthers.add(mItemSeeCategory);
+
+                    //---- mItemCountry ----
+                    mItemCountry.setText("Pa\u00edses de los Clientes");
+                    mItemCountry.addActionListener(e -> mItemCountry(e));
+                    menuOthers.add(mItemCountry);
+                }
+                menuSee.add(menuOthers);
             }
             menuBar.add(menuSee);
 
@@ -330,9 +440,11 @@ public class HomeWindow extends JFrame {
     private JMenu menuUser;
     private JMenuItem mItemCreateUser;
     private JMenuItem mItemDeleteUser;
+    private JMenuItem mItemSeeUser;
     private JMenu menuRol;
     private JMenuItem mItemCreateRol;
     private JMenuItem mItemDeleteRol;
+    private JMenuItem mItemSeeRol;
     private JMenu menuManage;
     private JMenu menuContract;
     private JMenuItem mItemCreateContract;
@@ -361,9 +473,18 @@ public class HomeWindow extends JFrame {
     private JMenuItem mItemDeleteCategoy;
     private JMenu menuSee;
     private JMenuItem mItemGetContracts;
+    private JMenuItem mItemGetOpen;
+    private JMenuItem mItemGetClosed;
     private JMenuItem mItemGetCars;
     private JMenuItem mItemGetDrivers;
     private JMenuItem mItemGetTourists;
+    private JMenu menuOthers;
+    private JMenuItem mItemSeePayMehtod;
+    private JMenuItem mItemSeeSituation;
+    private JMenuItem mItemSeeBrand;
+    private JMenuItem mItemSeeModel;
+    private JMenuItem mItemSeeCategory;
+    private JMenuItem mItemCountry;
     private JMenu menuReports;
     private JMenuItem mItemRport1;
     private JMenuItem mItemReport2;

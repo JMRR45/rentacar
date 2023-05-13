@@ -10,6 +10,8 @@ public class ContractDTO {
     private LocalDate deliveryDate;
     private AuxiliaryDTO payMethod;
     private String driver;
+    private int startKm;
+    private int endKm;
 
     public ContractDTO() {
     }
@@ -78,5 +80,21 @@ public class ContractDTO {
 
     public void setDriver(String driver) {
         this.driver = driver;
+    }
+
+    public int getStartKm() {
+        return startKm;
+    }
+
+    public void setStartKm(int startKm) {
+        this.startKm = startKm;
+    }
+
+    public int getEndKm() {
+        return endKm;
+    }
+
+    public void setEndKm(int endKm) {
+        this.endKm = endKm;
     }
 }

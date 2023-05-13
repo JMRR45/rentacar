@@ -10,6 +10,7 @@ public class FunctionBuilder {
             case delete -> function += "delete_";
             case update -> function += "update_";
             case get -> function += "get_";
+            case special -> function += "special";
         }
 
         if (type == FunctionType.get) {
@@ -21,6 +22,10 @@ public class FunctionBuilder {
                 function += "_";
                 function += "by_" + criteria;
             }
+        } else if (type == FunctionType.special) {
+            function += table;
+            function += "_";
+            function += criteria;
         }
 
         if (type == FunctionType.get) {
