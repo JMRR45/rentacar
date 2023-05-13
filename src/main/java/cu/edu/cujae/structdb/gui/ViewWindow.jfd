@@ -16,6 +16,7 @@ new FormModel {
 				name: "scrollPane1"
 				add( new FormComponent( "javax.swing.JTable" ) {
 					name: "defaultTbl"
+					"selectionMode": 0
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 0 3 1"
@@ -23,18 +24,20 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btnInsert"
 				"text": "Insertar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnInsert", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 1"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btnDelete"
 				"text": "Eliminar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnDelete", true ) )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 1"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btnUpdate"
-				"text": "Actualizar"
+				"text": "Modificar"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 2 1"
 			} )

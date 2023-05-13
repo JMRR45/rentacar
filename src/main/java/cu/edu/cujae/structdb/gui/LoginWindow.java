@@ -22,6 +22,7 @@ public class LoginWindow extends JFrame {
     public LoginWindow() {
         initComponents();
         lblError.setVisible(false);
+        setLocationRelativeTo(null);
     }
 
     private void btnLoginKeyPressed(KeyEvent e) {

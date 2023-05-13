@@ -26,10 +26,8 @@ public class FunctionBuilder {
             function += table;
             function += "_";
             function += criteria;
-        }
-
-        if (type == FunctionType.get) {
-
+        } else {
+            function += table;
         }
 
         function += "(";

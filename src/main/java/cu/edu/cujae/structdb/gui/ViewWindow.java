@@ -8,12 +8,16 @@ import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.dto.model.ModelDTO;
 import cu.edu.cujae.structdb.dto.model.RolDTO;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
+import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +28,10 @@ public class ViewWindow extends JDialog {
 
     private TableType type;
     private DefaultTableModel dtm;
+    List<AuxiliaryDTO> auxiliaryList;
+    List<ModelDTO> modelList;
+    List<UserDTO> userList;
+    List<RolDTO> rolList;
 
     public ViewWindow(TableType type) {
         initComponents();
@@ -68,73 +76,158 @@ public class ViewWindow extends JDialog {
     }
 
     private void setAuxiliaryDTM() {
-        btnUpdate.setEnabled(false);
+        btnUpdate.setVisible(false);
         dtm = new DefaultTableModel();
         dtm.addColumn("Nombre");
-        tableUpdateAuxiliary();
+        tableRefreshAuxiliary();
     }
 
     private void setModelDTM() {
-        btnUpdate.setEnabled(false);
+        btnUpdate.setVisible(false);
         dtm = new DefaultTableModel();
         dtm.addColumn("Nombre");
         dtm.addColumn("Marca");
-        tableUpdateModel();
+        tableRefreshModel();
     }
 
     private void setUserDTM() {
-        btnUpdate.setEnabled(false);
         dtm = new DefaultTableModel();
         dtm.addColumn("Nombre de Usuario");
         dtm.addColumn("Rol");
-        tableUpdateUser();
+        tableRefreshUser();
     }
 
     private void setRolDTM() {
-        btnUpdate.setEnabled(false);
         dtm = new DefaultTableModel();
         dtm.addColumn("Nombre");
         dtm.addColumn("Descripción");
-        tableUpdateRol();
+        tableRefreshRol();
     }
 
-    private void tableUpdateAuxiliary() {
-        List<AuxiliaryDTO> list = new LinkedList<>();
-        switch (type) {
-            case brand -> list = ServicesLocator.brandServices().getAll();
-            case country -> list = ServicesLocator.countryServices().getAll();
-            case category -> list = ServicesLocator.categoryServices().getAll();
-            case paymethod -> list = ServicesLocator.payMethodServices().getAll();
-            case situation -> list = ServicesLocator.situationServices().getAll();
+    public void cleanTable() {
+        while (dtm.getRowCount() > 0) {
+            dtm.removeRow(0);
         }
-        for (AuxiliaryDTO dto : list) {
+    }
+
+    public void tableRefreshAuxiliary() {
+        cleanTable();
+        auxiliaryList = new LinkedList<>();
+        switch (type) {
+            case brand -> auxiliaryList = ServicesLocator.brandServices().getAll();
+            case country -> auxiliaryList = ServicesLocator.countryServices().getAll();
+            case category -> auxiliaryList = ServicesLocator.categoryServices().getAll();
+            case paymethod -> auxiliaryList = ServicesLocator.payMethodServices().getAll();
+            case situation -> auxiliaryList = ServicesLocator.situationServices().getAll();
+        }
+        for (AuxiliaryDTO dto : auxiliaryList) {
             Object [] row = {dto.getName()};
             dtm.addRow(row);
         }
     }
 
-    private void tableUpdateModel() {
-        List<ModelDTO> list = ServicesLocator.modelServices().getAll();
-        for (ModelDTO dto : list) {
+    public void tableRefreshModel() {
+        cleanTable();
+        modelList = ServicesLocator.modelServices().getAll();
+        for (ModelDTO dto : modelList) {
             Object [] row = {dto.getName(), dto.getBrand().getName()};
             dtm.addRow(row);
         }
     }
 
-    private void tableUpdateUser() {
-        List<UserDTO> list = ServicesLocator.userServices().getAll();
-        for (UserDTO dto : list) {
+    public void tableRefreshUser() {
+        cleanTable();
+        userList = ServicesLocator.userServices().getAll();
+        for (UserDTO dto : userList) {
             Object [] row = {dto.getUsername(), dto.getRol().getName()};
             dtm.addRow(row);
         }
     }
 
-    private void tableUpdateRol() {
-        List<RolDTO> list = ServicesLocator.rolServices().getAll();
-        for (RolDTO dto : list) {
+    public void tableRefreshRol() {
+        cleanTable();
+        rolList = ServicesLocator.rolServices().getAll();
+        for (RolDTO dto : rolList) {
             Object [] row = {dto.getName(), dto.getDescription()};
             dtm.addRow(row);
         }
+    }
+
+    private void btnDelete(ActionEvent e) {
+        int selection = defaultTbl.getSelectedRow();
+        if (selection == -1) {
+            JOptionPane.showMessageDialog(btnDelete, "Debe seleccionar una entrada.");
+            return;
+        }
+        int option = JOptionPane.showOptionDialog(btnDelete, "¿Está seguro que desea eliminar la entrada seleccionada?",
+                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                new Object[] {"Sí", "No"},"No");
+        if ( option != 0) {
+            return;
+        }
+        try {
+            switch (type) {
+                case rol -> tableDeleteRol(selection);
+                case user -> tableDeleteUser(selection);
+                case model -> tableDeleteModel(selection);
+                default -> tableDeleteAuxiliary(selection);
+            }
+        } catch (ForeignKeyException exception) {
+            JOptionPane.showMessageDialog(this, "La entrada que desea eliminar es utilizada en otros campos.");
+        }
+    }
+
+    private void tableDeleteAuxiliary(int selection) throws ForeignKeyException {
+        switch (type) {
+            case brand -> ServicesLocator.brandServices().remove(auxiliaryList.get(selection).getName());
+            case situation -> ServicesLocator.situationServices().remove(auxiliaryList.get(selection).getName());
+            case category -> ServicesLocator.categoryServices().remove(auxiliaryList.get(selection).getName());
+            case country -> ServicesLocator.countryServices().remove(auxiliaryList.get(selection).getName());
+            case paymethod -> ServicesLocator.payMethodServices().remove(auxiliaryList.get(selection).getName());
+        }
+        tableRefreshAuxiliary();
+    }
+
+    private void tableDeleteModel(int selection) throws ForeignKeyException{
+        ServicesLocator.modelServices().remove(modelList.get(selection).getName());
+        tableRefreshModel();
+    }
+
+    private void tableDeleteUser(int selection) {
+        ServicesLocator.userServices().remove(userList.get(selection).getId());
+        tableRefreshUser();
+    }
+
+    private void tableDeleteRol(int selection) {
+        ServicesLocator.rolServices().remove(userList.get(selection).getId());
+        tableRefreshRol();
+    }
+
+    private void btnInsert(ActionEvent e) {
+        switch (type) {
+            case rol -> tableInsertRol();
+            case user -> tableInsertUser();
+            case model -> tableInsertModel();
+            default -> tableInsertAuxiliary();
+        }
+    }
+
+    private void tableInsertAuxiliary() {
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, type);
+        dialog.setVisible(true);
+    }
+
+    private void tableInsertModel() {
+        ModelInsertWindow dialog = new ModelInsertWindow(this);
+        dialog.setVisible(true);
+    }
+
+    private void tableInsertUser() {
+
+    }
+
+    private void tableInsertRol() {
+
     }
 
     private void initComponents() {
@@ -163,20 +256,25 @@ public class ViewWindow extends JDialog {
 
         //======== scrollPane1 ========
         {
+
+            //---- defaultTbl ----
+            defaultTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             scrollPane1.setViewportView(defaultTbl);
         }
         contentPane.add(scrollPane1, "cell 0 0 3 1");
 
         //---- btnInsert ----
         btnInsert.setText("Insertar");
+        btnInsert.addActionListener(e -> btnInsert(e));
         contentPane.add(btnInsert, "cell 0 1");
 
         //---- btnDelete ----
         btnDelete.setText("Eliminar");
+        btnDelete.addActionListener(e -> btnDelete(e));
         contentPane.add(btnDelete, "cell 1 1");
 
         //---- btnUpdate ----
-        btnUpdate.setText("Actualizar");
+        btnUpdate.setText("Modificar");
         contentPane.add(btnUpdate, "cell 2 1");
         pack();
         setLocationRelativeTo(null);
