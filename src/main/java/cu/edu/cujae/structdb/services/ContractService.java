@@ -16,7 +16,7 @@ public class ContractService extends AbstractService{
     }
 
     public void insert(ContractDTO dto) {
-        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 7, null);
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 9, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -24,9 +24,11 @@ public class ContractService extends AbstractService{
             call.setDate(2, new Date(dto.getStartDate().toEpochDay()));
             call.setString(3, dto.getPassport());
             call.setDate(4, new Date(dto.getEndDate().toEpochDay()));
-            call.setDate(5, new Date(dto.getDeliveryDate().toEpochDay()));
-            call.setInt(6, dto.getPayMethod().getId());
-            call.setString(7, dto.getDriver());
+            call.setInt(5, dto.getStartKm());
+            call.setDate(6, new Date(dto.getDeliveryDate().toEpochDay()));
+            call.setInt(7, dto.getEndKm());
+            call.setInt(8, dto.getPayMethod().getId());
+            call.setString(9, dto.getDriver());
 
             call.execute();
             call.close();
@@ -53,7 +55,7 @@ public class ContractService extends AbstractService{
     }
 
     public void update(ContractDTO dto) {
-        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 7, null);
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 9, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
@@ -61,9 +63,11 @@ public class ContractService extends AbstractService{
             call.setDate(2, new Date(dto.getStartDate().toEpochDay()));
             call.setString(3, dto.getPassport());
             call.setDate(4, new Date(dto.getEndDate().toEpochDay()));
-            call.setDate(5, new Date(dto.getDeliveryDate().toEpochDay()));
-            call.setInt(6, dto.getPayMethod().getId());
-            call.setString(7, dto.getDriver());
+            call.setInt(5, dto.getStartKm());
+            call.setDate(6, new Date(dto.getDeliveryDate().toEpochDay()));
+            call.setInt(7, dto.getEndKm());
+            call.setInt(8, dto.getPayMethod().getId());
+            call.setString(9, dto.getDriver());
 
             call.execute();
             call.close();
@@ -93,9 +97,11 @@ public class ContractService extends AbstractService{
                 dto.setStartDate(resultSet.getDate(2).toLocalDate());
                 dto.setPassport(resultSet.getString(3));
                 dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(6)));
-                dto.setDriver(resultSet.getString(7));
+                dto.setStartKm(resultSet.getInt(5));
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setEndKm(resultSet.getInt(7));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
+                dto.setDriver(resultSet.getString(9));
                 list.add(dto);
             }
             call.close();
@@ -127,9 +133,11 @@ public class ContractService extends AbstractService{
                 dto.setStartDate(resultSet.getDate(2).toLocalDate());
                 dto.setPassport(resultSet.getString(3));
                 dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(6)));
-                dto.setDriver(resultSet.getString(7));
+                dto.setStartKm(resultSet.getInt(5));
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setEndKm(resultSet.getInt(7));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
+                dto.setDriver(resultSet.getString(9));
                 list.add(dto);
             }
             call.close();
@@ -161,9 +169,11 @@ public class ContractService extends AbstractService{
                 dto.setStartDate(resultSet.getDate(2).toLocalDate());
                 dto.setPassport(resultSet.getString(3));
                 dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(6)));
-                dto.setDriver(resultSet.getString(7));
+                dto.setStartKm(resultSet.getInt(5));
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setEndKm(resultSet.getInt(7));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
+                dto.setDriver(resultSet.getString(9));
                 list.add(dto);
             }
             call.close();
@@ -195,9 +205,11 @@ public class ContractService extends AbstractService{
                 dto.setStartDate(resultSet.getDate(2).toLocalDate());
                 dto.setPassport(resultSet.getString(3));
                 dto.setEndDate(resultSet.getDate(4).toLocalDate());
-                dto.setDeliveryDate(resultSet.getDate(5).toLocalDate());
-                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(6)));
-                dto.setDriver(resultSet.getString(7));
+                dto.setStartKm(resultSet.getInt(5));
+                dto.setDeliveryDate(resultSet.getDate(6).toLocalDate());
+                dto.setEndKm(resultSet.getInt(7));
+                dto.setPayMethod(ServicesLocator.payMethodServices().getByID(resultSet.getInt(8)));
+                dto.setDriver(resultSet.getString(9));
                 list.add(dto);
             }
             call.close();

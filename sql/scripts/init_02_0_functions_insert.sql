@@ -1,4 +1,10 @@
 ﻿-- INSERT FUNCTIONS
+CREATE OR REPLACE FUNCTION insert_fee(fee_name text, fee_cost integer) RETURNS void AS $$
+BEGIN
+	INSERT INTO fee (name, day_cost) VALUES (fee_name, fee_cost);
+END; $$
+LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION insert_rol(rol_name text, rol_description text) RETURNS void AS $$
 BEGIN
 	INSERT INTO rol (name, description) VALUES (rol_name, rol_description);
@@ -98,14 +104,16 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insert_contract(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_delivery_date date, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION insert_contract(contract_plate varchar(7), contract_start_date date, contract_passport varchar(9), contract_end_date date, contract_start_km integer, contract_delivery_date date, contract_end_km integer, contract_pay_method integer, contract_dni varchar(11)) RETURNS void AS $$
 BEGIN
-	INSERT INTO contract (car_plate, start_date, tourist_passport, end_date, delivery_date, pay_method_id, driver_dni) VALUES (
+	INSERT INTO contract (car_plate, start_date, tourist_passport, end_date, start_km, delivery_date, end_km, pay_method_id, driver_dni) VALUES (
 		contract_plate,
 		contract_start_date,
 		contract_passport,
 		contract_end_date,
+		contract_start_km,
 		contract_delivery_date,
+		contract_end_km,
 		contract_pay_method,
 		contract_dni
 		);

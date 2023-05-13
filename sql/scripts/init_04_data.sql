@@ -5,6 +5,9 @@ SELECT public.insert_rol('administrador', 'Read: All. Write: All');
 
 SELECT public.insert_user('admin', 'admin', 3);
 
+SELECT public.insert_fee('regular', 10);
+SELECT public.insert_fee('prórroga', 14);
+
 SELECT public.insert_situation('disponible');
 SELECT public.insert_situation('alquilado');
 SELECT public.insert_situation('en taller');
@@ -140,14 +143,14 @@ SELECT public.insert_car(
 	(SELECT id FROM model WHERE name = 'Camaro'),
 	32456,
 	'Negro',
-	(SELECT id FROM situation WHERE name = 'alquilado')
+	(SELECT id FROM situation WHERE name = 'disponible')
 );
 SELECT public.insert_car(
 	'B123456',
 	(SELECT id FROM model WHERE name = 'Fiesta'),
 	32456,
 	'Blanco',
-	(SELECT id FROM situation WHERE name = 'alquilado')
+	(SELECT id FROM situation WHERE name = 'disponible')
 );
 
 -- Contracts
@@ -156,16 +159,17 @@ SELECT public.insert_contract(
 	'2023/02/13',
 	'AEC071239',
 	'2023/03/13',
+	32456,
 	'2023/03/13',
+	32600,
 	(SELECT id FROM pay_method WHERE name = 'efectivo'),
 	'79092345678'
 );
-SELECT public.insert_contract(
+SELECT public.special_contract_open(
 	'B895690',
 	'2023/01/27',
 	'ABC070807',
 	'2023/04/15',
-	'2023/05/03',
 	(SELECT id FROM pay_method WHERE name = 'cheque'),
 	null
 );

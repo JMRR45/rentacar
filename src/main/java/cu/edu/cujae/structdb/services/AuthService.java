@@ -7,7 +7,7 @@ public class AuthService {
     private UserDTO currentUser;
 
     public LoginResult login(UserDTO credentials) {
-        UserDTO response = ServicesLocator.UserServices().getByUsername(credentials.getUsername());
+        UserDTO response = ServicesLocator.userServices().getByUsername(credentials.getUsername());
 
         if (response == null) {
             return LoginResult.wrongUsername;

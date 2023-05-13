@@ -1,4 +1,22 @@
 ﻿-- DELETE FUNCTIONS
+CREATE OR REPLACE FUNCTION delete_fee(text) RETURNS void AS $$
+BEGIN
+	DELETE FROM fee WHERE name = $1;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION delete_rol(integer) RETURNS void AS $$
+BEGIN
+	DELETE FROM rol WHERE id = $1;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION delete_user(integer) RETURNS void AS $$
+BEGIN
+	DELETE FROM user_local WHERE id = $1;
+END; $$
+LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION delete_situation(text) RETURNS void AS $$
 BEGIN
 	DELETE FROM situation WHERE name = $1;

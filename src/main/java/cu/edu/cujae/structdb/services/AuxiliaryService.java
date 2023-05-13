@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AuxiliaryService extends AbstractService{
+public class AuxiliaryService extends AbstractService {
     private final String insertFunction;
     private final String removeFunction;
     private final String getFunction;

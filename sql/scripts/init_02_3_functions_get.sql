@@ -21,7 +21,28 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
--- GET AUXILIAR
+-- GET SUPPORT BY KEY
+CREATE OR REPLACE FUNCTION get_user_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'user';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM user_local WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_rol_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'rol';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM rol WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
+-- GET SUPPORT
 CREATE OR REPLACE FUNCTION get_user_by_username(text) RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'user';
@@ -33,6 +54,16 @@ END; $$
 LANGUAGE plpgsql;
 
 -- GET ALL AUXILIAR
+CREATE OR REPLACE FUNCTION get_all_fee() RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'fee';
+BEGIN
+	OPEN result FOR
+	SELECT * FROM fee;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION get_all_situation() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'situations';
@@ -94,6 +125,16 @@ END; $$
 LANGUAGE plpgsql;
 
 -- GET AUXILIAR BY ID
+CREATE OR REPLACE FUNCTION get_fee_by_id(integer) RETURNS refcursor AS $$
+DECLARE
+	result refcursor := 'fee';
+BEGIN
+	OPEN result FOR
+	SELECT name, day_cost FROM fee WHERE id = $1;
+	RETURN result;
+END; $$
+LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION get_situation_by_id(integer) RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'situation';

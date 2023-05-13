@@ -37,12 +37,10 @@ public class LoginWindow extends JFrame {
     private void login() {
         lblError.setVisible(false);
 
-        ServicesLocator.setDatabase((String) cmBoxDb.getSelectedItem());
-
         UserDTO credentials = new UserDTO();
         credentials.setUsername(txtFldUsername.getText());
         credentials.setPassword(String.valueOf(txtFldPassword.getPassword()));
-        AuthService.LoginResult result = ServicesLocator.AuthService().login(credentials);
+        AuthService.LoginResult result = ServicesLocator.authService().login(credentials);
         switch (result) {
             case wrongUsername:
                 lblError.setText("Error: Usuario Incorrecto");
@@ -70,8 +68,6 @@ public class LoginWindow extends JFrame {
         txtFldPassword = new JPasswordField();
         lblError = new JLabel();
         buttonBar = new JPanel();
-        label3 = new JLabel();
-        cmBoxDb = new JComboBox<>();
         btnLogin = new JButton();
 
         //======== this ========
@@ -82,12 +78,14 @@ public class LoginWindow extends JFrame {
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
-            border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER
-            , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font
-            .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (
-            new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order"
-            .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder (
+            new javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn"
+            , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM
+            , new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 )
+            ,java . awt. Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener(
+            new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
+            ) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
+            ;} } );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -140,17 +138,6 @@ public class LoginWindow extends JFrame {
                     // rows
                     null));
 
-                //---- label3 ----
-                label3.setText("Sucursal:");
-                label3.setLabelFor(cmBoxDb);
-                buttonBar.add(label3, "cell 0 0");
-
-                //---- cmBoxDb ----
-                cmBoxDb.setModel(new DefaultComboBoxModel<>(new String[] {
-                    "La Habana"
-                }));
-                buttonBar.add(cmBoxDb, "cell 1 0 3 1");
-
                 //---- btnLogin ----
                 btnLogin.setText("Autenticarse");
                 btnLogin.addKeyListener(new KeyAdapter() {
@@ -160,7 +147,7 @@ public class LoginWindow extends JFrame {
                     }
                 });
                 btnLogin.addActionListener(e -> btnLogin(e));
-                buttonBar.add(btnLogin, "cell 9 0");
+                buttonBar.add(btnLogin, "cell 6 0");
             }
             dialogPane.add(buttonBar, BorderLayout.SOUTH);
         }
@@ -180,8 +167,6 @@ public class LoginWindow extends JFrame {
     private JPasswordField txtFldPassword;
     private JLabel lblError;
     private JPanel buttonBar;
-    private JLabel label3;
-    private JComboBox<String> cmBoxDb;
     private JButton btnLogin;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

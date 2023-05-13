@@ -15,7 +15,7 @@ principales.
 ```
 src.main.java
   |--- cu.edu.cujae.structdb
-        |--- dto
+        |--- crudDto
         |--- services
         |--- utils
         |--- gui
@@ -24,7 +24,7 @@ src.main.java
 
 0. **cu.edu.cujae.structdb** : Paquete padre dentro del cual se encuentran el resto de paquetes.
 
-1. **dto** : En el paquete dto aparecen los objetos o clases que permiten realizar la transferencia
+1. **crudDto** : En el paquete crudDto aparecen los objetos o clases que permiten realizar la transferencia
 de datos entre las capas de la aplicación. Estas clases son muy similares a las tablas
 de la base de datos, deben contener los atributos, que se corresponden con las
 columnas de la tabla, con sus respectivos métodos de acceso (get() y set()). Este
@@ -86,7 +86,7 @@ Recommended Types: `init`, `feat`, `fix`, `style`, `docs`, `test`, `refactor`.
 
 Recommended emojis: :one:`:one:`, :sparkles:`:sparkles:` , :bug:`:bug:`, :lipstick:`:lipstick:`, :memo:`:memo:`, :white_check_mark:`:white_check_mark:`, :recycle:`:recycle:`.
 
-Recommended Scopes: `global`, `dto`, `services`, `utils`, `gui`.
+Recommended Scopes: `global`, `crudDto`, `services`, `utils`, `gui`.
 
 #### Pull Request Template
 You cand find a Pull Request example in the link below: <br>

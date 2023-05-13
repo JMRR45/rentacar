@@ -1,9 +1,8 @@
 package cu.edu.cujae.structdb.gui;
 
 
+import cu.edu.cujae.structdb.dto.model.*;
 import cu.edu.cujae.structdb.dto.model.CarDTO;
-import cu.edu.cujae.structdb.dto.model.ContractDTO;
-import cu.edu.cujae.structdb.dto.model.DriverDTO;
 import cu.edu.cujae.structdb.dto.model.TouristDTO;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 

@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ModelService extends AbstractService{
+public class ModelService extends AbstractService {
 
     public ModelService(String table) {
         super(table);
