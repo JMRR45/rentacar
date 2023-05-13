@@ -4,6 +4,8 @@
 
 package cu.edu.cujae.structdb.gui;
 
+import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.utils.TableType;
 import net.miginfocom.swing.MigLayout;
 
@@ -16,6 +18,7 @@ import java.awt.event.ActionEvent;
 public class HomeWindow extends JFrame {
     public HomeWindow() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     private void mItemSeePayMehtod(ActionEvent e) {
@@ -58,45 +61,65 @@ public class HomeWindow extends JFrame {
         window.setVisible(true);
     }
 
+    private void mItemInsertPayMethod(ActionEvent e) {
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.paymethod);
+        dialog.setVisible(true);
+    }
+
+    private void mItemCreateCountry(ActionEvent e) {
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.country);
+        dialog.setVisible(true);
+    }
+
+    private void mItemCreateBrand(ActionEvent e) {
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.brand);
+        dialog.setVisible(true);
+    }
+
+    private void mItemCreateModel(ActionEvent e) {
+        ModelInsertWindow dialog = new ModelInsertWindow(this);
+        dialog.setVisible(true);
+    }
+
+    private void mItemCreateSituation(ActionEvent e) {
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.situation);
+        dialog.setVisible(true);
+    }
+
+    private void mItemCreateCategory(ActionEvent e) {
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.category);
+        dialog.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
         menuBar = new JMenuBar();
         menuAdmin = new JMenu();
-        menuUser = new JMenu();
-        mItemCreateUser = new JMenuItem();
-        mItemDeleteUser = new JMenuItem();
         mItemSeeUser = new JMenuItem();
-        menuRol = new JMenu();
-        mItemCreateRol = new JMenuItem();
-        mItemDeleteRol = new JMenuItem();
         mItemSeeRol = new JMenuItem();
         menuManage = new JMenu();
         menuContract = new JMenu();
         mItemCreateContract = new JMenuItem();
         mItemCloseContract = new JMenuItem();
-        mItemDeleteContract = new JMenuItem();
-        mItemCreatePayMethod = new JMenuItem();
-        mItemDeletePayMehtod = new JMenuItem();
+        mItemSeePayMehtod = new JMenuItem();
+        mItemInsertPayMethod = new JMenuItem();
         menuTourist = new JMenu();
         mItemCreateTourist = new JMenuItem();
-        mItemDeleteTourist = new JMenuItem();
+        mItemCountry = new JMenuItem();
         mItemCreateCountry = new JMenuItem();
-        mItemDeleteCounty = new JMenuItem();
         menuCar = new JMenu();
         mItemCreateCar = new JMenuItem();
-        mItemDeleteCar = new JMenuItem();
+        mItemSeeBrand = new JMenuItem();
         mItemCreateBrand = new JMenuItem();
-        mItemDeleteBrand = new JMenuItem();
+        mItemSeeModel = new JMenuItem();
         mItemCreateModel = new JMenuItem();
-        mItemDeleteModel = new JMenuItem();
+        mItemSeeSituation = new JMenuItem();
         mItemCreateSituation = new JMenuItem();
-        mItemDeleteSituation = new JMenuItem();
         menuDriver = new JMenu();
         mItemCreateDriver = new JMenuItem();
-        mItemDeleteDriver = new JMenuItem();
+        mItemSeeCategory = new JMenuItem();
         mItemCreateCategory = new JMenuItem();
-        mItemDeleteCategoy = new JMenuItem();
         menuSee = new JMenu();
         mItemGetContracts = new JMenuItem();
         mItemGetOpen = new JMenuItem();
@@ -104,13 +127,6 @@ public class HomeWindow extends JFrame {
         mItemGetCars = new JMenuItem();
         mItemGetDrivers = new JMenuItem();
         mItemGetTourists = new JMenuItem();
-        menuOthers = new JMenu();
-        mItemSeePayMehtod = new JMenuItem();
-        mItemSeeSituation = new JMenuItem();
-        mItemSeeBrand = new JMenuItem();
-        mItemSeeModel = new JMenuItem();
-        mItemSeeCategory = new JMenuItem();
-        mItemCountry = new JMenuItem();
         menuReports = new JMenu();
         mItemRport1 = new JMenuItem();
         mItemReport2 = new JMenuItem();
@@ -143,43 +159,15 @@ public class HomeWindow extends JFrame {
             {
                 menuAdmin.setText("Administrar");
 
-                //======== menuUser ========
-                {
-                    menuUser.setText("Administrar Usuarios");
+                //---- mItemSeeUser ----
+                mItemSeeUser.setText("Administrar Usuarios");
+                mItemSeeUser.addActionListener(e -> mItemSeeUser(e));
+                menuAdmin.add(mItemSeeUser);
 
-                    //---- mItemCreateUser ----
-                    mItemCreateUser.setText("Crear Usuario");
-                    menuUser.add(mItemCreateUser);
-
-                    //---- mItemDeleteUser ----
-                    mItemDeleteUser.setText("Eliminar Usuario");
-                    menuUser.add(mItemDeleteUser);
-
-                    //---- mItemSeeUser ----
-                    mItemSeeUser.setText("Ver Usuarios");
-                    mItemSeeUser.addActionListener(e -> mItemSeeUser(e));
-                    menuUser.add(mItemSeeUser);
-                }
-                menuAdmin.add(menuUser);
-
-                //======== menuRol ========
-                {
-                    menuRol.setText("Administrar Roles");
-
-                    //---- mItemCreateRol ----
-                    mItemCreateRol.setText("Crear Rol");
-                    menuRol.add(mItemCreateRol);
-
-                    //---- mItemDeleteRol ----
-                    mItemDeleteRol.setText("Eliminar Rol");
-                    menuRol.add(mItemDeleteRol);
-
-                    //---- mItemSeeRol ----
-                    mItemSeeRol.setText("Ver Roles");
-                    mItemSeeRol.addActionListener(e -> mItemSeeRol(e));
-                    menuRol.add(mItemSeeRol);
-                }
-                menuAdmin.add(menuRol);
+                //---- mItemSeeRol ----
+                mItemSeeRol.setText("Administrar Roles");
+                mItemSeeRol.addActionListener(e -> mItemSeeRol(e));
+                menuAdmin.add(mItemSeeRol);
             }
             menuBar.add(menuAdmin);
 
@@ -198,19 +186,17 @@ public class HomeWindow extends JFrame {
                     //---- mItemCloseContract ----
                     mItemCloseContract.setText("Cerrar Contrato");
                     menuContract.add(mItemCloseContract);
-
-                    //---- mItemDeleteContract ----
-                    mItemDeleteContract.setText("Eliminar Contrato");
-                    menuContract.add(mItemDeleteContract);
                     menuContract.addSeparator();
 
-                    //---- mItemCreatePayMethod ----
-                    mItemCreatePayMethod.setText("Crear M\u00e9todo de Pago");
-                    menuContract.add(mItemCreatePayMethod);
+                    //---- mItemSeePayMehtod ----
+                    mItemSeePayMehtod.setText("Gestionar M\u00e9todos de Pago");
+                    mItemSeePayMehtod.addActionListener(e -> mItemSeePayMehtod(e));
+                    menuContract.add(mItemSeePayMehtod);
 
-                    //---- mItemDeletePayMehtod ----
-                    mItemDeletePayMehtod.setText("Eliminar M\u00e9todo de Pago");
-                    menuContract.add(mItemDeletePayMehtod);
+                    //---- mItemInsertPayMethod ----
+                    mItemInsertPayMethod.setText("Crear M\u00e9todo de Pago");
+                    mItemInsertPayMethod.addActionListener(e -> mItemInsertPayMethod(e));
+                    menuContract.add(mItemInsertPayMethod);
                 }
                 menuManage.add(menuContract);
 
@@ -221,19 +207,17 @@ public class HomeWindow extends JFrame {
                     //---- mItemCreateTourist ----
                     mItemCreateTourist.setText("Registrar Cliente");
                     menuTourist.add(mItemCreateTourist);
-
-                    //---- mItemDeleteTourist ----
-                    mItemDeleteTourist.setText("Eliminar Cliente");
-                    menuTourist.add(mItemDeleteTourist);
                     menuTourist.addSeparator();
+
+                    //---- mItemCountry ----
+                    mItemCountry.setText("Gestionar Pa\u00edses");
+                    mItemCountry.addActionListener(e -> mItemCountry(e));
+                    menuTourist.add(mItemCountry);
 
                     //---- mItemCreateCountry ----
                     mItemCreateCountry.setText("Registrar Pa\u00eds");
+                    mItemCreateCountry.addActionListener(e -> mItemCreateCountry(e));
                     menuTourist.add(mItemCreateCountry);
-
-                    //---- mItemDeleteCounty ----
-                    mItemDeleteCounty.setText("Eliminar Pa\u00eds");
-                    menuTourist.add(mItemDeleteCounty);
                 }
                 menuManage.add(menuTourist);
 
@@ -244,37 +228,39 @@ public class HomeWindow extends JFrame {
                     //---- mItemCreateCar ----
                     mItemCreateCar.setText("Registrar Auto");
                     menuCar.add(mItemCreateCar);
-
-                    //---- mItemDeleteCar ----
-                    mItemDeleteCar.setText("Dar Baja a un Auto");
-                    menuCar.add(mItemDeleteCar);
                     menuCar.addSeparator();
+
+                    //---- mItemSeeBrand ----
+                    mItemSeeBrand.setText("Gestionar Marcas de los Autos");
+                    mItemSeeBrand.addActionListener(e -> mItemSeeBrand(e));
+                    menuCar.add(mItemSeeBrand);
 
                     //---- mItemCreateBrand ----
                     mItemCreateBrand.setText("Registrar Marca");
+                    mItemCreateBrand.addActionListener(e -> mItemCreateBrand(e));
                     menuCar.add(mItemCreateBrand);
-
-                    //---- mItemDeleteBrand ----
-                    mItemDeleteBrand.setText("Eliminar Marca");
-                    menuCar.add(mItemDeleteBrand);
                     menuCar.addSeparator();
+
+                    //---- mItemSeeModel ----
+                    mItemSeeModel.setText("Gestionar Modelos de los Autos");
+                    mItemSeeModel.addActionListener(e -> mItemSeeModel(e));
+                    menuCar.add(mItemSeeModel);
 
                     //---- mItemCreateModel ----
                     mItemCreateModel.setText("Registrar Modelo");
+                    mItemCreateModel.addActionListener(e -> mItemCreateModel(e));
                     menuCar.add(mItemCreateModel);
-
-                    //---- mItemDeleteModel ----
-                    mItemDeleteModel.setText("Eliminar Modelo");
-                    menuCar.add(mItemDeleteModel);
                     menuCar.addSeparator();
+
+                    //---- mItemSeeSituation ----
+                    mItemSeeSituation.setText("Gestionar Situaci\u00f3n de los Autos");
+                    mItemSeeSituation.addActionListener(e -> mItemSeeSituation(e));
+                    menuCar.add(mItemSeeSituation);
 
                     //---- mItemCreateSituation ----
                     mItemCreateSituation.setText("Crear Situaci\u00f3n de los Autos");
+                    mItemCreateSituation.addActionListener(e -> mItemCreateSituation(e));
                     menuCar.add(mItemCreateSituation);
-
-                    //---- mItemDeleteSituation ----
-                    mItemDeleteSituation.setText("Eliminar Situaci\u00f3n de los Autos");
-                    menuCar.add(mItemDeleteSituation);
                 }
                 menuManage.add(menuCar);
 
@@ -285,19 +271,17 @@ public class HomeWindow extends JFrame {
                     //---- mItemCreateDriver ----
                     mItemCreateDriver.setText("Contratar Chofer");
                     menuDriver.add(mItemCreateDriver);
-
-                    //---- mItemDeleteDriver ----
-                    mItemDeleteDriver.setText("Despedir Chofer");
-                    menuDriver.add(mItemDeleteDriver);
                     menuDriver.addSeparator();
 
-                    //---- mItemCreateCategory ----
-                    mItemCreateCategory.setText("Crear Categor\u00eda de Licencia");
-                    menuDriver.add(mItemCreateCategory);
+                    //---- mItemSeeCategory ----
+                    mItemSeeCategory.setText("Gestionar Categor\u00edas de Licencia");
+                    mItemSeeCategory.addActionListener(e -> mItemSeeCategory(e));
+                    menuDriver.add(mItemSeeCategory);
 
-                    //---- mItemDeleteCategoy ----
-                    mItemDeleteCategoy.setText("Eliminar Categor\u00eda de Licencia");
-                    menuDriver.add(mItemDeleteCategoy);
+                    //---- mItemCreateCategory ----
+                    mItemCreateCategory.setText("Registra Categor\u00eda de Licencia");
+                    mItemCreateCategory.addActionListener(e -> mItemCreateCategory(e));
+                    menuDriver.add(mItemCreateCategory);
                 }
                 menuManage.add(menuDriver);
             }
@@ -332,42 +316,6 @@ public class HomeWindow extends JFrame {
                 mItemGetTourists.setText("Turistas");
                 menuSee.add(mItemGetTourists);
                 menuSee.addSeparator();
-
-                //======== menuOthers ========
-                {
-                    menuOthers.setText("Otros");
-
-                    //---- mItemSeePayMehtod ----
-                    mItemSeePayMehtod.setText("M\u00e9todos de Pago");
-                    mItemSeePayMehtod.addActionListener(e -> mItemSeePayMehtod(e));
-                    menuOthers.add(mItemSeePayMehtod);
-
-                    //---- mItemSeeSituation ----
-                    mItemSeeSituation.setText("Situaci\u00f3n de los Autos");
-                    mItemSeeSituation.addActionListener(e -> mItemSeeSituation(e));
-                    menuOthers.add(mItemSeeSituation);
-
-                    //---- mItemSeeBrand ----
-                    mItemSeeBrand.setText("Marcas de los Autos");
-                    mItemSeeBrand.addActionListener(e -> mItemSeeBrand(e));
-                    menuOthers.add(mItemSeeBrand);
-
-                    //---- mItemSeeModel ----
-                    mItemSeeModel.setText("Modelos de los Autos");
-                    mItemSeeModel.addActionListener(e -> mItemSeeModel(e));
-                    menuOthers.add(mItemSeeModel);
-
-                    //---- mItemSeeCategory ----
-                    mItemSeeCategory.setText("Categor\u00edas de Licencia");
-                    mItemSeeCategory.addActionListener(e -> mItemSeeCategory(e));
-                    menuOthers.add(mItemSeeCategory);
-
-                    //---- mItemCountry ----
-                    mItemCountry.setText("Pa\u00edses de los Clientes");
-                    mItemCountry.addActionListener(e -> mItemCountry(e));
-                    menuOthers.add(mItemCountry);
-                }
-                menuSee.add(menuOthers);
             }
             menuBar.add(menuSee);
 
@@ -437,40 +385,30 @@ public class HomeWindow extends JFrame {
     // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
     private JMenuBar menuBar;
     private JMenu menuAdmin;
-    private JMenu menuUser;
-    private JMenuItem mItemCreateUser;
-    private JMenuItem mItemDeleteUser;
     private JMenuItem mItemSeeUser;
-    private JMenu menuRol;
-    private JMenuItem mItemCreateRol;
-    private JMenuItem mItemDeleteRol;
     private JMenuItem mItemSeeRol;
     private JMenu menuManage;
     private JMenu menuContract;
     private JMenuItem mItemCreateContract;
     private JMenuItem mItemCloseContract;
-    private JMenuItem mItemDeleteContract;
-    private JMenuItem mItemCreatePayMethod;
-    private JMenuItem mItemDeletePayMehtod;
+    private JMenuItem mItemSeePayMehtod;
+    private JMenuItem mItemInsertPayMethod;
     private JMenu menuTourist;
     private JMenuItem mItemCreateTourist;
-    private JMenuItem mItemDeleteTourist;
+    private JMenuItem mItemCountry;
     private JMenuItem mItemCreateCountry;
-    private JMenuItem mItemDeleteCounty;
     private JMenu menuCar;
     private JMenuItem mItemCreateCar;
-    private JMenuItem mItemDeleteCar;
+    private JMenuItem mItemSeeBrand;
     private JMenuItem mItemCreateBrand;
-    private JMenuItem mItemDeleteBrand;
+    private JMenuItem mItemSeeModel;
     private JMenuItem mItemCreateModel;
-    private JMenuItem mItemDeleteModel;
+    private JMenuItem mItemSeeSituation;
     private JMenuItem mItemCreateSituation;
-    private JMenuItem mItemDeleteSituation;
     private JMenu menuDriver;
     private JMenuItem mItemCreateDriver;
-    private JMenuItem mItemDeleteDriver;
+    private JMenuItem mItemSeeCategory;
     private JMenuItem mItemCreateCategory;
-    private JMenuItem mItemDeleteCategoy;
     private JMenu menuSee;
     private JMenuItem mItemGetContracts;
     private JMenuItem mItemGetOpen;
@@ -478,13 +416,6 @@ public class HomeWindow extends JFrame {
     private JMenuItem mItemGetCars;
     private JMenuItem mItemGetDrivers;
     private JMenuItem mItemGetTourists;
-    private JMenu menuOthers;
-    private JMenuItem mItemSeePayMehtod;
-    private JMenuItem mItemSeeSituation;
-    private JMenuItem mItemSeeBrand;
-    private JMenuItem mItemSeeModel;
-    private JMenuItem mItemSeeCategory;
-    private JMenuItem mItemCountry;
     private JMenu menuReports;
     private JMenuItem mItemRport1;
     private JMenuItem mItemReport2;

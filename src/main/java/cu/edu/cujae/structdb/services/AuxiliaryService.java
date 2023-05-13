@@ -3,6 +3,8 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
+import org.postgresql.util.PSQLException;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -37,7 +39,7 @@ public class AuxiliaryService extends AbstractService {
         }
     }
 
-    public void remove(String name) {
+    public void remove(String name) throws ForeignKeyException {
         String function = removeFunction;
         try {
             Connection con = ServicesLocator.getConnection();
@@ -47,6 +49,10 @@ public class AuxiliaryService extends AbstractService {
 
             call.close();
             con.close();
+        } catch (PSQLException e){
+            if (e.getErrorCode() == 0) {
+                throw new ForeignKeyException();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

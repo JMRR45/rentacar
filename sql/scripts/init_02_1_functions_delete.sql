@@ -49,7 +49,7 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION delete_model(text) RETURNS void AS $$
 BEGIN
-	DELETE FROM situation WHERE name = $1;
+	DELETE FROM model WHERE name = $1;
 END; $$
 LANGUAGE plpgsql;
 
