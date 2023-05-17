@@ -68,9 +68,9 @@ public class ModelService extends AbstractService {
             }
             while (resultSet.next()) {
                 ModelDTO dto = new ModelDTO();
-                dto.setId(resultSet.getInt(1));
-                dto.setName(resultSet.getString(2));
-                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(3)));
+                dto.setId(resultSet.getInt(2));
+                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(1)));
+                dto.setName(resultSet.getString(3));
                 list.add(dto);
             }
             call.close();

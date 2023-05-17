@@ -91,11 +91,19 @@ public class HomeWindow extends JFrame {
         dialog.setVisible(true);
     }
 
+    private void mItemClose(ActionEvent e) {
+        LoginWindow login = new LoginWindow();
+        login.setVisible(true);
+        this.dispose();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
         menuBar = new JMenuBar();
         menuAdmin = new JMenu();
+        mItemChangePass = new JMenuItem();
+        mItemClose = new JMenuItem();
         mItemSeeUser = new JMenuItem();
         mItemSeeRol = new JMenuItem();
         menuManage = new JMenu();
@@ -159,13 +167,23 @@ public class HomeWindow extends JFrame {
             {
                 menuAdmin.setText("Administrar");
 
+                //---- mItemChangePass ----
+                mItemChangePass.setText("Cambiar Contrase\u00f1a");
+                menuAdmin.add(mItemChangePass);
+
+                //---- mItemClose ----
+                mItemClose.setText("Cerrar Sesi\u00f3n");
+                mItemClose.addActionListener(e -> mItemClose(e));
+                menuAdmin.add(mItemClose);
+                menuAdmin.addSeparator();
+
                 //---- mItemSeeUser ----
                 mItemSeeUser.setText("Administrar Usuarios");
                 mItemSeeUser.addActionListener(e -> mItemSeeUser(e));
                 menuAdmin.add(mItemSeeUser);
 
                 //---- mItemSeeRol ----
-                mItemSeeRol.setText("Administrar Roles");
+                mItemSeeRol.setText("Ver Roles");
                 mItemSeeRol.addActionListener(e -> mItemSeeRol(e));
                 menuAdmin.add(mItemSeeRol);
             }
@@ -315,7 +333,6 @@ public class HomeWindow extends JFrame {
                 //---- mItemGetTourists ----
                 mItemGetTourists.setText("Turistas");
                 menuSee.add(mItemGetTourists);
-                menuSee.addSeparator();
             }
             menuBar.add(menuSee);
 
@@ -385,6 +402,8 @@ public class HomeWindow extends JFrame {
     // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
     private JMenuBar menuBar;
     private JMenu menuAdmin;
+    private JMenuItem mItemChangePass;
+    private JMenuItem mItemClose;
     private JMenuItem mItemSeeUser;
     private JMenuItem mItemSeeRol;
     private JMenu menuManage;

@@ -22,3 +22,9 @@ BEGIN
 	WHERE car_plate = contract_plate AND start_date = contract_start_date;
 END; $$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION special_user_create(user_username text, user_password text, user_rol integer) RETURNS void AS $$
+BEGIN
+	INSERT INTO user_local (username, password, rol_id) VALUES (user_username, user_password, user_rol);
+END; $$
+LANGUAGE plpgsql;

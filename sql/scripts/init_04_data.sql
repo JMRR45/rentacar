@@ -1,9 +1,10 @@
 ﻿-- INSERT INITIAL DATA
-SELECT public.insert_rol('visitante', 'Read: Reports.');
-SELECT public.insert_rol('trabajador', 'Read: Bussines Info & Reports. Write: Bussines Info.');
-SELECT public.insert_rol('administrador', 'Read: All. Write: All');
+SELECT public.insert_rol('Visitante', 'Acceso a los Reportes presentados por la aplicación, así como a consultar la información de las distintas tablas. Solo Lectura.');
+SELECT public.insert_rol('Trabajador', 'Acceso a abrir y cerrar Contratos, registrar y modificar Turistas, Países, Autos, Marcas, Modelos, Situaciónes de los Autos y Categorías de Licencia.');
+SELECT public.insert_rol('Jefe de Área', 'Acceso a registrar y modificar Métodos de Pago, modificar las tarifas, contratar y despedir Conductores, modificar y eliminar Contratos.');
+SELECT public.insert_rol('Administrador', 'Acceso total a la aplicación, lo que incluye creación, modificación y eliminación de usuarios y roles.');
 
-SELECT public.insert_user('admin', 'admin', 3);
+SELECT public.special_user_create('admin', 'admin', 4);
 
 SELECT public.insert_fee('regular', 10);
 SELECT public.insert_fee('prórroga', 14);
@@ -133,6 +134,7 @@ SELECT public.insert_tourist(
 -- Cars
 SELECT public.insert_car(
 	'B890123',
+	(SELECT id FROM brand WHERE name = 'Kia'),
 	(SELECT id FROM model WHERE name = 'Picanto'),
 	32456,
 	'Rojo',
@@ -140,6 +142,7 @@ SELECT public.insert_car(
 );
 SELECT public.insert_car(
 	'B895690',
+	(SELECT id FROM brand WHERE name = 'Chevrolet'),
 	(SELECT id FROM model WHERE name = 'Camaro'),
 	32456,
 	'Negro',
@@ -147,6 +150,7 @@ SELECT public.insert_car(
 );
 SELECT public.insert_car(
 	'B123456',
+	(SELECT id FROM brand WHERE name = 'Ford'),
 	(SELECT id FROM model WHERE name = 'Fiesta'),
 	32456,
 	'Blanco',

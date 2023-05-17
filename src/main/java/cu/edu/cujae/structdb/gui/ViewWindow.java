@@ -10,8 +10,10 @@ import cu.edu.cujae.structdb.dto.model.RolDTO;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.UserInsertWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.exception.DeleteCurrentUserException;
 import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 import net.miginfocom.swing.MigLayout;
 
@@ -98,6 +100,8 @@ public class ViewWindow extends JDialog {
     }
 
     private void setRolDTM() {
+        btnInsert.setVisible(false);
+        btnDelete.setVisible(false);
         dtm = new DefaultTableModel();
         dtm.addColumn("Nombre");
         dtm.addColumn("Descripción");
@@ -120,6 +124,9 @@ public class ViewWindow extends JDialog {
             case paymethod -> auxiliaryList = ServicesLocator.payMethodServices().getAll();
             case situation -> auxiliaryList = ServicesLocator.situationServices().getAll();
         }
+        if (auxiliaryList == null) {
+            return;
+        }
         for (AuxiliaryDTO dto : auxiliaryList) {
             Object [] row = {dto.getName()};
             dtm.addRow(row);
@@ -129,6 +136,9 @@ public class ViewWindow extends JDialog {
     public void tableRefreshModel() {
         cleanTable();
         modelList = ServicesLocator.modelServices().getAll();
+        if (modelList == null) {
+            return;
+        }
         for (ModelDTO dto : modelList) {
             Object [] row = {dto.getName(), dto.getBrand().getName()};
             dtm.addRow(row);
@@ -138,6 +148,9 @@ public class ViewWindow extends JDialog {
     public void tableRefreshUser() {
         cleanTable();
         userList = ServicesLocator.userServices().getAll();
+        if (userList == null) {
+            return;
+        }
         for (UserDTO dto : userList) {
             Object [] row = {dto.getUsername(), dto.getRol().getName()};
             dtm.addRow(row);
@@ -147,6 +160,9 @@ public class ViewWindow extends JDialog {
     public void tableRefreshRol() {
         cleanTable();
         rolList = ServicesLocator.rolServices().getAll();
+        if (rolList == null) {
+            return;
+        }
         for (RolDTO dto : rolList) {
             Object [] row = {dto.getName(), dto.getDescription()};
             dtm.addRow(row);
@@ -174,6 +190,8 @@ public class ViewWindow extends JDialog {
             }
         } catch (ForeignKeyException exception) {
             JOptionPane.showMessageDialog(this, "La entrada que desea eliminar es utilizada en otros campos.");
+        } catch (DeleteCurrentUserException exception) {
+            JOptionPane.showMessageDialog(this, "No se puede eliminar el usuario actual.");
         }
     }
 
@@ -193,13 +211,13 @@ public class ViewWindow extends JDialog {
         tableRefreshModel();
     }
 
-    private void tableDeleteUser(int selection) {
+    private void tableDeleteUser(int selection) throws DeleteCurrentUserException{
         ServicesLocator.userServices().remove(userList.get(selection).getId());
         tableRefreshUser();
     }
 
     private void tableDeleteRol(int selection) {
-        ServicesLocator.rolServices().remove(userList.get(selection).getId());
+        ServicesLocator.rolServices().remove(rolList.get(selection).getId());
         tableRefreshRol();
     }
 
@@ -223,7 +241,8 @@ public class ViewWindow extends JDialog {
     }
 
     private void tableInsertUser() {
-
+        UserInsertWindow dialog = new UserInsertWindow(this, new UserDTO());
+        dialog.setVisible(true);
     }
 
     private void tableInsertRol() {

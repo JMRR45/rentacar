@@ -11,9 +11,9 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insert_user(user_username text, user_password text, user_rol integer) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION insert_user(user_username text, user_rol integer) RETURNS void AS $$
 BEGIN
-	INSERT INTO user_local (username, password, rol_id) VALUES (user_username, user_password, user_rol);
+	INSERT INTO user_local (username, rol_id) VALUES (user_username, user_rol);
 END; $$
 LANGUAGE plpgsql;
 
@@ -60,9 +60,9 @@ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION insert_model(model_name text, model_brand integer) RETURNS void AS $$
 BEGIN
 	IF NOT EXISTS (SELECT name FROM model WHERE name = model_name AND brand_id = model_brand) THEN
-		INSERT INTO model (name, brand_id) VALUES (
-			model_name,
-			model_brand
+		INSERT INTO model (brand_id, name) VALUES (
+			model_brand,
+			model_name
 			);
 	END IF;
 END; $$
@@ -92,10 +92,11 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insert_car(car_plate varchar(7), car_model integer, car_cant_km integer, car_color text, car_situation integer) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION insert_car(car_plate varchar(7), car_brand integer, car_model integer, car_cant_km integer, car_color text, car_situation integer) RETURNS void AS $$
 BEGIN
-	INSERT INTO car (plate, model_id, cant_km, color, situation_id) VALUES (
+	INSERT INTO car (plate, brand_id, model_id, cant_km, color, situation_id) VALUES (
 		car_plate,
+		car_brand,
 		car_model,
 		car_cant_km,
 		car_color,

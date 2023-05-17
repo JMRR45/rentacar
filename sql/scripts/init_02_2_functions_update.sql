@@ -40,9 +40,10 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_car(car_plate varchar(7), car_model integer, car_cant_km integer, car_color text, car_situation integer) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION update_car(car_plate varchar(7), car_brand integer, car_model integer, car_cant_km integer, car_color text, car_situation integer) RETURNS void AS $$
 BEGIN
 	UPDATE car SET
+		brand_id = car_brand,
 		model_id = car_model,
 		cant_km = car_cant_km,
 		color = car_color,

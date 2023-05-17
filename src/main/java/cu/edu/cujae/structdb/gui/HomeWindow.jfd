@@ -17,13 +17,25 @@ new FormModel {
 					name: "menuAdmin"
 					"text": "Administrar"
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemChangePass"
+						"text": "Cambiar Contraseña"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemClose"
+						"text": "Cerrar Sesión"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemClose", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+						name: "separator8"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemSeeUser"
 						"text": "Administrar Usuarios"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeUser", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemSeeRol"
-						"text": "Administrar Roles"
+						"text": "Ver Roles"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeRol", true ) )
 					} )
 				} )
@@ -174,9 +186,6 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemGetTourists"
 						"text": "Turistas"
-					} )
-					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
-						name: "separator8"
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {

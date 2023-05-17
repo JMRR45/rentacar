@@ -15,15 +15,52 @@ public class RolService extends AbstractService {
     }
 
     public void insert(RolDTO dto) {
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 3, null);
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setInt(1, dto.getId());
+            call.setString(2, dto.getName());
+            call.setString(3, dto.getDescription());
 
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void remove(int id) {
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setInt(1, id);
 
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(RolDTO dto) {
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 3, null);
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setInt(1, dto.getId());
+            call.setString(2, dto.getName());
+            call.setString(3, dto.getDescription());
 
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public RolDTO getByID(int id) {

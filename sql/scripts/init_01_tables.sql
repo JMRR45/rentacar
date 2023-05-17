@@ -2,7 +2,7 @@
 CREATE TABLE user_local (
 	id SERIAL NOT NULL,
 	username TEXT NOT NULL,
-	password TEXT NOT NULL,
+	password TEXT,
 	rol_id INT NOT NULL,
 	PRIMARY KEY ( id )
 );
@@ -27,6 +27,7 @@ CREATE TABLE tourist (
 
 CREATE TABLE car (
 	plate VARCHAR(7) NOT NULL,
+	brand_id INTEGER NOT NULL,
 	model_id INTEGER NOT NULL,
 	cant_km INTEGER NOT NULL,
 	color TEXT NOT NULL,
@@ -63,10 +64,10 @@ CREATE TABLE country (
 );
 
 CREATE TABLE model (
+	brand_id INTEGER NOT NULL,
 	id SERIAL NOT NULL,
 	name TEXT NOT NULL,
-	brand_id INTEGER NOT NULL,
-	PRIMARY KEY ( id )
+	PRIMARY KEY ( brand_id, id )
 );
 
 CREATE TABLE brand (
@@ -102,7 +103,7 @@ CREATE TABLE fee (
 
 -- Foreing Keys Definition
 ALTER TABLE tourist ADD CONSTRAINT fk_tourist_country FOREIGN KEY ( country_id ) REFERENCES country ( id );
-ALTER TABLE car ADD CONSTRAINT fk_car_model FOREIGN KEY ( model_id ) REFERENCES model ( id );
+ALTER TABLE car ADD CONSTRAINT fk_car_model FOREIGN KEY ( brand_id, model_id ) REFERENCES model ( brand_id, id );
 ALTER TABLE car ADD CONSTRAINT fk_car_situation FOREIGN KEY ( situation_id ) REFERENCES situation ( id );
 ALTER TABLE driver ADD CONSTRAINT fk_driver_category FOREIGN KEY ( category_id ) REFERENCES category ( id );
 ALTER TABLE model ADD CONSTRAINT fk_model_brand FOREIGN KEY ( brand_id ) REFERENCES brand ( id );
