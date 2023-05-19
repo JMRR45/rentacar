@@ -1,7 +1,7 @@
 ﻿-- Support Tables
 CREATE TABLE user_local (
 	id SERIAL NOT NULL,
-	username TEXT NOT NULL,
+	username TEXT NOT NULL UNIQUE,
 	password TEXT,
 	rol_id INT NOT NULL,
 	PRIMARY KEY ( id )
@@ -46,58 +46,59 @@ CREATE TABLE driver (
 CREATE TABLE contract (
 	car_plate VARCHAR(7) NOT NULL,
 	start_date DATE NOT NULL,
-	tourist_passport VARCHAR(11) NOT NULL,
+	tourist_passport VARCHAR(11) NOT NULL REFERENCES tourist(passport) ON DELETE CASCADE,
 	end_date DATE NOT NULL,
 	start_km INTEGER NOT NULL,
 	delivery_date DATE,
 	end_km INTEGER,
 	pay_method_id INTEGER NOT NULL,
 	driver_dni VARCHAR(11),
+	value FLOAT NOT NULL,
 	PRIMARY KEY ( car_plate, start_date )
 );
 
 -- Auxiliary Tables
 CREATE TABLE country (
 	id SERIAL NOT NULL,
-	name TEXT NOT NULL,
+	name TEXT NOT NULL UNIQUE,
 	PRIMARY KEY ( id )
 );
 
 CREATE TABLE model (
 	brand_id INTEGER NOT NULL,
 	id SERIAL NOT NULL,
-	name TEXT NOT NULL,
+	name TEXT NOT NULL UNIQUE,
 	PRIMARY KEY ( brand_id, id )
 );
 
 CREATE TABLE brand (
 	id SERIAL NOT NULL,
-	name TEXT NOT NULL,
+	name TEXT NOT NULL UNIQUE,
 	PRIMARY KEY ( id )
 );
 
 CREATE TABLE category (
 	id SERIAL NOT NULL,
-	name TEXT NOT NULL,
+	name TEXT NOT NULL UNIQUE,
 	PRIMARY KEY ( id )
 );
 
 CREATE TABLE situation (
 	id SERIAL NOT NULL,
-	name TEXT NOT NULL,
+	name TEXT NOT NULL UNIQUE,
 	PRIMARY KEY ( id )
 );
 
 CREATE TABLE pay_method (
 	id SERIAL NOT NULL,
-	name TEXT NOT NULL,
+	name TEXT NOT NULL UNIQUE,
 	PRIMARY KEY ( id )
 );
 
 CREATE TABLE fee (
 	id SERIAL NOT NULL,
-	name TEXT NOT NULL,
-	day_cost INTEGER NOT NULL,
+	name TEXT NOT NULL UNIQUE,
+	day_cost FLOAT NOT NULL,
 	PRIMARY KEY ( id )
 );
 

@@ -20,7 +20,7 @@ public class AuxiliaryService extends AbstractService {
         super(table);
         insertFunction = FunctionBuilder.newFunction(false, FunctionType.insert, table, 1, null);
         removeFunction = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
-        getFunction = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        getFunction = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         getByIdFunction = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "id");
     }
 

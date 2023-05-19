@@ -1,13 +1,13 @@
 ﻿-- INSERT INITIAL DATA
-SELECT public.insert_rol('Visitante', 'Acceso a los Reportes presentados por la aplicación, así como a consultar la información de las distintas tablas. Solo Lectura.');
-SELECT public.insert_rol('Trabajador', 'Acceso a abrir y cerrar Contratos, registrar y modificar Turistas, Países, Autos, Marcas, Modelos, Situaciónes de los Autos y Categorías de Licencia.');
-SELECT public.insert_rol('Jefe de Área', 'Acceso a registrar y modificar Métodos de Pago, modificar las tarifas, contratar y despedir Conductores, modificar y eliminar Contratos.');
-SELECT public.insert_rol('Administrador', 'Acceso total a la aplicación, lo que incluye creación, modificación y eliminación de usuarios y roles.');
+SELECT public.insert_rol_admin('Visitante', 'Acceso a los Reportes presentados por la aplicación, así como a consultar la información de las distintas tablas. Solo Lectura.');
+SELECT public.insert_rol_admin('Trabajador', 'Acceso a abrir y cerrar Contratos, registrar y modificar Turistas, Países, Autos, Marcas, Modelos, Situaciónes de los Autos y Categorías de Licencia.');
+SELECT public.insert_rol_admin('Jefe de Área', 'Acceso a registrar y modificar Métodos de Pago, modificar las tarifas, contratar y despedir Conductores, modificar y eliminar Contratos.');
+SELECT public.insert_rol_admin('Administrador', 'Acceso total a la aplicación, lo que incluye creación, modificación y eliminación de usuarios y roles.');
 
-SELECT public.special_user_create('admin', 'admin', 4);
+SELECT public.insert_user_admin('admin', 'admin', 4);
 
-SELECT public.insert_fee('regular', 10);
-SELECT public.insert_fee('prórroga', 14);
+SELECT public.insert_fee_admin('regular', 10);
+SELECT public.insert_fee_admin('prórroga', 14);
 
 SELECT public.insert_situation('disponible');
 SELECT public.insert_situation('alquilado');
@@ -158,7 +158,7 @@ SELECT public.insert_car(
 );
 
 -- Contracts
-SELECT public.insert_contract(
+SELECT public.insert_contract_admin(
 	'B123456',
 	'2023/02/13',
 	'AEC071239',
@@ -169,7 +169,7 @@ SELECT public.insert_contract(
 	(SELECT id FROM pay_method WHERE name = 'efectivo'),
 	'79092345678'
 );
-SELECT public.special_contract_open(
+SELECT public.business_contract_open(
 	'B895690',
 	'2023/01/27',
 	'ABC070807',

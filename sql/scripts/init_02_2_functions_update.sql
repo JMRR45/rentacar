@@ -1,7 +1,7 @@
 ﻿-- UPDATE FUNCTIONS
-CREATE OR REPLACE FUNCTION update_fee(fee_id integer, fee_name text, fee_cost text) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION update_fee(fee_id integer, fee_cost text) RETURNS void AS $$
 BEGIN
-	UPDATE fee SET name = fee_name, day_cost = fee_cost WHERE id = fee_id;
+	UPDATE fee SET day_cost = fee_cost WHERE id = fee_id;
 END; $$
 LANGUAGE plpgsql;
 
@@ -61,7 +61,8 @@ BEGIN
 		delivery_date = contract_delivery_date,
 		end_km = contract_end_km,
 		pay_mehtod = contract_pay_method,
-		driver_dni = contract_driver
+		driver_dni = contract_driver,
+		value = public.business_contract_value(contract_plate, contract_start_date)
 	WHERE car_plate = contract_plate AND start_date = contract_start_date;
 END; $$
 LANGUAGE plpgsql;

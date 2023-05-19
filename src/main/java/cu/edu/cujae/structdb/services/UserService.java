@@ -71,7 +71,7 @@ public class UserService extends AbstractService {
 
     public List<UserDTO> getAll() {
         List<UserDTO> list = new LinkedList<>();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);

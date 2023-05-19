@@ -54,7 +54,7 @@ public class ModelService extends AbstractService {
 
     public List<ModelDTO> getAll() {
         List<ModelDTO> list = new LinkedList<>();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);

@@ -1,7 +1,7 @@
 ﻿-- GETTERS FUNCTIONS
 
 -- GET ALL SUPPORT
-CREATE OR REPLACE FUNCTION get_all_rol() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_rol_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'rol';
 BEGIN
@@ -11,7 +11,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_user() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_user_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'users';
 BEGIN
@@ -54,7 +54,7 @@ END; $$
 LANGUAGE plpgsql;
 
 -- GET ALL AUXILIAR
-CREATE OR REPLACE FUNCTION get_all_fee() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_fee_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'fee';
 BEGIN
@@ -64,7 +64,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_situation() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_situation_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'situations';
 BEGIN
@@ -74,7 +74,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_paymethod() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_paymethod_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'paymethods';
 BEGIN
@@ -84,7 +84,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_brand() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_brand_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'brands';
 BEGIN
@@ -94,7 +94,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_country() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_country_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'countries';
 BEGIN
@@ -104,7 +104,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_category() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_category_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'categories';
 BEGIN
@@ -257,7 +257,7 @@ END; $$
 LANGUAGE plpgsql;
 
 -- GET ALL MAIN
-CREATE OR REPLACE FUNCTION get_all_tourist() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_tourist_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'tourists';
 BEGIN
@@ -267,7 +267,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_driver() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_driver_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'drivers';
 BEGIN
@@ -277,7 +277,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_car() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_car_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'cars';
 BEGIN
@@ -287,7 +287,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_contract() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_contract_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'contract';
 BEGIN

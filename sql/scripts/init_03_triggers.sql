@@ -9,9 +9,9 @@ BEGIN
 	RETURN NEW;
 END; $$
 LANGUAGE plpgsql;
-
 CREATE TRIGGER trigger_contract_open AFTER INSERT ON contract
 FOR EACH ROW EXECUTE PROCEDURE trigger_contract_open();
+
 
 CREATE OR REPLACE FUNCTION trigger_contract_close() RETURNS TRIGGER AS $$
 BEGIN
@@ -24,6 +24,5 @@ BEGIN
 	RETURN NEW;
 END; $$
 LANGUAGE plpgsql;
-
 CREATE TRIGGER trigger_contract_close AFTER UPDATE ON contract
 FOR EACH ROW EXECUTE PROCEDURE trigger_contract_close();
