@@ -11,11 +11,25 @@ new FormModel {
 			name: "this"
 			"title": "Rent a Car"
 			"defaultCloseOperation": 2
+			"minimumSize": new java.awt.Dimension( 800, 600 )
+			"preferredSize": new java.awt.Dimension( 800, 600 )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar"
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menuAdmin"
 					"text": "Administrar"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemChangePass"
+						"text": "Cambiar Contraseña"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mItemClose"
+						"text": "Cerrar Sesión"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemClose", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+						name: "separator8"
+					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemSeeUser"
 						"text": "Administrar Usuarios"
@@ -23,7 +37,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemSeeRol"
-						"text": "Administrar Roles"
+						"text": "Ver Roles"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemSeeRol", true ) )
 					} )
 				} )
@@ -174,9 +188,6 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemGetTourists"
 						"text": "Turistas"
-					} )
-					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
-						name: "separator8"
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {

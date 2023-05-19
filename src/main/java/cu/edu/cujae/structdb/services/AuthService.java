@@ -20,5 +20,12 @@ public class AuthService {
         currentUser = response;
         return LoginResult.correct;
     }
+
+    public boolean isCurrentUser(int id) {
+        if (id == currentUser.getId()) {
+            return true;
+        }
+        return false;
+    }
 }
 

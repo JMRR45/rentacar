@@ -1,11 +1,11 @@
 ﻿-- Reports
 
--- Report #1 UNDONE
+-- Report #1
 CREATE OR REPLACE FUNCTION report_tourist_list() RETURNS refcursor AS $$
 DECLARE 
-	car_list refcursor := 'tourist_list';
+	tourist_list refcursor := 'tourist_list';
 BEGIN
-	OPEN car_list FOR
+	OPEN tourist_list FOR
 	SELECT plate, brand.name, model.name, color, cant_km FROM car
 	JOIN model ON car.model_id = model.id
 	JOIN brand ON model.brand_id = brand.id;

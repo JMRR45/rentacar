@@ -14,15 +14,16 @@ public class CarService extends AbstractService {
         super(table);
     }
     public void insert(CarDTO dto) {
-        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 5, null);
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getPlate());
-            call.setInt(2, dto.getModel().getId());
-            call.setInt(3, dto.getCantKm());
-            call.setString(4, dto.getColor());
-            call.setInt(5, dto.getSituation().getId());
+            call.setInt(2, dto.getModel().getBrand().getId());
+            call.setInt(3, dto.getModel().getId());
+            call.setInt(4, dto.getCantKm());
+            call.setString(5, dto.getColor());
+            call.setInt(6, dto.getSituation().getId());
 
             call.execute();
             call.close();
@@ -48,15 +49,16 @@ public class CarService extends AbstractService {
     }
 
     public void update(CarDTO dto) {
-        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 5, null);
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getPlate());
-            call.setInt(2, dto.getModel().getId());
-            call.setInt(3, dto.getCantKm());
-            call.setString(4, dto.getColor());
-            call.setInt(5, dto.getSituation().getId());
+            call.setInt(2, dto.getModel().getBrand().getId());
+            call.setInt(3, dto.getModel().getId());
+            call.setInt(4, dto.getCantKm());
+            call.setString(5, dto.getColor());
+            call.setInt(6, dto.getSituation().getId());
 
             call.execute();
             call.close();
@@ -68,7 +70,7 @@ public class CarService extends AbstractService {
 
     public List<CarDTO> getAll() {
         List<CarDTO> list = new LinkedList<>();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);

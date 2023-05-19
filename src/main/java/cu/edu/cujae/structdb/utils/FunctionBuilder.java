@@ -2,34 +2,38 @@ package cu.edu.cujae.structdb.utils;
 
 public class FunctionBuilder {
 
-    public static String newFunction(boolean hasReturn, FunctionType type, String table, int parameters, String criteria) {
-        String function = hasReturn ? "{?= call " : "{call ";
+    private static String function;
 
+    public static String newFunction(boolean hasReturn, FunctionType type, String table, int parameters, String criteria) {
+        function = hasReturn ? "{?= call " : "{call ";
+        setType(type);
+        function += table;
+        setCriteria(criteria);
+        setParameters(parameters);
+        return function;
+    }
+
+    private static void setType(FunctionType type) {
         switch (type) {
             case insert -> function += "insert_";
             case delete -> function += "delete_";
             case update -> function += "update_";
             case get -> function += "get_";
-            case special -> function += "special";
+            case business -> function += "business_";
         }
+    }
 
-        if (type == FunctionType.get) {
-            if (criteria == null) {
-                function += "all_";
-                function += table;
-            } else {
-                function += table;
-                function += "_";
-                function += "by_" + criteria;
-            }
-        } else if (type == FunctionType.special) {
-            function += table;
+    private static void setCriteria(String criteria) {
+        if (criteria != null) {
             function += "_";
+            if (!criteria.equals("all")) {
+                function += "by_";
+            }
             function += criteria;
-        } else {
-            function += table;
         }
+    }
 
+    private static void setParameters(int parameters) {
         function += "(";
         for (int i = 0; i < parameters; i++) {
             function += "?";
@@ -38,6 +42,5 @@ public class FunctionBuilder {
             }
         }
         function += ")}";
-        return function;
     }
 }

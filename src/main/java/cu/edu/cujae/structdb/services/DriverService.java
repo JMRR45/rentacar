@@ -67,7 +67,7 @@ public class DriverService extends AbstractService{
 
     public List<DriverDTO> getAll() {
         List<DriverDTO> list = new LinkedList<>();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);

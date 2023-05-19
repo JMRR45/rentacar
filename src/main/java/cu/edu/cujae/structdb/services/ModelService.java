@@ -54,7 +54,7 @@ public class ModelService extends AbstractService {
 
     public List<ModelDTO> getAll() {
         List<ModelDTO> list = new LinkedList<>();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
@@ -68,9 +68,9 @@ public class ModelService extends AbstractService {
             }
             while (resultSet.next()) {
                 ModelDTO dto = new ModelDTO();
-                dto.setId(resultSet.getInt(1));
-                dto.setName(resultSet.getString(2));
-                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(3)));
+                dto.setId(resultSet.getInt(2));
+                dto.setBrand(ServicesLocator.brandServices().getByID(resultSet.getInt(1)));
+                dto.setName(resultSet.getString(3));
                 list.add(dto);
             }
             call.close();

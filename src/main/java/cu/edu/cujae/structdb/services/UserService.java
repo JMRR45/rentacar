@@ -3,6 +3,7 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.DeleteCurrentUserException;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -16,20 +17,61 @@ public class UserService extends AbstractService {
 
 
     public void insert(UserDTO dto) {
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 2, null);
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setString(1, dto.getUsername());
+            call.setInt(2, dto.getRol().getId());
 
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void remove(int  id) {
+    public void remove(int  id) throws DeleteCurrentUserException{
+        if (ServicesLocator.authService().isCurrentUser(id)) {
+            throw new DeleteCurrentUserException();
+        }
 
+        String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setInt(1, id);
+
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(UserDTO dto) {
+        String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 4, null);
+        try {
+            Connection con = ServicesLocator.getConnection();
+            CallableStatement call = con.prepareCall(function);
+            call.setInt(1, dto.getId());
+            call.setString(2, dto.getUsername());
+            call.setString(3, dto.getPassword());
+            call.setInt(4, dto.getRol().getId());
 
+            call.execute();
+            call.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<UserDTO> getAll() {
         List<UserDTO> list = new LinkedList<>();
-        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, null);
+        String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
             Connection con = ServicesLocator.getConnection();
             con.setAutoCommit(false);
