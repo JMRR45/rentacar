@@ -52,7 +52,7 @@ public class ModelViewHandler extends AbstractViewHandler{
     }
 
     @Override
-    public void buttonUpdate(DefaultTableModel dtm) {
+    public void buttonUpdate(DefaultTableModel dtm, TableType type, Window owner, int selection) {
 
     }
 }

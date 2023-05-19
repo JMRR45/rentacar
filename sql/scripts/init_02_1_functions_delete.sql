@@ -16,6 +16,8 @@ CREATE OR REPLACE FUNCTION delete_situation(text) RETURNS void AS $$
 BEGIN
 	IF $1 NOT IN ('disponible', 'alquilado', 'en taller') THEN
 		DELETE FROM situation WHERE name = $1;
+	ELSE
+		RAISE EXCEPTION 'asd';
 	END IF;
 END; $$
 LANGUAGE plpgsql;

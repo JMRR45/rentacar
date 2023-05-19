@@ -4,18 +4,9 @@
 
 package cu.edu.cujae.structdb.gui;
 
-import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
-import cu.edu.cujae.structdb.dto.model.ModelDTO;
-import cu.edu.cujae.structdb.dto.model.RolDTO;
-import cu.edu.cujae.structdb.dto.model.UserDTO;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.gui.abstractions.ViewHandlerBuilder;
-import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
-import cu.edu.cujae.structdb.gui.insert.UserInsertWindow;
-import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
-import cu.edu.cujae.structdb.utils.TableTypeContainer;
 import cu.edu.cujae.structdb.utils.exception.DeleteCurrentUserException;
 import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 import net.miginfocom.swing.MigLayout;
@@ -24,8 +15,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author cdrobaina01
@@ -34,10 +23,6 @@ public class ViewWindow extends JDialog {
     public AbstractViewHandler handler;
     private TableType type;
     private DefaultTableModel dtm;
-    private List<AuxiliaryDTO> auxiliaryList;
-    private List<ModelDTO> modelList;
-    private List<UserDTO> userList;
-    private List<RolDTO> rolList;
 
     public ViewWindow(Object type) {
         initComponents();
@@ -101,7 +86,12 @@ public class ViewWindow extends JDialog {
     }
 
     private void btnUpdate(ActionEvent e) {
-        handler.buttonUpdate(dtm);
+        int selection = defaultTbl.getSelectedRow();
+        if (selection == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una entrada.");
+            return;
+        }
+        handler.buttonUpdate(dtm, type, this, selection);
     }
 
     private void initComponents() {

@@ -4,16 +4,16 @@
 
 package cu.edu.cujae.structdb.gui.insert;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.List;
-import javax.swing.*;
-
 import cu.edu.cujae.structdb.dto.model.RolDTO;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
 import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
-import net.miginfocom.swing.*;
+import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.List;
 
 /**
  * @author carlosd.inc
@@ -29,10 +29,14 @@ public class UserInsertWindow extends JDialog {
         this.dto = (UserDTO) dto;
 
         isUpdating = this.dto.getId() != null;
-        txtFld.setEnabled(!isUpdating);
+        if (isUpdating) {
+            txtFld.setEnabled(false);
+            txtFld.setText(((UserDTO) dto).getUsername());
+            this.setTitle("Actualizar usuario");
+        } else {
+            this.setTitle("Crear nuevo usuario");
+        }
 
-        String action = isUpdating ? "Actualizar " : "Crear nuevo ";
-        this.setTitle(action + "usuario.");
         roles = ServicesLocator.rolServices().getAll();
         for (RolDTO rol : roles) {
             cmBox.addItem(rol.getName());

@@ -4,17 +4,14 @@
 
 package cu.edu.cujae.structdb.gui;
 
-import java.awt.*;
-
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.utils.TableType;
-import cu.edu.cujae.structdb.utils.TableTypeContainer;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Properties;
 
 /**
  * @author carlosd.inc
@@ -93,6 +90,10 @@ public class HomeWindow extends JFrame {
         this.dispose();
     }
 
+    private void mItemTheme(ActionEvent e) {
+        GuiManager.changeTheme(this);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
@@ -100,6 +101,7 @@ public class HomeWindow extends JFrame {
         menuAdmin = new JMenu();
         mItemChangePass = new JMenuItem();
         mItemClose = new JMenuItem();
+        mItemTheme = new JMenuItem();
         mItemSeeUser = new JMenuItem();
         mItemSeeRol = new JMenuItem();
         menuManage = new JMenu();
@@ -173,6 +175,11 @@ public class HomeWindow extends JFrame {
                 mItemClose.setText("Cerrar Sesi\u00f3n");
                 mItemClose.addActionListener(e -> mItemClose(e));
                 menuAdmin.add(mItemClose);
+
+                //---- mItemTheme ----
+                mItemTheme.setText("Cambiar Tema Claro/Oscuro");
+                mItemTheme.addActionListener(e -> mItemTheme(e));
+                menuAdmin.add(mItemTheme);
                 menuAdmin.addSeparator();
 
                 //---- mItemSeeUser ----
@@ -402,6 +409,7 @@ public class HomeWindow extends JFrame {
     private JMenu menuAdmin;
     private JMenuItem mItemChangePass;
     private JMenuItem mItemClose;
+    private JMenuItem mItemTheme;
     private JMenuItem mItemSeeUser;
     private JMenuItem mItemSeeRol;
     private JMenu menuManage;

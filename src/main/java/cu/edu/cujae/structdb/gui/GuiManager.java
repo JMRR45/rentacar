@@ -1,10 +1,11 @@
 package cu.edu.cujae.structdb.gui;
 
-import cu.edu.cujae.structdb.dto.model.UserDTO;
+import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.RolInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.UserInsertWindow;
-import cu.edu.cujae.structdb.utils.TableType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.util.Properties;
 
 public class GuiManager {
     public enum FrameType {login, main};
-    public enum DialogType {view, insertAuxiliary, insertModel, insertUser}
+    public enum DialogType {view, insertAuxiliary, insertModel, insertUser, insertRol}
     private interface AbstractFrame {
         void show();
     }
@@ -23,6 +24,7 @@ public class GuiManager {
 
     private static HashMap<FrameType, AbstractFrame> frames;
     private static HashMap<DialogType, AbstractDialog> dialogs;
+    private static boolean darkTheme = true;
 
     /**
      * Inicializa la interfaz gráfica y establece el tema a utilizar
@@ -38,6 +40,21 @@ public class GuiManager {
         openFrame(FrameType.login, null, null);
     }
 
+    public static void changeTheme(Component component) {
+        darkTheme = darkTheme ? false : true;
+        try {
+            if (darkTheme) {
+                UIManager.setLookAndFeel(new FlatArcDarkContrastIJTheme());
+                SwingUtilities.updateComponentTreeUI(component);
+            } else {
+                UIManager.setLookAndFeel(new FlatArcIJTheme());
+                SwingUtilities.updateComponentTreeUI(component);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     /**
      * Este método permite levantar una nueva ventana.
      * @param toOpen Indentificador de la ventana que se debe abrir
@@ -102,6 +119,13 @@ public class GuiManager {
         });
         dialogs.put(DialogType.insertUser, (parent, dto) -> {
             JDialog frame = new UserInsertWindow(parent, dto);
+            frame.setLocationRelativeTo(null);
+            frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
+                    "cujae\\structdb\\gui\\icons\\rent.png").getImage());
+            frame.setVisible(true);
+        });
+        dialogs.put(DialogType.insertRol, (parent, dto) -> {
+            JDialog frame = new RolInsertWindow(parent, dto);
             frame.setLocationRelativeTo(null);
             frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
                     "cujae\\structdb\\gui\\icons\\rent.png").getImage());
