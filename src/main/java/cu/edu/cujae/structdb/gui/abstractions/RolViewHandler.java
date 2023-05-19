@@ -1,11 +1,13 @@
 package cu.edu.cujae.structdb.gui.abstractions;
 
 import cu.edu.cujae.structdb.dto.model.RolDTO;
+import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
 import cu.edu.cujae.structdb.utils.exception.DeleteCurrentUserException;
 import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -50,7 +52,10 @@ public class RolViewHandler extends AbstractViewHandler{
     }
 
     @Override
-    public void buttonUpdate(DefaultTableModel dtm) {
-
+    public void buttonUpdate(DefaultTableModel dtm, TableType type, Window owner, int selection) {
+        JOptionPane.showMessageDialog(owner, "Recuerde que aunque modifique\n" +
+                                                     "el nombre o la descripción del rol,\n" +
+                                                     "su nivel de acceso no cambiará.");
+        GuiManager.openDialog(GuiManager.DialogType.insertRol, owner, list.get(selection));
     }
 }

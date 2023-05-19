@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 public class AuxiliaryViewHandler extends AbstractViewHandler{
     private List<AuxiliaryDTO> list;
@@ -90,7 +89,6 @@ public class AuxiliaryViewHandler extends AbstractViewHandler{
     }
 
     @Override
-    public void buttonUpdate(DefaultTableModel dtm) {
-
+    public void buttonUpdate(DefaultTableModel dtm, TableType type, Window owner, int selection) {
     }
 }

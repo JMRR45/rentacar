@@ -14,7 +14,6 @@ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION update_user(user_id integer, user_username text, user_password text, user_rol integer) RETURNS void AS $$
 BEGIN
 	UPDATE user_local SET username = user_username, password = user_password, rol_id = user_rol WHERE id = user_id;
-	INSERT INTO user_local (username, password, rol_id) VALUES (user_username, user_password, user_rol);
 END; $$
 LANGUAGE plpgsql;
 
