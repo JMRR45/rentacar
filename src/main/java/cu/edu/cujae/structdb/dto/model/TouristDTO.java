@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.dto.model;
 
-public class TouristDTO {
+public class TouristDTO implements AbstractDTO {
     private String passport;
     private String name;
     private int age;

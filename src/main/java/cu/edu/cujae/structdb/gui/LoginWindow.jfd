@@ -81,7 +81,7 @@ new FormModel {
 					name: "buttonBar"
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "btnLogin"
-						"text": "Autenticarse"
+						"text": "Iniciar Sesión"
 						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "btnLoginKeyPressed", true ) )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnLogin", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

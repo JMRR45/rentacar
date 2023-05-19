@@ -2,10 +2,9 @@
  * Created by JFormDesigner on Fri May 12 09:35:46 CDT 2023
  */
 
-package cu.edu.cujae.structdb.gui.home;
+package cu.edu.cujae.structdb.gui;
 
 import cu.edu.cujae.structdb.dto.model.UserDTO;
-import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.services.AuthService;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import net.miginfocom.swing.MigLayout;
@@ -52,7 +51,7 @@ public class LoginWindow extends JFrame {
                 lblErrorPass.setVisible(true);
                 break;
             case correct:
-                GuiManager.open(GuiManager.WindowType.main, this);
+                GuiManager.openFrame(GuiManager.FrameType.main, this, null);
         }
     }
 
@@ -85,12 +84,13 @@ public class LoginWindow extends JFrame {
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
-            EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax. swing
-            . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,12 ),
-            java. awt. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
-            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .getPropertyName () ))
-            throw new RuntimeException( ); }} );
+            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.
+            swing.border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border
+            .TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog"
+            ,java.awt.Font.BOLD,12),java.awt.Color.red),dialogPane. getBorder
+            ()));dialogPane. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java
+            .beans.PropertyChangeEvent e){if("\u0062ord\u0065r".equals(e.getPropertyName()))throw new RuntimeException
+            ();}});
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -148,7 +148,7 @@ public class LoginWindow extends JFrame {
                     null));
 
                 //---- btnLogin ----
-                btnLogin.setText("Autenticarse");
+                btnLogin.setText("Iniciar Sesi\u00f3n");
                 btnLogin.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {

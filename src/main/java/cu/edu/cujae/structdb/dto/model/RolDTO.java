@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.dto.model;
 
-public class RolDTO {
+public class RolDTO implements AbstractDTO {
     private Integer id;
     private String name;
     private String description;

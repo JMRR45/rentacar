@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.dto.model;
 
-public class DriverDTO {
+public class DriverDTO implements AbstractDTO {
     private String dni;
     private String name;
     private AuxiliaryDTO category;

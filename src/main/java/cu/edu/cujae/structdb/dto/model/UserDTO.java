@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.dto.model;
 
-public class UserDTO {
+public class UserDTO implements AbstractDTO {
     private Integer id;
     private String username;
     private String password;

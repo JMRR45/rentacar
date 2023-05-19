@@ -11,7 +11,7 @@ import javax.swing.*;
 
 import cu.edu.cujae.structdb.dto.model.RolDTO;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
-import cu.edu.cujae.structdb.gui.view.ViewWindow;
+import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import net.miginfocom.swing.*;
 
@@ -22,17 +22,30 @@ public class UserInsertWindow extends JDialog {
     private UserDTO dto;
     private List<RolDTO> roles;
     private boolean isUpdating;
-    public UserInsertWindow(Window owner, UserDTO dto) {
+    public UserInsertWindow(Window owner, Object dto) {
         super(owner);
         initComponents();
         setLocationRelativeTo(null);
-        this.dto = dto;
-        isUpdating = dto.getId() != null;
-        this.setTitle("Crear nuevo usuario.");
+        this.dto = (UserDTO) dto;
+
+        isUpdating = this.dto.getId() != null;
+        txtFld.setEnabled(!isUpdating);
+
+        String action = isUpdating ? "Actualizar " : "Crear nuevo ";
+        this.setTitle(action + "usuario.");
         roles = ServicesLocator.rolServices().getAll();
         for (RolDTO rol : roles) {
             cmBox.addItem(rol.getName());
         }
+        checkOk();
+    }
+
+    private void checkOk() {
+        boolean activate = false;
+        if (!txtFld.getText().isBlank()) {
+            activate = true;
+        }
+        okButton.setEnabled(activate);
     }
 
     private void cancel(ActionEvent e) {
@@ -40,6 +53,26 @@ public class UserInsertWindow extends JDialog {
     }
 
     private void ok(ActionEvent e) {
+       if (isUpdating) {
+           update();
+       } else {
+           insert();
+       }
+    }
+
+    private void update() {
+        dto.setUsername(txtFld.getText());
+        dto.setRol(roles.get(cmBox.getSelectedIndex()));
+        ServicesLocator.userServices().update(dto);
+        Window owner = getOwner();
+        if (owner instanceof ViewWindow) {
+            ((ViewWindow) owner).refresh();
+        }
+        JOptionPane.showMessageDialog(this, "Usuario actualizado exitosamente.");
+        this.dispose();
+    }
+    
+    private void insert() {
         if (txtFld.getText().isBlank()) {
             JOptionPane.showMessageDialog(okButton, "Debe introducir un nombre de usuario.");
             return;
@@ -49,10 +82,28 @@ public class UserInsertWindow extends JDialog {
         ServicesLocator.userServices().insert(dto);
         Window owner = getOwner();
         if (owner instanceof ViewWindow) {
-            ((ViewWindow) owner).tableRefreshUser();
+            ((ViewWindow) owner).refresh();
         }
         JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
         this.dispose();
+    }
+
+    private void thisKeyReleased(KeyEvent e) {
+    }
+
+    private void thisMouseClicked(MouseEvent e) {
+    }
+
+    private void txtFldKeyPressed(KeyEvent e) {
+        checkOk();
+    }
+
+    private void cmBox(ActionEvent e) {
+        checkOk();
+    }
+
+    private void txtFld(ActionEvent e) {
+        checkOk();
     }
 
     private void initComponents() {
@@ -70,19 +121,33 @@ public class UserInsertWindow extends JDialog {
 
         //======== this ========
         setModal(true);
+        setMaximumSize(new Dimension(400, 180));
+        setMinimumSize(new Dimension(400, 180));
+        setPreferredSize(new Dimension(400, 180));
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                thisKeyReleased(e);
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                thisMouseClicked(e);
+            }
+        });
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (
-            new javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn"
-            , javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM
-            , new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 )
-            , java. awt. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (
-            new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
-            ) {if ("\u0062ord\u0065r" .equals (e .getPropertyName () )) throw new RuntimeException( )
-            ; }} );
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
+            swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border
+            . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog"
+            ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder
+            ( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
+            .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException
+            ( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -99,11 +164,23 @@ public class UserInsertWindow extends JDialog {
                 //---- label1 ----
                 label1.setText("Nombre de Usuario: ");
                 contentPanel.add(label1, "cell 0 0");
+
+                //---- txtFld ----
+                txtFld.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        txtFldKeyPressed(e);
+                    }
+                });
+                txtFld.addActionListener(e -> txtFld(e));
                 contentPanel.add(txtFld, "cell 1 0");
 
                 //---- label2 ----
                 label2.setText("Rol: ");
                 contentPanel.add(label2, "cell 0 1");
+
+                //---- cmBox ----
+                cmBox.addActionListener(e -> cmBox(e));
                 contentPanel.add(cmBox, "cell 1 1");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
@@ -113,6 +190,15 @@ public class UserInsertWindow extends JDialog {
                 buttonBar.setLayout(new MigLayout(
                     "insets dialog,alignx right",
                     // columns
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
                     "[button,fill]" +
                     "[button,fill]",
                     // rows
@@ -121,12 +207,12 @@ public class UserInsertWindow extends JDialog {
                 //---- okButton ----
                 okButton.setText("OK");
                 okButton.addActionListener(e -> ok(e));
-                buttonBar.add(okButton, "cell 0 0");
+                buttonBar.add(okButton, "cell 9 0");
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
                 cancelButton.addActionListener(e -> cancel(e));
-                buttonBar.add(cancelButton, "cell 1 0");
+                buttonBar.add(cancelButton, "cell 10 0");
             }
             dialogPane.add(buttonBar, BorderLayout.SOUTH);
         }

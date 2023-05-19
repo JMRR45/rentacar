@@ -2,7 +2,7 @@ package cu.edu.cujae.structdb.dto.model;
 
 import java.time.LocalDate;
 
-public class ContractDTO {
+public class ContractDTO implements AbstractDTO {
     private String plate;
     private String passport;
     private LocalDate startDate;

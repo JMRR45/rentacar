@@ -6,6 +6,11 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
 			"modal": true
+			"maximumSize": new java.awt.Dimension( 400, 180 )
+			"minimumSize": new java.awt.Dimension( 400, 180 )
+			"preferredSize": new java.awt.Dimension( 400, 180 )
+			addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "thisKeyReleased", true ) )
+			addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "thisMouseClicked", true ) )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
@@ -22,6 +27,8 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "txtFld"
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "txtFldKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "txtFld", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 0"
 					} )
@@ -33,6 +40,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
 						name: "cmBox"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cmBox", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1"
 					} )
@@ -41,7 +49,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "insets dialog,alignx right"
-					"$columnConstraints": "[button,fill][button,fill]"
+					"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill][fill][button,fill][button,fill]"
 					"$rowSpecs": "[fill]"
 				} ) {
 					name: "buttonBar"
@@ -50,14 +58,14 @@ new FormModel {
 						"text": "OK"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "ok", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 0 0"
+						"value": "cell 9 0"
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "cancelButton"
 						"text": "Cancel"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancel", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 1 0"
+						"value": "cell 10 0"
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "South"
@@ -67,7 +75,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 400, 180 )
 		} )
 	}
 }

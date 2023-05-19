@@ -36,9 +36,9 @@ LANGUAGE plpgsql;
 
 
 -- REGULAR INSERT FUNCTIONS
-CREATE OR REPLACE FUNCTION insert_user(user_username text, user_rol integer) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION insert_user(user_username text, user_password text, user_rol integer) RETURNS void AS $$
 BEGIN
-	INSERT INTO user_local (username, rol_id) VALUES (user_username, user_rol);
+	INSERT INTO user_local (username, password, rol_id) VALUES (user_username, user_password, user_rol);
 END; $$
 LANGUAGE plpgsql;
 

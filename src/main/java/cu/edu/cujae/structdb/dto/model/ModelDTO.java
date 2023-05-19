@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.dto.model;
 
-public class ModelDTO {
+public class ModelDTO implements AbstractDTO {
     private int id;
     private String name;
     private AuxiliaryDTO brand;

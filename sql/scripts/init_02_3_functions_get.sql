@@ -114,7 +114,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_all_model() RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION get_model_all() RETURNS refcursor AS $$
 DECLARE
 	result refcursor := 'models';
 BEGIN

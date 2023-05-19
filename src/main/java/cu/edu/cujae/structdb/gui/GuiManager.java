@@ -1,19 +1,28 @@
 package cu.edu.cujae.structdb.gui;
 
-import cu.edu.cujae.structdb.gui.home.HomeWindow;
-import cu.edu.cujae.structdb.gui.home.LoginWindow;
+import cu.edu.cujae.structdb.dto.model.UserDTO;
+import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
+import cu.edu.cujae.structdb.gui.insert.UserInsertWindow;
+import cu.edu.cujae.structdb.utils.TableType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Properties;
 
 public class GuiManager {
-    public enum WindowType {login, main};
-    private interface AbstractGui {
+    public enum FrameType {login, main};
+    public enum DialogType {view, insertAuxiliary, insertModel, insertUser}
+    private interface AbstractFrame {
         void show();
     }
+    private interface AbstractDialog {
+        void show(Window parent, Object prop);
+    }
 
-    private static HashMap<WindowType, AbstractGui> windows;
+    private static HashMap<FrameType, AbstractFrame> frames;
+    private static HashMap<DialogType, AbstractDialog> dialogs;
 
     /**
      * Inicializa la interfaz gráfica y establece el tema a utilizar
@@ -26,7 +35,7 @@ public class GuiManager {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        open(WindowType.login, null);
+        openFrame(FrameType.login, null, null);
     }
 
     /**
@@ -34,11 +43,14 @@ public class GuiManager {
      * @param toOpen Indentificador de la ventana que se debe abrir
      * @param toClose Ventana que se debe cerrar (si no se desea cerrar ninguna pasar null)
      */
-    public static void open(WindowType toOpen, Window toClose) {
+    public static void openFrame(FrameType toOpen, Window toClose, Properties props) {
         if (toClose != null) {
             toClose.dispose();
         }
-        windows.get(toOpen).show();
+        frames.get(toOpen).show();
+    }
+    public static void openDialog(DialogType toOpen, Window parent, Object prop) {
+        dialogs.get(toOpen).show(parent, prop);
     }
 
     /*
@@ -51,17 +63,45 @@ public class GuiManager {
             frame.setVisible(true);
      */
     private static void initWindows() {
-        windows = new HashMap<>();
-        windows = new HashMap<>();
-        windows.put(WindowType.login, () -> {
+        frames = new HashMap<>();
+        dialogs = new HashMap<>();
+        frames.put(FrameType.login, () -> {
             JFrame frame = new LoginWindow();
             frame.setLocationRelativeTo(null);
             frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
                     "cujae\\structdb\\gui\\icons\\rent.png").getImage());
             frame.setVisible(true);
         });
-        windows.put(WindowType.main, () -> {
+        frames.put(FrameType.main, () -> {
             JFrame frame = new HomeWindow();
+            frame.setLocationRelativeTo(null);
+            frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
+                    "cujae\\structdb\\gui\\icons\\rent.png").getImage());
+            frame.setVisible(true);
+        });
+        dialogs.put(DialogType.view, (parent, prop) -> {
+            JDialog frame = new ViewWindow(prop);
+            frame.setLocationRelativeTo(null);
+            frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
+                    "cujae\\structdb\\gui\\icons\\rent.png").getImage());
+            frame.setVisible(true);
+        });
+        dialogs.put(DialogType.insertAuxiliary, (parent, prop) -> {
+            JDialog frame = new AuxiliaryInsertWindow(prop, parent);
+            frame.setLocationRelativeTo(null);
+            frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
+                    "cujae\\structdb\\gui\\icons\\rent.png").getImage());
+            frame.setVisible(true);
+        });
+        dialogs.put(DialogType.insertModel, (parent, prop) -> {
+            JDialog frame = new ModelInsertWindow(parent);
+            frame.setLocationRelativeTo(null);
+            frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
+                    "cujae\\structdb\\gui\\icons\\rent.png").getImage());
+            frame.setVisible(true);
+        });
+        dialogs.put(DialogType.insertUser, (parent, dto) -> {
+            JDialog frame = new UserInsertWindow(parent, dto);
             frame.setLocationRelativeTo(null);
             frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
                     "cujae\\structdb\\gui\\icons\\rent.png").getImage());

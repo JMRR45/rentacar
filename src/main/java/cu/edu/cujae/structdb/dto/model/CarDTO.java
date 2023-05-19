@@ -1,6 +1,6 @@
 package cu.edu.cujae.structdb.dto.model;
 
-public class CarDTO {
+public class CarDTO implements AbstractDTO {
     private String plate;
     private ModelDTO model;
     private int cantKm;

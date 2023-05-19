@@ -11,18 +11,21 @@ import java.util.List;
 
 public class UserService extends AbstractService {
 
+    private String defaultPassword = "rentacar";
+
     public UserService(String table) {
         super(table);
     }
 
 
     public void insert(UserDTO dto) {
-        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 2, null);
+        String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 3, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setString(1, dto.getUsername());
-            call.setInt(2, dto.getRol().getId());
+            call.setString(2, defaultPassword);
+            call.setInt(3, dto.getRol().getId());
 
             call.execute();
             call.close();

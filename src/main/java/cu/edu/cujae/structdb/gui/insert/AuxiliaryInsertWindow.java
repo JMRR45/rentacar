@@ -5,7 +5,7 @@
 package cu.edu.cujae.structdb.gui.insert;
 
 import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
-import cu.edu.cujae.structdb.gui.view.ViewWindow;
+import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
 import net.miginfocom.swing.MigLayout;
@@ -20,13 +20,13 @@ import java.awt.event.ActionEvent;
 public class AuxiliaryInsertWindow extends JDialog {
     private TableType type;
     private AuxiliaryDTO dto;
-    public AuxiliaryInsertWindow(Window owner, TableType type) {
+    public AuxiliaryInsertWindow(Object type, Window owner) {
         super(owner);
         initComponents();
         setLocationRelativeTo(null);
-        this.type = type;
+        this.type = (TableType) type;
         this.dto = new AuxiliaryDTO();
-        switch (type) {
+        switch (this.type) {
             case situation -> this.setTitle("Registrar Situación de los autos");
             case category -> this.setTitle("Registrar Categoría de Licencia");
             case country -> this.setTitle("Registrar País de los Clientes");
@@ -54,7 +54,7 @@ public class AuxiliaryInsertWindow extends JDialog {
         }
         Window owner = getOwner();
         if (owner instanceof ViewWindow) {
-            ((ViewWindow) owner).tableRefreshAuxiliary();
+            ((ViewWindow) owner).refresh();
         }
         String message = new String();
         switch (type) {
@@ -81,19 +81,21 @@ public class AuxiliaryInsertWindow extends JDialog {
 
         //======== this ========
         setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        setMaximumSize(new Dimension(400, 150));
+        setMinimumSize(new Dimension(400, 150));
+        setPreferredSize(new Dimension(400, 150));
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder (
-            new javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion"
-            , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM
-            , new java. awt .Font ( "D\u0069alog", java .awt . Font. BOLD ,12 )
-            ,java . awt. Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener(
-            new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
-            ) { if( "\u0062order" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
-            ;} } );
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
+            swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border
+            . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog"
+            ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,dialogPane. getBorder
+            ( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
+            .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException
+            ( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========

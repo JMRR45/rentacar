@@ -14,7 +14,7 @@ SELECT public.insert_situation('alquilado');
 SELECT public.insert_situation('en taller');
 
 SELECT public.insert_paymethod('efectivo');
-SELECT public.insert_paymethod('crédito');
+SELECT public.insert_paymethod('tarjeta de crédito');
 SELECT public.insert_paymethod('cheque');
 
 SELECT public.insert_brand('Audi');

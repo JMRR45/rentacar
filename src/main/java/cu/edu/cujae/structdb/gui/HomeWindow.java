@@ -2,18 +2,19 @@
  * Created by JFormDesigner on Fri May 12 14:37:45 CDT 2023
  */
 
-package cu.edu.cujae.structdb.gui.home;
+package cu.edu.cujae.structdb.gui;
 
 import java.awt.*;
 
-import cu.edu.cujae.structdb.gui.view.ViewWindow;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.TableTypeContainer;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Properties;
 
 /**
  * @author carlosd.inc
@@ -25,57 +26,49 @@ public class HomeWindow extends JFrame {
     }
 
     private void mItemSeePayMehtod(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.paymethod);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.paymethod);
     }
 
     private void mItemSeeSituation(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.situation);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.situation);
     }
 
     private void mItemSeeBrand(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.brand);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.brand);
     }
 
     private void mItemSeeModel(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.model);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.model);
     }
 
     private void mItemSeeCategory(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.category);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.category);
     }
 
     private void mItemCountry(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.country);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.country);
     }
 
     private void mItemSeeUser(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.user);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.user);
     }
 
     private void mItemSeeRol(ActionEvent e) {
-        ViewWindow window = new ViewWindow(TableType.rol);
-        window.setVisible(true);
+        GuiManager.openDialog(GuiManager.DialogType.view, this, TableType.rol);
     }
 
     private void mItemInsertPayMethod(ActionEvent e) {
-        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.paymethod);
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(TableType.paymethod, this);
         dialog.setVisible(true);
     }
 
     private void mItemCreateCountry(ActionEvent e) {
-        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.country);
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(TableType.country, this);
         dialog.setVisible(true);
     }
 
     private void mItemCreateBrand(ActionEvent e) {
-        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.brand);
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(TableType.brand, this);
         dialog.setVisible(true);
     }
 
@@ -85,12 +78,12 @@ public class HomeWindow extends JFrame {
     }
 
     private void mItemCreateSituation(ActionEvent e) {
-        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.situation);
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(TableType.situation, this);
         dialog.setVisible(true);
     }
 
     private void mItemCreateCategory(ActionEvent e) {
-        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(this, TableType.category);
+        AuxiliaryInsertWindow dialog = new AuxiliaryInsertWindow(TableType.category, this);
         dialog.setVisible(true);
     }
 
