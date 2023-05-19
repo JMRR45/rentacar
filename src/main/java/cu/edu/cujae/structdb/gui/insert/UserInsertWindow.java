@@ -11,7 +11,7 @@ import javax.swing.*;
 
 import cu.edu.cujae.structdb.dto.model.RolDTO;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
-import cu.edu.cujae.structdb.gui.ViewWindow;
+import cu.edu.cujae.structdb.gui.view.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import net.miginfocom.swing.*;
 

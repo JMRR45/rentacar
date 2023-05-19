@@ -2,9 +2,10 @@
  * Created by JFormDesigner on Fri May 12 09:35:46 CDT 2023
  */
 
-package cu.edu.cujae.structdb.gui;
+package cu.edu.cujae.structdb.gui.home;
 
 import cu.edu.cujae.structdb.dto.model.UserDTO;
+import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.services.AuthService;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import net.miginfocom.swing.MigLayout;
@@ -21,8 +22,8 @@ import java.awt.event.KeyEvent;
 public class LoginWindow extends JFrame {
     public LoginWindow() {
         initComponents();
-        lblError.setVisible(false);
-        setLocationRelativeTo(null);
+        lblErrorUser.setVisible(false);
+        lblErrorPass.setVisible(false);
     }
 
     private void btnLoginKeyPressed(KeyEvent e) {
@@ -36,7 +37,8 @@ public class LoginWindow extends JFrame {
     }
 
     private void login() {
-        lblError.setVisible(false);
+        lblErrorUser.setVisible(false);
+        lblErrorPass.setVisible(false);
 
         UserDTO credentials = new UserDTO();
         credentials.setUsername(txtFldUsername.getText());
@@ -44,17 +46,13 @@ public class LoginWindow extends JFrame {
         AuthService.LoginResult result = ServicesLocator.authService().login(credentials);
         switch (result) {
             case wrongUsername:
-                lblError.setText("Error: Usuario Incorrecto");
-                lblError.setVisible(true);
+                lblErrorUser.setVisible(true);
                 break;
             case wrongPassword:
-                lblError.setText("Error: Contraseña Incorrecta");
-                lblError.setVisible(true);
+                lblErrorPass.setVisible(true);
                 break;
             case correct:
-                HomeWindow home = new HomeWindow();
-                home.setVisible(true);
-                this.dispose();
+                GuiManager.open(GuiManager.WindowType.main, this);
         }
     }
 
@@ -65,28 +63,34 @@ public class LoginWindow extends JFrame {
         contentPanel = new JPanel();
         label1 = new JLabel();
         txtFldUsername = new JTextField();
+        hSpacer2 = new JPanel(null);
         label2 = new JLabel();
         txtFldPassword = new JPasswordField();
-        lblError = new JLabel();
+        hSpacer1 = new JPanel(null);
+        lblErrorUser = new JLabel();
+        lblErrorPass = new JLabel();
         buttonBar = new JPanel();
         btnLogin = new JButton();
 
         //======== this ========
         setTitle("Inicio de Sesi\u00f3n");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\cujae\\structdb\\gui\\icons\\rent.png").getImage());
+        setMaximumSize(new Dimension(400, 200));
+        setMinimumSize(new Dimension(400, 200));
+        setPreferredSize(new Dimension(400, 200));
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder (
-            new javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn"
-            , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM
-            , new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 )
-            ,java . awt. Color .red ) ,dialogPane. getBorder () ) ); dialogPane. addPropertyChangeListener(
-            new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
-            ) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
-            ;} } );
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+            EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax. swing
+            . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,12 ),
+            java. awt. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .getPropertyName () ))
+            throw new RuntimeException( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
@@ -94,9 +98,13 @@ public class LoginWindow extends JFrame {
                 contentPanel.setLayout(new MigLayout(
                     "insets dialog,hidemode 3",
                     // columns
+                    "[fill]" +
                     "[left]" +
-                    "[182,fill]",
+                    "[182,grow,fill]" +
+                    "[fill]",
                     // rows
+                    "[]" +
+                    "[]" +
                     "[]" +
                     "[]" +
                     "[]" +
@@ -105,19 +113,28 @@ public class LoginWindow extends JFrame {
                 //---- label1 ----
                 label1.setText("Nombre de Usuario:");
                 label1.setLabelFor(txtFldUsername);
-                contentPanel.add(label1, "cell 0 0");
-                contentPanel.add(txtFldUsername, "cell 1 0");
+                contentPanel.add(label1, "cell 1 0");
+                contentPanel.add(txtFldUsername, "cell 2 0");
+                contentPanel.add(hSpacer2, "cell 0 0 1 6");
 
                 //---- label2 ----
                 label2.setText("Contrase\u00f1a:");
                 label2.setLabelFor(txtFldPassword);
-                contentPanel.add(label2, "cell 0 1,alignx right,growx 0");
-                contentPanel.add(txtFldPassword, "cell 1 1");
+                contentPanel.add(label2, "cell 1 2,alignx right,growx 0");
+                contentPanel.add(txtFldPassword, "cell 2 2");
+                contentPanel.add(hSpacer1, "cell 3 0 1 6");
 
-                //---- lblError ----
-                lblError.setText("Error");
-                lblError.setForeground(new Color(0xff3300));
-                contentPanel.add(lblError, "cell 0 3 2 1,alignx center,growx 0");
+                //---- lblErrorUser ----
+                lblErrorUser.setText("Usuario incorrecto");
+                lblErrorUser.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+                lblErrorUser.setForeground(new Color(0xff3333));
+                contentPanel.add(lblErrorUser, "cell 2 1");
+
+                //---- lblErrorPass ----
+                lblErrorPass.setText("Contrase\u00f1a incorrecta");
+                lblErrorPass.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+                lblErrorPass.setForeground(new Color(0xff3333));
+                contentPanel.add(lblErrorPass, "cell 2 3");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -126,16 +143,7 @@ public class LoginWindow extends JFrame {
                 buttonBar.setLayout(new MigLayout(
                     "insets dialog,alignx right",
                     // columns
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[button,left]",
+                    "[grow,center]",
                     // rows
                     null));
 
@@ -148,7 +156,7 @@ public class LoginWindow extends JFrame {
                     }
                 });
                 btnLogin.addActionListener(e -> btnLogin(e));
-                buttonBar.add(btnLogin, "cell 6 0");
+                buttonBar.add(btnLogin, "cell 0 0");
             }
             dialogPane.add(buttonBar, BorderLayout.SOUTH);
         }
@@ -164,9 +172,12 @@ public class LoginWindow extends JFrame {
     private JPanel contentPanel;
     private JLabel label1;
     private JTextField txtFldUsername;
+    private JPanel hSpacer2;
     private JLabel label2;
     private JPasswordField txtFldPassword;
-    private JLabel lblError;
+    private JPanel hSpacer1;
+    private JLabel lblErrorUser;
+    private JLabel lblErrorPass;
     private JPanel buttonBar;
     private JButton btnLogin;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

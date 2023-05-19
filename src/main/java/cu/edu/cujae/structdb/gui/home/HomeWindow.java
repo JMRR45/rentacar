@@ -2,8 +2,11 @@
  * Created by JFormDesigner on Fri May 12 14:37:45 CDT 2023
  */
 
-package cu.edu.cujae.structdb.gui;
+package cu.edu.cujae.structdb.gui.home;
 
+import java.awt.*;
+
+import cu.edu.cujae.structdb.gui.view.ViewWindow;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.utils.TableType;
@@ -152,6 +155,8 @@ public class HomeWindow extends JFrame {
         //======== this ========
         setTitle("Rent a Car");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",

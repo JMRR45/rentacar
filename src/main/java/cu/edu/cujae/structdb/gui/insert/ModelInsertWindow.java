@@ -6,7 +6,7 @@ package cu.edu.cujae.structdb.gui.insert;
 
 import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.dto.model.ModelDTO;
-import cu.edu.cujae.structdb.gui.ViewWindow;
+import cu.edu.cujae.structdb.gui.view.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import net.miginfocom.swing.MigLayout;
 

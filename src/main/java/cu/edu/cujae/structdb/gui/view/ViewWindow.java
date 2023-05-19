@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Fri May 12 22:06:42 CDT 2023
  */
 
-package cu.edu.cujae.structdb.gui;
+package cu.edu.cujae.structdb.gui.view;
 
 import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.dto.model.ModelDTO;
@@ -30,10 +30,10 @@ public class ViewWindow extends JDialog {
 
     private TableType type;
     private DefaultTableModel dtm;
-    List<AuxiliaryDTO> auxiliaryList;
-    List<ModelDTO> modelList;
-    List<UserDTO> userList;
-    List<RolDTO> rolList;
+    private List<AuxiliaryDTO> auxiliaryList;
+    private List<ModelDTO> modelList;
+    private List<UserDTO> userList;
+    private List<RolDTO> rolList;
 
     public ViewWindow(TableType type) {
         initComponents();
