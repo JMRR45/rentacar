@@ -6,8 +6,10 @@ package cu.edu.cujae.structdb.gui.insert;
 
 import cu.edu.cujae.structdb.dto.model.RolDTO;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
+import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -37,7 +39,11 @@ public class UserInsertWindow extends JDialog {
             this.setTitle("Crear nuevo usuario");
         }
 
-        roles = ServicesLocator.rolServices().getAll();
+        try {
+            roles = ServicesLocator.rolServices().getAll();
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
         for (RolDTO rol : roles) {
             cmBox.addItem(rol.getName());
         }
@@ -67,7 +73,11 @@ public class UserInsertWindow extends JDialog {
     private void update() {
         dto.setUsername(txtFld.getText());
         dto.setRol(roles.get(cmBox.getSelectedIndex()));
-        ServicesLocator.userServices().update(dto);
+        try {
+            ServicesLocator.userServices().update(dto);
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
         Window owner = getOwner();
         if (owner instanceof ViewWindow) {
             ((ViewWindow) owner).refresh();
@@ -83,7 +93,11 @@ public class UserInsertWindow extends JDialog {
         }
         dto.setUsername(txtFld.getText());
         dto.setRol(roles.get(cmBox.getSelectedIndex()));
-        ServicesLocator.userServices().insert(dto);
+        try {
+            ServicesLocator.userServices().insert(dto);
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
         Window owner = getOwner();
         if (owner instanceof ViewWindow) {
             ((ViewWindow) owner).refresh();

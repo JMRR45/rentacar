@@ -7,6 +7,7 @@ package cu.edu.cujae.structdb.gui;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
 import cu.edu.cujae.structdb.services.AuthService;
 import cu.edu.cujae.structdb.services.ServicesLocator;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -42,16 +43,27 @@ public class LoginWindow extends JFrame {
         UserDTO credentials = new UserDTO();
         credentials.setUsername(txtFldUsername.getText());
         credentials.setPassword(String.valueOf(txtFldPassword.getPassword()));
-        AuthService.LoginResult result = ServicesLocator.authService().login(credentials);
-        switch (result) {
-            case wrongUsername:
-                lblErrorUser.setVisible(true);
-                break;
-            case wrongPassword:
-                lblErrorPass.setVisible(true);
-                break;
-            case correct:
-                GuiManager.openFrame(GuiManager.FrameType.main, this, null);
+        AuthService.LoginResult result = null;
+        try {
+            result = ServicesLocator.authService().login(credentials);
+            switch (result) {
+                case wrongUsername:
+                    lblErrorUser.setVisible(true);
+                    break;
+                case wrongPassword:
+                    lblErrorPass.setVisible(true);
+                    break;
+                case correct:
+                    if (ServicesLocator.userServices().checkDefaultPassword(credentials.getPassword())) {
+                        GuiManager.openDialog(GuiManager.DialogType.changePassword, this, credentials);
+                        dispose();
+                    } else {
+                        GuiManager.openFrame(GuiManager.FrameType.main, this);
+                    }
+                    break;
+            }
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
         }
     }
 
@@ -84,13 +96,12 @@ public class LoginWindow extends JFrame {
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.
-            swing.border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn",javax.swing.border
-            .TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog"
-            ,java.awt.Font.BOLD,12),java.awt.Color.red),dialogPane. getBorder
-            ()));dialogPane. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java
-            .beans.PropertyChangeEvent e){if("\u0062ord\u0065r".equals(e.getPropertyName()))throw new RuntimeException
-            ();}});
+            dialogPane.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+            . EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax
+            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
+            12 ), java. awt. Color. red) ,dialogPane. getBorder( )) ); dialogPane. addPropertyChangeListener (new java. beans
+            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .
+            getPropertyName () )) throw new RuntimeException( ); }} );
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========

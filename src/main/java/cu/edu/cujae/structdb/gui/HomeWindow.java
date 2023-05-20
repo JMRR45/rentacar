@@ -6,6 +6,7 @@ package cu.edu.cujae.structdb.gui;
 
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
+import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
 import net.miginfocom.swing.MigLayout;
 
@@ -85,13 +86,16 @@ public class HomeWindow extends JFrame {
     }
 
     private void mItemClose(ActionEvent e) {
-        LoginWindow login = new LoginWindow();
-        login.setVisible(true);
-        this.dispose();
+        ServicesLocator.authService().logout();
+        GuiManager.openFrame(GuiManager.FrameType.login, this);
     }
 
     private void mItemTheme(ActionEvent e) {
         GuiManager.changeTheme(this);
+    }
+
+    private void mItemChangePass(ActionEvent e) {
+        GuiManager.openDialog(GuiManager.DialogType.changePassword, this, ServicesLocator.authService().getCurrentUser());
     }
 
     private void initComponents() {
@@ -169,6 +173,7 @@ public class HomeWindow extends JFrame {
 
                 //---- mItemChangePass ----
                 mItemChangePass.setText("Cambiar Contrase\u00f1a");
+                mItemChangePass.addActionListener(e -> mItemChangePass(e));
                 menuAdmin.add(mItemChangePass);
 
                 //---- mItemClose ----

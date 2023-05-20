@@ -5,8 +5,10 @@
 package cu.edu.cujae.structdb.gui.insert;
 
 import cu.edu.cujae.structdb.dto.model.RolDTO;
+import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -34,7 +36,11 @@ public class RolInsertWindow extends JDialog {
     private void ok(ActionEvent e) {
         dto.setName(txtFldName.getText());
         dto.setDescription(txtFldDescription.getText());
-        ServicesLocator.rolServices().update(dto);
+        try {
+            ServicesLocator.rolServices().update(dto);
+        } catch (ConnectionFailedException ex) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
         Window owner = getOwner();
         if (owner instanceof ViewWindow) {
             ((ViewWindow) owner).refresh();

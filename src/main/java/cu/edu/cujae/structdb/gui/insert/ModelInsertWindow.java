@@ -6,8 +6,10 @@ package cu.edu.cujae.structdb.gui.insert;
 
 import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.dto.model.ModelDTO;
+import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -26,7 +28,11 @@ public class ModelInsertWindow extends JDialog {
         initComponents();
         setLocationRelativeTo(null);
         this.setTitle("Registrar Modelos de Autos");
-        brands = ServicesLocator.brandServices().getAll();
+        try {
+            brands = ServicesLocator.brandServices().getAll();
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
         for (AuxiliaryDTO brand : brands) {
             cmBox.addItem(brand.getName());
         }
@@ -44,7 +50,11 @@ public class ModelInsertWindow extends JDialog {
         }
         dto.setName(txtFld.getText());
         dto.setBrand(brands.get(cmBox.getSelectedIndex()));
-        ServicesLocator.modelServices().insert(dto);
+        try {
+            ServicesLocator.modelServices().insert(dto);
+        } catch (ConnectionFailedException ex) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
         Window owner = getOwner();
         if (owner instanceof ViewWindow) {
             ((ViewWindow) owner).refresh();

@@ -10,11 +10,10 @@ import cu.edu.cujae.structdb.gui.insert.UserInsertWindow;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Properties;
 
 public class GuiManager {
     public enum FrameType {login, main};
-    public enum DialogType {view, insertAuxiliary, insertModel, insertUser, insertRol}
+    public enum DialogType {view, changePassword, insertAuxiliary, insertModel, insertUser, insertRol}
     private interface AbstractFrame {
         void show();
     }
@@ -37,7 +36,7 @@ public class GuiManager {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        openFrame(FrameType.login, null, null);
+        openFrame(FrameType.login, null);
     }
 
     public static void changeTheme(Component component) {
@@ -60,7 +59,7 @@ public class GuiManager {
      * @param toOpen Indentificador de la ventana que se debe abrir
      * @param toClose Ventana que se debe cerrar (si no se desea cerrar ninguna pasar null)
      */
-    public static void openFrame(FrameType toOpen, Window toClose, Properties props) {
+    public static void openFrame(FrameType toOpen, Window toClose) {
         if (toClose != null) {
             toClose.dispose();
         }
@@ -68,6 +67,11 @@ public class GuiManager {
     }
     public static void openDialog(DialogType toOpen, Window parent, Object prop) {
         dialogs.get(toOpen).show(parent, prop);
+    }
+
+    public static void handleBadDatabaseConnection(Component component) {
+        JOptionPane.showMessageDialog(component, "No se ha podido establecer la " +
+                                                         "conexión con la base de datos.");
     }
 
     /*
@@ -126,6 +130,13 @@ public class GuiManager {
         });
         dialogs.put(DialogType.insertRol, (parent, dto) -> {
             JDialog frame = new RolInsertWindow(parent, dto);
+            frame.setLocationRelativeTo(null);
+            frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
+                    "cujae\\structdb\\gui\\icons\\rent.png").getImage());
+            frame.setVisible(true);
+        });
+        dialogs.put(DialogType.changePassword, (parent, dto) -> {
+            JDialog frame = new PasswordChangeWindow(parent, dto);
             frame.setLocationRelativeTo(null);
             frame.setIconImage(new ImageIcon("D:\\workspaces\\cujae\\rentacar\\src\\main\\java\\cu\\edu\\" +
                     "cujae\\structdb\\gui\\icons\\rent.png").getImage());

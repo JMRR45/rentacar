@@ -4,7 +4,7 @@ SELECT public.insert_rol_admin('Trabajador', 'Acceso a abrir y cerrar Contratos,
 SELECT public.insert_rol_admin('Jefe de Área', 'Acceso a registrar y modificar Métodos de Pago, modificar las tarifas, contratar y despedir Conductores, modificar y eliminar Contratos.');
 SELECT public.insert_rol_admin('Administrador', 'Acceso total a la aplicación, lo que incluye creación, modificación y eliminación de usuarios y roles.');
 
-SELECT public.insert_user_admin('admin', 'admin', (SELECT id FROM rol WHERE name = 'Administrador'));
+SELECT public.insert_user_admin('admin', '$2a$10$FSGXIjxBqC1KsyoKCW5bweent/GCxMBmPjd8zaHWk4Mdrznk0bD2q', (SELECT id FROM rol WHERE name = 'Administrador'));
 
 SELECT public.insert_fee_admin('regular', 10);
 SELECT public.insert_fee_admin('prórroga', 14);

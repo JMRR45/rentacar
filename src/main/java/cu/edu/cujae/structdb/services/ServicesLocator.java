@@ -1,6 +1,7 @@
 package cu.edu.cujae.structdb.services;
 
 import cu.edu.cujae.structdb.utils.Connection;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import java.sql.SQLException;
 
@@ -28,12 +29,12 @@ public class ServicesLocator {
      *
      * @return {@link java.sql.Connection}
      */
-    public static java.sql.Connection getConnection() {
+    public static java.sql.Connection getConnection() throws ConnectionFailedException {
         Connection connection = null;
         try {
             connection = new Connection("localhost", "rentacar", "postgres", "rentacar");
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            throw new ConnectionFailedException();
         }
         return connection.getConnection();
     }

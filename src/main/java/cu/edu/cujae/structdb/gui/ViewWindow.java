@@ -7,6 +7,7 @@ package cu.edu.cujae.structdb.gui;
 import cu.edu.cujae.structdb.gui.abstractions.AbstractViewHandler;
 import cu.edu.cujae.structdb.gui.abstractions.ViewHandlerBuilder;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import cu.edu.cujae.structdb.utils.exception.DeleteCurrentUserException;
 import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 import net.miginfocom.swing.MigLayout;
@@ -30,7 +31,11 @@ public class ViewWindow extends JDialog {
         handler = ViewHandlerBuilder.build(this.type);
         this.setTitle(handler.getTitle());
         dtm = new DefaultTableModel();
-        handler.setDTM(dtm);
+        try {
+            handler.setDTM(dtm);
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
         hideUnwantedItems();
         defaultTbl.setModel(dtm);
     }
@@ -53,7 +58,11 @@ public class ViewWindow extends JDialog {
     }
 
     public void refresh() {
-        handler.refreshDTM(dtm);
+        try {
+            handler.refreshDTM(dtm);
+        } catch (ConnectionFailedException e) {
+            GuiManager.handleBadDatabaseConnection(this);
+        }
     }
 
     private void btnDelete(ActionEvent e) {
@@ -74,6 +83,8 @@ public class ViewWindow extends JDialog {
             JOptionPane.showMessageDialog(this, "La entrada que desea eliminar es utilizada en otros campos.");
         } catch (DeleteCurrentUserException exception) {
             JOptionPane.showMessageDialog(this, "No se puede eliminar el usuario actual.");
+        } catch (ConnectionFailedException exception) {
+            GuiManager.handleBadDatabaseConnection(this);
         }
     }
 

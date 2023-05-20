@@ -21,6 +21,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemChangePass"
 						"text": "Cambiar Contraseña"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mItemChangePass", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "mItemClose"
