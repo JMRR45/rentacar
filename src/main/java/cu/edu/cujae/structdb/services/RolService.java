@@ -3,6 +3,7 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.RolDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ public class RolService extends AbstractService {
         super(table);
     }
 
-    public void insert(RolDTO dto) {
+    public void insert(RolDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 3, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -31,7 +32,7 @@ public class RolService extends AbstractService {
         }
     }
 
-    public void remove(int id) {
+    public void remove(int id) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -46,7 +47,7 @@ public class RolService extends AbstractService {
         }
     }
 
-    public void update(RolDTO dto) {
+    public void update(RolDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 3, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -63,7 +64,7 @@ public class RolService extends AbstractService {
         }
     }
 
-    public RolDTO getByID(int id) {
+    public RolDTO getByID(int id) throws ConnectionFailedException {
         RolDTO dto = new RolDTO();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "id");
         try {
@@ -91,7 +92,7 @@ public class RolService extends AbstractService {
         return dto;
     }
 
-    public List<RolDTO> getAll() {
+    public List<RolDTO> getAll() throws ConnectionFailedException {
         List<RolDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {

@@ -5,9 +5,11 @@
 package cu.edu.cujae.structdb.gui.insert;
 
 import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
+import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.gui.ViewWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -45,12 +47,16 @@ public class AuxiliaryInsertWindow extends JDialog {
             return;
         }
         dto.setName(txtFld.getText());
-        switch (type) {
-            case situation -> ServicesLocator.situationServices().insert(dto);
-            case category -> ServicesLocator.categoryServices().insert(dto);
-            case country -> ServicesLocator.countryServices().insert(dto);
-            case brand -> ServicesLocator.brandServices().insert(dto);
-            case paymethod -> ServicesLocator.payMethodServices().insert(dto);
+        try {
+            switch (type) {
+                case situation -> ServicesLocator.situationServices().insert(dto);
+                case category -> ServicesLocator.categoryServices().insert(dto);
+                case country -> ServicesLocator.countryServices().insert(dto);
+                case brand -> ServicesLocator.brandServices().insert(dto);
+                case paymethod -> ServicesLocator.payMethodServices().insert(dto);
+            }
+        } catch (ConnectionFailedException exception) {
+            GuiManager.handleBadDatabaseConnection(this);
         }
         Window owner = getOwner();
         if (owner instanceof ViewWindow) {

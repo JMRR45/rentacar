@@ -4,8 +4,8 @@ import cu.edu.cujae.structdb.dto.model.UserDTO;
 import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import cu.edu.cujae.structdb.utils.exception.DeleteCurrentUserException;
-import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -21,14 +21,14 @@ public class UserViewHandler extends AbstractViewHandler {
     }
 
     @Override
-    public void setDTM(DefaultTableModel dtm) {
+    public void setDTM(DefaultTableModel dtm) throws ConnectionFailedException {
         dtm.addColumn("Nombre de Usuario");
         dtm.addColumn("Rol");
         refreshDTM(dtm);
     }
 
     @Override
-    public void refreshDTM(DefaultTableModel dtm) {
+    public void refreshDTM(DefaultTableModel dtm) throws ConnectionFailedException {
         cleanDTM(dtm);
         list = ServicesLocator.userServices().getAll();
         if (list == null) {
@@ -41,7 +41,7 @@ public class UserViewHandler extends AbstractViewHandler {
     }
 
     @Override
-    public void buttonDelete(DefaultTableModel dtm, int selection) throws ForeignKeyException, DeleteCurrentUserException {
+    public void buttonDelete(DefaultTableModel dtm, int selection) throws DeleteCurrentUserException, ConnectionFailedException {
         ServicesLocator.userServices().remove(list.get(selection).getId());
         refreshDTM(dtm);
     }

@@ -3,6 +3,7 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.ContractDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ public class ContractService extends AbstractService{
         super(table);
     }
 
-    public void insert(ContractDTO dto) {
+    public void insert(ContractDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 9, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -38,7 +39,7 @@ public class ContractService extends AbstractService{
         }
     }
 
-    public void remove(String plate, LocalDate startDate) {
+    public void remove(String plate, LocalDate startDate) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 2, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -54,7 +55,7 @@ public class ContractService extends AbstractService{
         }
     }
 
-    public void update(ContractDTO dto) {
+    public void update(ContractDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 9, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -77,7 +78,7 @@ public class ContractService extends AbstractService{
         }
     }
 
-    public List<ContractDTO> getAll() {
+    public List<ContractDTO> getAll() throws ConnectionFailedException {
         List<ContractDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
@@ -112,7 +113,7 @@ public class ContractService extends AbstractService{
         return list;
     }
 
-    public List<ContractDTO> getByPassport(String passport) {
+    public List<ContractDTO> getByPassport(String passport) throws ConnectionFailedException {
         List<ContractDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "passport");
         try {
@@ -148,7 +149,7 @@ public class ContractService extends AbstractService{
         return list;
     }
 
-    public List<ContractDTO> getByPlate(String plate) {
+    public List<ContractDTO> getByPlate(String plate) throws ConnectionFailedException {
         List<ContractDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "plate");
         try {
@@ -184,7 +185,7 @@ public class ContractService extends AbstractService{
         return list;
     }
 
-    public List<ContractDTO> getByDni(String dni) {
+    public List<ContractDTO> getByDni(String dni) throws ConnectionFailedException {
         List<ContractDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "dni");
         try {

@@ -3,6 +3,7 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 import org.postgresql.util.PSQLException;
 
@@ -24,7 +25,7 @@ public class AuxiliaryService extends AbstractService {
         getByIdFunction = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "id");
     }
 
-    public void insert(AuxiliaryDTO dto) {
+    public void insert(AuxiliaryDTO dto) throws ConnectionFailedException{
         String function = insertFunction;
         try {
             Connection con = ServicesLocator.getConnection();
@@ -39,7 +40,7 @@ public class AuxiliaryService extends AbstractService {
         }
     }
 
-    public void remove(String name) throws ForeignKeyException {
+    public void remove(String name) throws ForeignKeyException, ConnectionFailedException {
         String function = removeFunction;
         try {
             Connection con = ServicesLocator.getConnection();
@@ -58,7 +59,7 @@ public class AuxiliaryService extends AbstractService {
         }
     }
 
-    public List<AuxiliaryDTO> getAll() {
+    public List<AuxiliaryDTO> getAll() throws ConnectionFailedException {
         List<AuxiliaryDTO> list = new LinkedList<>();
         String function = getFunction;
         try {
@@ -86,7 +87,7 @@ public class AuxiliaryService extends AbstractService {
         return list;
     }
 
-    public AuxiliaryDTO getByID(int id) {
+    public AuxiliaryDTO getByID(int id) throws ConnectionFailedException {
         AuxiliaryDTO dto = new AuxiliaryDTO();
         String function = getByIdFunction;
         try {

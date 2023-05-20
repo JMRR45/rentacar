@@ -3,6 +3,7 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.CarDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -13,7 +14,7 @@ public class CarService extends AbstractService {
     public CarService(String table) {
         super(table);
     }
-    public void insert(CarDTO dto) {
+    public void insert(CarDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -33,7 +34,7 @@ public class CarService extends AbstractService {
         }
     }
 
-    public void remove(String plate) {
+    public void remove(String plate) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -48,7 +49,7 @@ public class CarService extends AbstractService {
         }
     }
 
-    public void update(CarDTO dto) {
+    public void update(CarDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -68,7 +69,7 @@ public class CarService extends AbstractService {
         }
     }
 
-    public List<CarDTO> getAll() {
+    public List<CarDTO> getAll() throws ConnectionFailedException {
         List<CarDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
@@ -99,7 +100,7 @@ public class CarService extends AbstractService {
         return list;
     }
 
-    public CarDTO getByPlate(String plate) {
+    public CarDTO getByPlate(String plate) throws ConnectionFailedException {
         CarDTO dto = new CarDTO();
         dto.setPlate(plate);
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "plate");

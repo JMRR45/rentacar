@@ -3,6 +3,7 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.TouristDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ public class TouristService extends AbstractService{
         super(table);
     }
 
-    public void insert(TouristDTO dto) {
+    public void insert(TouristDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -34,7 +35,7 @@ public class TouristService extends AbstractService{
         }
     }
 
-    public void remove(String passport) {
+    public void remove(String passport) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -49,7 +50,7 @@ public class TouristService extends AbstractService{
         }
     }
 
-    public void update(TouristDTO dto) {
+    public void update(TouristDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 6, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -69,7 +70,7 @@ public class TouristService extends AbstractService{
         }
     }
 
-    public List<TouristDTO> getAll() {
+    public List<TouristDTO> getAll() throws ConnectionFailedException {
         List<TouristDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
@@ -101,7 +102,7 @@ public class TouristService extends AbstractService{
         return list;
     }
 
-    public TouristDTO getByPassport(String passport) {
+    public TouristDTO getByPassport(String passport) throws ConnectionFailedException {
         TouristDTO dto = new TouristDTO();
         dto.setPassport(passport);
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "passport");

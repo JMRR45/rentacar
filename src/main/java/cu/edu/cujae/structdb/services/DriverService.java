@@ -3,6 +3,7 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.DriverDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ public class DriverService extends AbstractService{
         super(table);
     }
 
-    public void insert(DriverDTO dto) {
+    public void insert(DriverDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 4, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -32,7 +33,7 @@ public class DriverService extends AbstractService{
         }
     }
 
-    public void remove(String dni) {
+    public void remove(String dni) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.delete, table, 1, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -47,7 +48,7 @@ public class DriverService extends AbstractService{
         }
     }
 
-    public void update(DriverDTO dto) {
+    public void update(DriverDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 4, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -65,7 +66,7 @@ public class DriverService extends AbstractService{
         }
     }
 
-    public List<DriverDTO> getAll() {
+    public List<DriverDTO> getAll() throws ConnectionFailedException {
         List<DriverDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
@@ -95,7 +96,7 @@ public class DriverService extends AbstractService{
         return list;
     }
 
-    public DriverDTO getByDni(String dni) {
+    public DriverDTO getByDni(String dni) throws ConnectionFailedException {
         DriverDTO dto = new DriverDTO();
         dto.setDni(dni);
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "dni");

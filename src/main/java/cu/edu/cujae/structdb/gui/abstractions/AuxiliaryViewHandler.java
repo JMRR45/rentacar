@@ -4,6 +4,7 @@ import cu.edu.cujae.structdb.dto.model.AuxiliaryDTO;
 import cu.edu.cujae.structdb.gui.GuiManager;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import cu.edu.cujae.structdb.utils.exception.ForeignKeyException;
 
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +21,7 @@ public class AuxiliaryViewHandler extends AbstractViewHandler{
     }
 
     @Override
-    public void setDTM(DefaultTableModel dtm) {
+    public void setDTM(DefaultTableModel dtm) throws ConnectionFailedException {
         dtm.addColumn("Nombre");
         refreshDTM(dtm);
     }
@@ -52,7 +53,7 @@ public class AuxiliaryViewHandler extends AbstractViewHandler{
     }
 
     @Override
-    public void refreshDTM(DefaultTableModel dtm) {
+    public void refreshDTM(DefaultTableModel dtm) throws ConnectionFailedException {
         cleanDTM(dtm);
         list = new LinkedList<>();
         switch (type) {
@@ -72,7 +73,7 @@ public class AuxiliaryViewHandler extends AbstractViewHandler{
     }
 
     @Override
-    public void buttonDelete(DefaultTableModel dtm, int selection) throws ForeignKeyException {
+    public void buttonDelete(DefaultTableModel dtm, int selection) throws ForeignKeyException, ConnectionFailedException {
         switch (type) {
             case brand -> ServicesLocator.brandServices().remove(list.get(selection).getName());
             case situation -> ServicesLocator.situationServices().remove(list.get(selection).getName());

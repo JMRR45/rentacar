@@ -3,7 +3,9 @@ package cu.edu.cujae.structdb.services;
 import cu.edu.cujae.structdb.dto.model.UserDTO;
 import cu.edu.cujae.structdb.utils.FunctionBuilder;
 import cu.edu.cujae.structdb.utils.FunctionType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import cu.edu.cujae.structdb.utils.exception.DeleteCurrentUserException;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -11,14 +13,14 @@ import java.util.List;
 
 public class UserService extends AbstractService {
 
-    private String defaultPassword = "rentacar";
+    private String defaultPassword = hashPassword("rentacar");
 
     public UserService(String table) {
         super(table);
     }
 
 
-    public void insert(UserDTO dto) {
+    public void insert(UserDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.insert, table, 3, null);
         try {
             Connection con = ServicesLocator.getConnection();
@@ -35,7 +37,7 @@ public class UserService extends AbstractService {
         }
     }
 
-    public void remove(int  id) throws DeleteCurrentUserException{
+    public void remove(int  id) throws DeleteCurrentUserException, ConnectionFailedException {
         if (ServicesLocator.authService().isCurrentUser(id)) {
             throw new DeleteCurrentUserException();
         }
@@ -54,14 +56,14 @@ public class UserService extends AbstractService {
         }
     }
 
-    public void update(UserDTO dto) {
+    public void update(UserDTO dto) throws ConnectionFailedException {
         String function = FunctionBuilder.newFunction(false, FunctionType.update, table, 4, null);
         try {
             Connection con = ServicesLocator.getConnection();
             CallableStatement call = con.prepareCall(function);
             call.setInt(1, dto.getId());
             call.setString(2, dto.getUsername());
-            call.setString(3, dto.getPassword());
+            call.setString(3, hashPassword(dto.getPassword()));
             call.setInt(4, dto.getRol().getId());
 
             call.execute();
@@ -72,7 +74,7 @@ public class UserService extends AbstractService {
         }
     }
 
-    public List<UserDTO> getAll() {
+    public List<UserDTO> getAll() throws ConnectionFailedException {
         List<UserDTO> list = new LinkedList<>();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 0, "all");
         try {
@@ -102,7 +104,7 @@ public class UserService extends AbstractService {
         return list;
     }
 
-    public UserDTO getByUsername(String username) {
+    public UserDTO getByUsername(String username) throws ConnectionFailedException {
         UserDTO dto = new UserDTO();
         String function = FunctionBuilder.newFunction(true, FunctionType.get, table, 1, "username");
         try {
@@ -120,7 +122,7 @@ public class UserService extends AbstractService {
                 dto.setId(resultSet.getInt(1));
                 dto.setUsername(resultSet.getString(2));
                 dto.setPassword(resultSet.getString(3));
-                dto.setRol(null);
+                dto.setRol(ServicesLocator.rolServices().getByID(resultSet.getInt(4)));
             }
             call.close();
             con.close();
@@ -128,5 +130,17 @@ public class UserService extends AbstractService {
             e.printStackTrace();
         }
         return dto;
+    }
+
+    public boolean checkDefaultPassword(String pass) {
+        return verifyPassword(pass, defaultPassword);
+    }
+
+    private String hashPassword(String password){
+        return BCrypt.hashpw(password, BCrypt.gensalt(10));
+    }
+
+    public boolean verifyPassword(String loginPassword, String hashPassword){
+        return BCrypt.checkpw(loginPassword, hashPassword);
     }
 }
