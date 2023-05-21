@@ -4,15 +4,92 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[fill]"
-			"$rowConstraints": "[]"
+			"$layoutConstraints": "insets 0,hidemode 3"
+			"$columnConstraints": "[fill][611,grow,fill][fill][fill]"
+			"$rowConstraints": "[]0[][][][][grow,fill]"
 		} ) {
 			name: "this"
 			"title": "Rent a Car"
 			"defaultCloseOperation": 2
 			"minimumSize": new java.awt.Dimension( 800, 600 )
 			"preferredSize": new java.awt.Dimension( 800, 600 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "insets 0,hidemode 3"
+				"$columnConstraints": "[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]0[75,fill]"
+				"$rowConstraints": "[grow,fill]"
+			} ) {
+				name: "panel5"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "turistB"
+					"text": "Turistas"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "turistB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "driverB"
+					"text": "Choferes"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "driverB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "openContractB"
+					"text": "C.Abiertos"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "openContractB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 4 0,aligny bottom,growy 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "closeContractB"
+					"text": "C.Cerrados"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "closeContractB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 5 0,aligny bottom,growy 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "contractsB"
+					"text": "Contratos"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "contractsB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 3 0,aligny bottom,growy 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "carB"
+					"text": "Carros"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "carB", true ) )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 1 0"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0 2 1"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane2"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "principalTable"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1 2 5,grow"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button23"
+				"text": "Agregar"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button24"
+				"text": "Eliminar"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 2"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button25"
+				"text": "Editar"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 3"
+			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar"
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
