@@ -4,20 +4,31 @@
 
 package cu.edu.cujae.structdb.gui;
 
+import cu.edu.cujae.structdb.dto.model.CarDTO;
+import cu.edu.cujae.structdb.dto.model.ContractDTO;
+import cu.edu.cujae.structdb.dto.model.DriverDTO;
+import cu.edu.cujae.structdb.dto.model.TouristDTO;
 import cu.edu.cujae.structdb.gui.insert.AuxiliaryInsertWindow;
 import cu.edu.cujae.structdb.gui.insert.ModelInsertWindow;
 import cu.edu.cujae.structdb.services.ServicesLocator;
 import cu.edu.cujae.structdb.utils.TableType;
+import cu.edu.cujae.structdb.utils.exception.ConnectionFailedException;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * @author carlosd.inc
  */
 public class HomeWindow extends JFrame {
+    DefaultTableModel touristDTM;
+    DefaultTableModel carDTM;
+    DefaultTableModel driverDTM;
+    DefaultTableModel contractDTM;
     public HomeWindow() {
         initComponents();
         setLocationRelativeTo(null);
@@ -98,7 +109,37 @@ public class HomeWindow extends JFrame {
         GuiManager.openDialog(GuiManager.DialogType.changePassword, this, ServicesLocator.authService().getCurrentUser());
     }
 
+    private void turistB(ActionEvent e) throws ConnectionFailedException {
+        principalTable.setModel(touristDTM);
+        fillTouristTable();
+        System.out.println("TocasteTuristB");
+    }
+
+    private void carB(ActionEvent e) {
+        principalTable.setModel(carDTM);
+        fillCarTable();
+    }
+
+    private void driverB(ActionEvent e) {
+        principalTable.setModel(driverDTM);
+        fillDriverTable();
+    }
+
+    private void contractsB(ActionEvent e) {
+        principalTable.setModel(contractDTM);
+        fillContractTable();
+    }
+
+    private void openContractB(ActionEvent e) {
+        principalTable.setModel(contractDTM);
+    }
+
+    private void closeContractB(ActionEvent e) {
+        principalTable.setModel(contractDTM);
+    }
+
     private void initComponents() {
+        DeclareTableModels();
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
         menuBar = new JMenuBar();
@@ -150,6 +191,18 @@ public class HomeWindow extends JFrame {
         menuHelp = new JMenu();
         mItemDocs = new JMenuItem();
         mItemAbout = new JMenuItem();
+        panel5 = new JPanel();
+        turistB = new JButton();
+        driverB = new JButton();
+        openContractB = new JButton();
+        closeContractB = new JButton();
+        contractsB = new JButton();
+        carB = new JButton();
+        scrollPane2 = new JScrollPane();
+        principalTable = new JTable();
+        button23 = new JButton();
+        button24 = new JButton();
+        button25 = new JButton();
 
         //======== this ========
         setTitle("Rent a Car");
@@ -158,11 +211,19 @@ public class HomeWindow extends JFrame {
         setPreferredSize(new Dimension(800, 600));
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-            "hidemode 3",
+            "insets 0,hidemode 3",
             // columns
+            "[fill]" +
+            "[611,grow,fill]" +
+            "[fill]" +
             "[fill]",
             // rows
-            "[]"));
+            "[]0" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[]" +
+            "[grow,fill]"));
 
         //======== menuBar ========
         {
@@ -403,10 +464,173 @@ public class HomeWindow extends JFrame {
             menuBar.add(menuHelp);
         }
         setJMenuBar(menuBar);
+
+        //======== panel5 ========
+        {
+            panel5.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.
+            swing.border.EmptyBorder(0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border
+            .TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog"
+            ,java.awt.Font.BOLD,12),java.awt.Color.red),panel5. getBorder
+            ()));panel5. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override public void propertyChange(java
+            .beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.getPropertyName()))throw new RuntimeException
+            ();}});
+            panel5.setLayout(new MigLayout(
+                "insets 0,hidemode 3",
+                // columns
+                "[75,fill]0" +
+                "[75,fill]0" +
+                "[75,fill]0" +
+                "[75,fill]0" +
+                "[75,fill]0" +
+                "[75,fill]",
+                // rows
+                "[grow,fill]"));
+
+            //---- turistB ----
+            turistB.setText("Turistas");
+            turistB.addActionListener(e -> {
+                try {
+                    turistB(e);
+                } catch (ConnectionFailedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+            panel5.add(turistB, "cell 0 0");
+
+            //---- driverB ----
+            driverB.setText("Choferes");
+            driverB.addActionListener(e -> driverB(e));
+            panel5.add(driverB, "cell 2 0");
+
+            //---- openContractB ----
+            openContractB.setText("C.Abiertos");
+            openContractB.addActionListener(e -> openContractB(e));
+            panel5.add(openContractB, "cell 4 0,aligny bottom,growy 0");
+
+            //---- closeContractB ----
+            closeContractB.setText("C.Cerrados");
+            closeContractB.addActionListener(e -> closeContractB(e));
+            panel5.add(closeContractB, "cell 5 0,aligny bottom,growy 0");
+
+            //---- contractsB ----
+            contractsB.setText("Contratos");
+            contractsB.addActionListener(e -> contractsB(e));
+            panel5.add(contractsB, "cell 3 0,aligny bottom,growy 0");
+
+            //---- carB ----
+            carB.setText("Carros");
+            carB.addActionListener(e -> carB(e));
+            panel5.add(carB, "cell 1 0");
+        }
+        contentPane.add(panel5, "cell 0 0 2 1");
+
+        //======== scrollPane2 ========
+        {
+            scrollPane2.setViewportView(principalTable);
+        }
+        contentPane.add(scrollPane2, "cell 0 1 2 5,grow");
+
+        //---- button23 ----
+        button23.setText("Agregar");
+        contentPane.add(button23, "cell 2 1");
+
+        //---- button24 ----
+        button24.setText("Eliminar");
+        contentPane.add(button24, "cell 2 2");
+
+        //---- button25 ----
+        button25.setText("Editar");
+        contentPane.add(button25, "cell 2 3");
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
+    private void DeclareTableModels(){
+        touristDTM = new DefaultTableModel();
+        touristDTM.addColumn("Pasaporte");
+        touristDTM.addColumn("Nombre");
+        touristDTM.addColumn("Edad");
+        touristDTM.addColumn("Sexo");
+        touristDTM.addColumn("Contacto");
+        touristDTM.addColumn("País");
+
+        carDTM = new DefaultTableModel();
+        carDTM.addColumn("Matrícula");
+        carDTM.addColumn("Modelo");
+        carDTM.addColumn("Km");
+        carDTM.addColumn("Color");
+        carDTM.addColumn("Situación");
+
+        driverDTM = new DefaultTableModel();
+        driverDTM.addColumn("DNI");
+        driverDTM.addColumn("Nombre");
+        driverDTM.addColumn("Categoría");
+        driverDTM.addColumn("Dirección");
+
+        contractDTM = new DefaultTableModel();
+        contractDTM.addColumn("Matrícula");
+        contractDTM.addColumn("Pasaporte");
+        contractDTM.addColumn("Fecha de inicio");
+        contractDTM.addColumn("Fecha de fin");
+        contractDTM.addColumn("Fecha de entrega");
+        contractDTM.addColumn("Método de pago");
+        contractDTM.addColumn("Conductor");
+    }
+
+    private void fillTouristTable(){
+        touristDTM.setRowCount(0);
+        List<TouristDTO> list = null;
+        try {
+            list = ServicesLocator.touristServices().getAll();
+        } catch (ConnectionFailedException e) {
+            throw new RuntimeException(e);
+        }
+        for (TouristDTO a : list) {
+            Object [] row = {a.getPassport(),a.getName(),a.getAge(),a.getSex(),a.getContact(),a.getCountry()};
+            touristDTM.addRow(row);
+        }
+    }
+    private void fillCarTable(){
+        carDTM.setRowCount(0);
+        List<CarDTO> list = null;
+        try {
+            list = ServicesLocator.carServices().getAll();
+        } catch (ConnectionFailedException e) {
+            throw new RuntimeException(e);
+        }
+        for (CarDTO a : list) {
+            Object [] row = {a.getPlate(),a.getModel(),a.getCantKm(),a.getColor(),a.getSituation()};
+            carDTM.addRow(row);
+        }
+    }
+    private void fillDriverTable(){
+        driverDTM.setRowCount(0);
+        List<DriverDTO> list = null;
+        try {
+            list = ServicesLocator.driverServices().getAll();
+        } catch (ConnectionFailedException e) {
+            throw new RuntimeException(e);
+        }
+        for (DriverDTO a : list) {
+            Object [] row = {a.getDni(),a.getName(),a.getCategory(),a.getAddress()};
+            driverDTM.addRow(row);
+        }
+    }
+    private void fillContractTable(){
+        contractDTM.setRowCount(0);
+        List<ContractDTO> list = null;
+        try {
+            list = ServicesLocator.contractServices().getAll();
+        } catch (ConnectionFailedException e) {
+            throw new RuntimeException(e);
+        }
+        for (ContractDTO a : list) {
+            Object [] row = {a.getPlate(),a.getPassport(),a.getStartDate(),a.getEndDate(),a.getDeliveryDate(),a.getPayMethod(),a.getDriver()};
+            contractDTM.addRow(row);
+        }
+    }
+
+
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner Evaluation license - Carlos Daniel Robaina Rivero
@@ -459,5 +683,17 @@ public class HomeWindow extends JFrame {
     private JMenu menuHelp;
     private JMenuItem mItemDocs;
     private JMenuItem mItemAbout;
+    private JPanel panel5;
+    private JButton turistB;
+    private JButton driverB;
+    private JButton openContractB;
+    private JButton closeContractB;
+    private JButton contractsB;
+    private JButton carB;
+    private JScrollPane scrollPane2;
+    private JTable principalTable;
+    private JButton button23;
+    private JButton button24;
+    private JButton button25;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
